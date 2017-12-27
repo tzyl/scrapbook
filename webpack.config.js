@@ -1,7 +1,11 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: [
+        "./src/index.tsx",
+        "./src/styles.less"
+    ],
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist"
@@ -21,13 +25,26 @@ module.exports = {
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+
+            // Extract '.less' style files into a single CSS file. Use style-loader in development.
+            {
+                test: /\.less$/,
+                use: ExtractTextPlugin.extract({
+                    use: 'css-loader!postcss-loader!less-loader',
+                    fallback: 'style-loader',
+                })
+            }
         ]
     },
 
     plugins: [
         new HtmlWebpackPlugin({
             template: __dirname + "/src/index.html"
-        })
+        }),
+        new ExtractTextPlugin({
+            filename: "[name].css",
+            disable: process.env.NODE_ENV === "development"
+        }),
     ],
 };

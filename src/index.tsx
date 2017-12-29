@@ -4,6 +4,6 @@ import * as ReactDOM from "react-dom";
 import { App } from "./components/App";
 
 ReactDOM.render(
-    <App active="Timeline" />,
+    <App />,
     document.getElementById("root"),
 );

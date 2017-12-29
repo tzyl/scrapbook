@@ -2,14 +2,10 @@ import * as React from "react";
 
 import { Header } from "./Header";
 
-export interface IAppProps {
-  active: string;
-}
-
-export const App: React.SFC<IAppProps> = (props) => {
+export const App: React.SFC<{}> = (props) => {
   return (
     <div>
-      <Header title={props.active} />
+      <Header title="Timeline" />
     </div>
   );
 };

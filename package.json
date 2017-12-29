@@ -2,7 +2,6 @@
   "name": "scrapbook",
   "version": "1.0.0",
   "description": "scrapbook is a web app to store and browse your best memories.",
-  "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js --hot --inline --port 3000 --open",
     "build": "webpack --config webpack.config.js --optimize-minimize --bail"
@@ -29,7 +28,7 @@
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "postcss-loader": "^2.0.9",
-    "redux-devtools": "^3.4.1",
+    "redux-devtools-extension": "^2.13.2",
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.19.1",
     "tslint": "^5.8.0",

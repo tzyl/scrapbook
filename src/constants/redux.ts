@@ -1,7 +1,9 @@
 import { Dispatch } from "redux";
 
+import { IStoreTimelineState } from "./timeline";
+
 export interface IStoreState {
-  property: string;
+  timeline: IStoreTimelineState;
 }
 
 export interface IAction {

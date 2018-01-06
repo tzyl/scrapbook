@@ -1,7 +1,12 @@
-import { IAction } from "../constants/redux";
-import { defaultStoreTimelineState, IStoreTimelineState } from "../constants/timeline";
+import { IAction } from "../types/redux";
+import { IStoreTimelineState } from "../types/timeline";
 
-const timeline = (state = defaultStoreTimelineState, action: IAction): IStoreTimelineState => {
+const defaultState: IStoreTimelineState = {
+  events: [],
+  selectedIndex: null,
+};
+
+const timeline = (state = defaultState, action: IAction): IStoreTimelineState => {
   switch (action.type) {
     default:
       return state;

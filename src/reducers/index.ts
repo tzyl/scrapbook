@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { IStoreState } from "../constants/redux";
+import { IStoreState } from "../types/redux";
 import timeline from "./timeline";
 
 const rootReducer = combineReducers<IStoreState>({

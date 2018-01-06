@@ -1,25 +1,22 @@
 import * as React from "react";
 
-import { Timeline, TimelineEvent } from "react-event-timeline";
+import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
 
 export interface IScrapbookTimelineProps {
-  events: IEvent[];
+  events: ITimelineEvent[];
 }
 
-export interface IEvent {
-  title: string;
-  createdAt: string;
-  icon: JSX.Element;
-  iconColor: string;
-  content: JSX.Element;
+export interface ITimelineEvent {
+  timelineEventProps: ITimelineEventProps;
+  content: React.ReactNode;
 }
 
 export class ScrapbookTimeline extends React.Component<IScrapbookTimelineProps> {
   public render() {
-    const timelineEvents = this.props.events.map((event) => (
+    const timelineEvents = this.props.events.map((event, index) => (
       <TimelineEvent
-        key={event.title + event.createdAt}
-        {...event}
+        key={index}
+        {...event.timelineEventProps}
       >
         {event.content}
       </TimelineEvent>

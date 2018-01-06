@@ -1,18 +1,20 @@
 import * as React from "react";
 
 import { Header } from "./Header";
-import { IEvent, ScrapbookTimeline } from "./ScrapbookTimeline";
+import { ITimelineEvent, ScrapbookTimeline } from "./ScrapbookTimeline";
 
-const mockEvents: IEvent[] = [
+const mockEvents: ITimelineEvent[] = [
   {
     content: (
       <p>I received the payment for $543. Should be shipping the item
       within a couple of hours. Thanks for the order!</p>
     ),
-    createdAt: "2016-09-12 10:06 PM",
-    icon: <i className="material-icons md-18">textsms</i>,
-    iconColor: "#6fba1c",
-    title: "John Doe sent a SMS",
+    timelineEventProps: {
+      createdAt: "2016-09-12 10:06 PM",
+      icon: <i className="material-icons md-18">textsms</i>,
+      iconColor: "#6fba1c",
+      title: "John Doe sent a SMS",
+    },
   },
   {
     content: (
@@ -24,10 +26,12 @@ const mockEvents: IEvent[] = [
         <p>- Maya</p>
       </div>
     ),
-    createdAt: "2016-09-11 09:06 AM",
-    icon: <i className="material-icons md-18">email</i>,
-    iconColor: "#03a9f4",
-    title: "You sent an email to John Doe",
+    timelineEventProps: {
+      createdAt: "2016-09-11 09:06 AM",
+      icon: <i className="material-icons md-18">email</i>,
+      iconColor: "#03a9f4",
+      title: "You sent an email to John Doe",
+    },
   },
 ];
 

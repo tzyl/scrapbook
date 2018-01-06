@@ -19,6 +19,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-event-timeline": "^1.4.1",
+    "react-images": "^0.5.14",
     "react-photo-gallery": "^6.0.22",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2"

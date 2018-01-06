@@ -25,6 +25,6 @@ declare module "react-photo-gallery" {
     next: IPhotoProps;
   }
 
-  export class Gallery extends React.Component<IGalleryProps> {}
+  export default class Gallery extends React.Component<IGalleryProps> {}
   export class Photo extends React.PureComponent<IPhotoProps> {}
 }

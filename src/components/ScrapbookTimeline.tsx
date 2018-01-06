@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
+import { Gallery, IGalleryProps } from "react-photo-gallery";
 
 export interface IScrapbookTimelineProps {
   events: ITimelineEvent[];
@@ -8,6 +9,7 @@ export interface IScrapbookTimelineProps {
 
 export interface ITimelineEvent {
   timelineEventProps: ITimelineEventProps;
+  photoGalleryProps: IGalleryProps;
   content: React.ReactNode;
 }
 

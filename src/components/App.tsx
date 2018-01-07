@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Header } from "./Header";
-import { ITimelineEvent, ScrapbookTimeline } from "./ScrapbookTimeline";
+import Header from "./Header";
+import ScrapbookTimeline, { ITimelineEvent } from "./ScrapbookTimeline";
 
 const mockEvents: ITimelineEvent[] = [
   {
@@ -10,9 +10,11 @@ const mockEvents: ITimelineEvent[] = [
       within a couple of hours. Thanks for the order!</p>
     ),
     timelineEventProps: {
-      createdAt: "2016-09-12 10:06 PM",
+      container: "card",
+      createdAt: "2016-01-01",
       icon: <i className="material-icons md-18">textsms</i>,
       iconColor: "#6fba1c",
+      subtitle: "Test subtitle",
       title: "John Doe sent a SMS",
     },
   },
@@ -35,7 +37,7 @@ const mockEvents: ITimelineEvent[] = [
   },
 ];
 
-export const App: React.SFC<{}> = (props) => {
+const App: React.SFC<{}> = (props) => {
   return (
     <div>
       <Header title="Timeline" />
@@ -43,3 +45,5 @@ export const App: React.SFC<{}> = (props) => {
     </div>
   );
 };
+
+export default App;

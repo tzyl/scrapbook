@@ -2,8 +2,7 @@ import { IAction } from "../types/redux";
 import { IStoreTimelineState } from "../types/timeline";
 
 const defaultState: IStoreTimelineState = {
-  events: [],
-  selectedIndex: null,
+  selectedEventIndex: null,
 };
 
 const timeline = (state = defaultState, action: IAction): IStoreTimelineState => {

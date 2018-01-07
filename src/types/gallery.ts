@@ -1,3 +1,5 @@
 export interface IStoreGalleryState {
-  open: boolean;
+  galleryIsOpen: boolean;
+  lightboxIsOpen: boolean;
+  selectedPhotoIndex: number;
 }

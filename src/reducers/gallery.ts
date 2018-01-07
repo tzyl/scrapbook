@@ -2,7 +2,9 @@ import { IStoreGalleryState } from "../types/gallery";
 import { IAction } from "../types/redux";
 
 const defaultState: IStoreGalleryState = {
-  open: false,
+  galleryIsOpen: false,
+  lightboxIsOpen: false,
+  selectedPhotoIndex: null,
 };
 
 const gallery = (state = defaultState, action: IAction): IStoreGalleryState => {

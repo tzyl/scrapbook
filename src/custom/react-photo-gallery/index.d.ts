@@ -21,8 +21,8 @@ declare module "react-photo-gallery" {
   export interface IPhotoObject {
     index: number;
     photo: IPhotoProps;
-    previous: IPhotoProps;
-    next: IPhotoProps;
+    previous?: IPhotoProps;
+    next?: IPhotoProps;
   }
 
   export default class Gallery extends React.Component<IGalleryProps> {}

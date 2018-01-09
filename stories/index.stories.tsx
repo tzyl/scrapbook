@@ -10,7 +10,7 @@ import { IScrapbookPhoto } from "../src/types/events";
 import "../src/styles.less";
 
 storiesOf("Header", module)
-  .add("Header title", () => <Header title="Storybook title" />);
+  .add("Header title", () => <Header title="Storybook title 😀" />);
 
 storiesOf("ScrapbookTimeline", module)
   .add("ScrapbookTimeline with mock events", () => {

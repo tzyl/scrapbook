@@ -5,6 +5,7 @@
 // IMPORTANT
 // When you add this file, we won't add the default configurations which is similar
 // to "React Create App". This only has babel loader to load JavaScript.
+const path = require('path');
 
 module.exports = {
   plugins: [
@@ -14,6 +15,13 @@ module.exports = {
     rules: [
       // add your custom rules.
       { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+      { test: /\.(png|jpg|gif)$/, loader: 'url-loader?limit=8192' },
+      {
+        test: /\.less$/,
+        loader: "style-loader!css-loader!postcss-loader!less-loader",
+        exclude: /node_modules/,
+        include: path.resolve(__dirname, '../')
+      },
     ],
   },
   resolve: {

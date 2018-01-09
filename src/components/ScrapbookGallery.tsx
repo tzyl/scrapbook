@@ -35,6 +35,7 @@ const ScrapbookGallery: React.SFC<IScrapbookGalleryProps> = ({
           onClickPrev={gotoPrevious}
           onClickNext={gotoNext}
           currentImage={currentImage}
+          isOpen={lightboxIsOpen}
         />
     </div>
   );

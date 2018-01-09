@@ -34,7 +34,10 @@ module.exports = {
                     use: 'css-loader!postcss-loader!less-loader',
                     fallback: 'style-loader',
                 })
-            }
+            },
+
+            // Extract image files
+            { test: /\.(png|jpg|gif)$/, loader: 'url-loader?limit=8192' },
         ]
     },
 

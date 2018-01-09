@@ -59,7 +59,7 @@ const App: React.SFC<{}> = (props) => {
       <ScrapbookGallery
         photos={mockPhotos}
         galleryIsOpen={true}
-        lightboxIsOpen={true}
+        lightboxIsOpen={false}
         openLightbox={null}
         closeLightbox={null}
         gotoPrevious={null}

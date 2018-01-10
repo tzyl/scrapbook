@@ -1,5 +1,5 @@
 import { IAction } from "../types/redux";
-import { IStoreTimelineState } from "../types/timeline";
+import { IStoreTimelineState, TimelineActionDefinitions } from "../types/timeline";
 
 const defaultState: IStoreTimelineState = {
   selectedEventIndex: null,
@@ -7,6 +7,11 @@ const defaultState: IStoreTimelineState = {
 
 const timeline = (state = defaultState, action: IAction): IStoreTimelineState => {
   switch (action.type) {
+    case TimelineActionDefinitions.SELECT_EVENT:
+      return {
+        ...state,
+        selectedEventIndex: action.payload.index,
+      };
     default:
       return state;
   }

@@ -1,27 +1,25 @@
 import * as React from "react";
 
-import { IScrapbookPhoto } from "../types/events";
+import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
 import Header from "./Header";
 import ScrapbookGallery from "./ScrapbookGallery";
-import ScrapbookTimeline, { ITimelineEvent } from "./ScrapbookTimeline";
+import ScrapbookTimeline from "./ScrapbookTimeline";
 
-const mockEvents: ITimelineEvent[] = [
+const mockEvents: IScrapbookEvent[] = [
   {
-    content: (
+    createdAt: "2016-01-01",
+    description: (
       <p>I received the payment for $543. Should be shipping the item
       within a couple of hours. Thanks for the order!</p>
     ),
-    timelineEventProps: {
-      container: "card",
-      createdAt: "2016-01-01",
-      icon: <i className="material-icons md-18">textsms</i>,
-      iconColor: "#6fba1c",
-      subtitle: "Test subtitle",
-      title: "John Doe sent a SMS",
-    },
+    id: "123",
+    photos: [],
+    subtitle: "Test subtitle",
+    title: "John Doe sent a SMS",
   },
   {
-    content: (
+    createdAt: "2016-09-11 09:06 AM",
+    description: (
       <div>
         <p>Subject: Any updates?</p>
         <p>Like we talked, you said that you would share the shipment details? This is an urgent order and so
@@ -30,12 +28,9 @@ const mockEvents: ITimelineEvent[] = [
         <p>- Maya</p>
       </div>
     ),
-    timelineEventProps: {
-      createdAt: "2016-09-11 09:06 AM",
-      icon: <i className="material-icons md-18">email</i>,
-      iconColor: "#03a9f4",
-      title: "You sent an email to John Doe",
-    },
+    id: "456",
+    photos: [],
+    title: "You sent an email to John Doe",
   },
 ];
 

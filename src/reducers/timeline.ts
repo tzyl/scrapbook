@@ -2,7 +2,7 @@ import { IAction } from "../types/redux";
 import { IStoreTimelineState, TimelineActionDefinitions } from "../types/timeline";
 
 const defaultState: IStoreTimelineState = {
-  selectedEventIndex: null,
+  selectedEvent: null,
 };
 
 const timeline = (state = defaultState, action: IAction): IStoreTimelineState => {
@@ -10,7 +10,7 @@ const timeline = (state = defaultState, action: IAction): IStoreTimelineState =>
     case TimelineActionDefinitions.SELECT_EVENT:
       return {
         ...state,
-        selectedEventIndex: action.payload.index,
+        selectedEvent: action.payload.event,
       };
     default:
       return state;

@@ -1,7 +1,6 @@
-import { ITimelineEvent } from "../components/ScrapbookTimeline";
-import { EventsActionsDefinitions, IEventsAction } from "../types/events";
+import { EventsActionsDefinitions, IEventsAction, IScrapbookEvent } from "../types/events";
 
-export const addEvent = (event: ITimelineEvent): IEventsAction => {
+export const addEvent = (event: IScrapbookEvent): IEventsAction => {
   return {
     payload: {
       event,

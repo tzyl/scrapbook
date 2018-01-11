@@ -1,7 +1,8 @@
+import { IScrapbookEvent } from "./events";
 import { IAction } from "./redux";
 
 export interface IStoreTimelineState {
-  selectedEventIndex: number;
+  selectedEvent: IScrapbookEvent;
 }
 
 export enum TimelineActionDefinitions {

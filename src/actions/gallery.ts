@@ -1,14 +1,38 @@
 import { GalleryActionDefinitions, IGalleryAction } from "../types/gallery";
 
-export const toggleGalleryOpen = (): IGalleryAction => {
+export const openGallery = (): IGalleryAction => {
   return {
-    type: GalleryActionDefinitions.TOGGLE_GALLERY_OPEN,
+    type: GalleryActionDefinitions.OPEN_GALLERY,
   };
 };
 
-export const toggleLightboxOpen = (): IGalleryAction => {
+export const closeGallery = (): IGalleryAction => {
   return {
-    type: GalleryActionDefinitions.TOGGLE_LIGHTBOX_OPEN,
+    type: GalleryActionDefinitions.CLOSE_GALLERY,
+  };
+};
+
+export const openLightbox = (): IGalleryAction => {
+  return {
+    type: GalleryActionDefinitions.OPEN_LIGHTBOX,
+  };
+};
+
+export const closeLightbox = (): IGalleryAction => {
+  return {
+    type: GalleryActionDefinitions.CLOSE_LIGHTBOX,
+  };
+};
+
+export const selectPreviousPhoto = (): IGalleryAction => {
+  return {
+    type: GalleryActionDefinitions.SELECT_PREVIOUS_PHOTO,
+  };
+};
+
+export const selectNextPhoto = (): IGalleryAction => {
+  return {
+    type: GalleryActionDefinitions.SELECT_NEXT_PHOTO,
   };
 };
 

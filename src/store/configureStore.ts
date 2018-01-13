@@ -1,14 +1,14 @@
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { applyMiddleware, compose, createStore } from "redux";
+import logger from "redux-logger";
 
-// import * as actionCreators from "../actions/counter";
 import rootReducer from "../reducers";
 
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const configureStore = () => {
-  // const composeEnhancers = composeWithDevTools({ actionCreators });
   return createStore(
     rootReducer,
-    // composeEnhancers(applyMiddleware(thunk)),
+    composeEnhancers(applyMiddleware(logger)),
   );
 };
 

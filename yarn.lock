@@ -209,6 +209,12 @@
     "@types/node" "*"
     "@types/react" "*"
 
+"@types/react-modal@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-modal/-/react-modal-3.1.1.tgz#cba50fc253560bbefdbc2cbd5dda9ed6aadd1917"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-redux@^5.0.14":
   version "5.0.14"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.14.tgz#f3fc30dcbb2d20455a714f591cc27f77b4df09bb"

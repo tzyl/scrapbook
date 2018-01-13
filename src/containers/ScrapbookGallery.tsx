@@ -21,7 +21,7 @@ const mapStateToProps = (state: IStoreState): IScrapbookGalleryStateProps => {
     currentImage: state.gallery.selectedPhotoIndex,
     galleryIsOpen: state.gallery.galleryIsOpen,
     lightboxIsOpen: state.gallery.lightboxIsOpen,
-    photos: state.timeline.selectedEvent ? state.timeline.selectedEvent.photos : null,
+    photos: state.timeline.selectedEvent ? state.timeline.selectedEvent.photos : [],
   };
 };
 

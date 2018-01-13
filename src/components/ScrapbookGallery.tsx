@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Lightbox, { ILightboxProps } from "react-images";
+import Modal = require("react-modal");
 import Gallery, { IGalleryProps, IPhotoObject } from "react-photo-gallery";
 import { IScrapbookPhoto } from "../types/events";
 
@@ -21,6 +22,8 @@ export interface IScrapbookGalleryDispatchProps {
 
 export type IScrapbookGalleryProps = IScrapbookGalleryStateProps & IScrapbookGalleryDispatchProps;
 
+Modal.setAppElement("#root");
+
 const ScrapbookGallery: React.SFC<IScrapbookGalleryProps> = ({
   photos,
   galleryIsOpen,
@@ -32,9 +35,12 @@ const ScrapbookGallery: React.SFC<IScrapbookGalleryProps> = ({
   gotoPrevious,
   gotoNext,
 }) => {
-  if (!galleryIsOpen) { return null; }
   return (
-    <div>
+    <Modal
+      isOpen={galleryIsOpen}
+      onRequestClose={closeGallery}
+      shouldCloseOnEsc={false}
+    >
         <button onClick={closeGallery}>Close gallery</button>
         <Gallery photos={photos} onClick={openLightbox} />
         <Lightbox
@@ -45,7 +51,7 @@ const ScrapbookGallery: React.SFC<IScrapbookGalleryProps> = ({
           currentImage={currentImage}
           isOpen={lightboxIsOpen}
         />
-    </div>
+    </Modal>
   );
 };
 

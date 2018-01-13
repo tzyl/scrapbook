@@ -50,6 +50,7 @@ const ScrapbookGallery: React.SFC<IScrapbookGalleryProps> = ({
           onClickNext={gotoNext}
           currentImage={currentImage}
           isOpen={lightboxIsOpen}
+          backdropClosesModal={true}
         />
     </Modal>
   );

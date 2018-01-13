@@ -2,7 +2,6 @@ import { mockEvents } from "../mockData";
 import { EventsActionsDefinitions, IScrapbookEvent, IStoreEventsState } from "../types/events";
 import { IAction } from "../types/redux";
 
-// const defaultState: IStoreEventsState = [];
 const defaultState: IStoreEventsState = mockEvents;
 
 const events = (state = defaultState, action: IAction): IStoreEventsState => {

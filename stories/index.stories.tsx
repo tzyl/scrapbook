@@ -7,62 +7,27 @@ import ScrapbookGallery from "../src/components/ScrapbookGallery";
 import ScrapbookTimeline from "../src/components/ScrapbookTimeline";
 import { IScrapbookEvent, IScrapbookPhoto } from "../src/types/events";
 
+import { mockEvents, mockPhotos } from "../src/mockData";
+
 import "../src/styles.less";
 
 storiesOf("Header", module)
-  .add("Header title", () => <Header title="Storybook title 😀" />);
+  .add("Header title", () => <Header title="Storybook title 😀" goHome={null} />);
 
 storiesOf("ScrapbookTimeline", module)
-  .add("ScrapbookTimeline with mock events", () => {
-    const mockEvents: IScrapbookEvent[] = [
-      {
-        createdAt: "2016-01-01",
-        description: (
-          <p>I received the payment for $543. Should be shipping the item
-          within a couple of hours. Thanks for the order!</p>
-        ),
-        id: "123",
-        photos: [],
-        subtitle: "Test subtitle",
-        title: "John Doe sent a SMS",
-      },
-      {
-        createdAt: "2016-09-11 09:06 AM",
-        description: (
-          <div>
-            <p>Subject: Any updates?</p>
-            <p>Like we talked, you said that you would share the shipment details? This is an urgent order and so
-              I am losing patience. Can you expedite the process and pls do share the details asap. Consider this
-              a gentle reminder if you are on track already!</p>
-            <p>- Maya</p>
-          </div>
-        ),
-        id: "456",
-        photos: [],
-        title: "You sent an email to John Doe",
-      },
-    ];
-    return <ScrapbookTimeline events={mockEvents} />;
+  .add("Example with mock events", () => {
+    const openEvent = (): any => null;
+    return <ScrapbookTimeline events={mockEvents} openEvent={openEvent} />;
   });
 
 storiesOf("ScrapbookGallery", module)
-  .add("ScrapbookGallery with Lightbox closed", () => {
-    const mockPhotos: IScrapbookPhoto[] = [
-      { src: require("../public/album1/1.jpg"), width: 4, height: 3 },
-      { src: require("../public/album1/2.jpg"), width: 1, height: 1 },
-      { src: require("../public/album1/3.jpg"), width: 3, height: 4 },
-      { src: require("../public/album1/4.jpg"), width: 3, height: 4 },
-      { src: require("../public/album1/5.jpg"), width: 3, height: 4 },
-      { src: require("../public/album1/6.jpg"), width: 4, height: 3 },
-      { src: require("../public/album1/7.jpg"), width: 3, height: 4 },
-      { src: require("../public/album1/8.jpg"), width: 4, height: 3 },
-      { src: require("../public/album1/9.jpg"), width: 4, height: 3 },
-    ];
+  .add("Lightbox closed", () => {
     return (
       <ScrapbookGallery
         photos={mockPhotos}
         galleryIsOpen={true}
         lightboxIsOpen={false}
+        closeGallery={null}
         openLightbox={null}
         closeLightbox={null}
         gotoPrevious={null}
@@ -70,23 +35,13 @@ storiesOf("ScrapbookGallery", module)
         currentImage={0}
       />
     );
-  }).add("ScrapbookGallery with Lightbox open", () => {
-    const mockPhotos: IScrapbookPhoto[] = [
-      { src: require("../public/album1/1.jpg"), width: 4, height: 3 },
-      { src: require("../public/album1/2.jpg"), width: 1, height: 1 },
-      { src: require("../public/album1/3.jpg"), width: 3, height: 4 },
-      { src: require("../public/album1/4.jpg"), width: 3, height: 4 },
-      { src: require("../public/album1/5.jpg"), width: 3, height: 4 },
-      { src: require("../public/album1/6.jpg"), width: 4, height: 3 },
-      { src: require("../public/album1/7.jpg"), width: 3, height: 4 },
-      { src: require("../public/album1/8.jpg"), width: 4, height: 3 },
-      { src: require("../public/album1/9.jpg"), width: 4, height: 3 },
-    ];
+  }).add("Lightbox open", () => {
     return (
       <ScrapbookGallery
         photos={mockPhotos}
         galleryIsOpen={true}
         lightboxIsOpen={true}
+        closeGallery={null}
         openLightbox={null}
         closeLightbox={null}
         gotoPrevious={null}

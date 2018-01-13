@@ -1,12 +1,24 @@
 import * as React from "react";
 
-export interface IHeaderProps { title: string; }
+export interface IHeaderStateProps {
+  title: string;
+}
 
-const Header: React.SFC<IHeaderProps> = (props) => {
+export interface IHeaderDispatchProps {
+  goHome: (event: any) => any;
+}
+
+export type IHeaderProps = IHeaderStateProps & IHeaderDispatchProps;
+
+const Header: React.SFC<IHeaderProps> = ({
+  title,
+  goHome,
+}) => {
   return (
     <div className="app-header">
       <h1>scrapbook</h1>
-      <span>{props.title}</span>
+      <span>{title}</span>
+      <button onClick={goHome}>Home</button>
     </div>
   );
 };

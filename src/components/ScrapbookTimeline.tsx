@@ -9,7 +9,7 @@ export interface IScrapbookTimelineStateProps {
 }
 
 export interface IScrapbookTimelineDispatchProps {
-  openEvent: (event: IScrapbookEvent) => ((e: any) => any);
+  openEvent: (scrapbookEvent: IScrapbookEvent) => ((event: any) => any);
 }
 
 export type IScrapbookTimelineProps = IScrapbookTimelineStateProps & IScrapbookTimelineDispatchProps;

@@ -5,10 +5,7 @@ import { IScrapbookEvent, IScrapbookPhoto } from "./types/events";
 export const mockEvents: IScrapbookEvent[] = [
   {
     createdAt: "2016-01-01",
-    description: (
-      <p>I received the payment for $543. Should be shipping the item
-      within a couple of hours. Thanks for the order!</p>
-    ),
+    description: "Description for album 1",
     id: "123",
     photos: [
       { src: require("../public/album1/1.jpg"), width: 4, height: 3 },
@@ -26,15 +23,7 @@ export const mockEvents: IScrapbookEvent[] = [
   },
   {
     createdAt: "2016-09-11 09:06 AM",
-    description: (
-      <div>
-        <p>Subject: Any updates?</p>
-        <p>Like we talked, you said that you would share the shipment details? This is an urgent order and so
-          I am losing patience. Can you expedite the process and pls do share the details asap. Consider this
-          a gentle reminder if you are on track already!</p>
-        <p>- Maya</p>
-      </div>
-    ),
+    description: "Description for album 2",
     id: "456",
     photos: [
       { src: require("../public/album2/1.jpg"), width: 1, height: 1 },

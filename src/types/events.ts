@@ -7,7 +7,7 @@ export interface IStoreEventsState extends Array<IScrapbookEvent> {}
 export interface IScrapbookEvent {
   title: string;
   subtitle?: string;
-  description?: React.ReactNode;
+  description?: string;
   createdAt: string;
   photos: IScrapbookPhoto[];
   id: string;

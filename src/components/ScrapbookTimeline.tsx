@@ -23,6 +23,8 @@ const ScrapbookTimeline: React.SFC<IScrapbookTimelineProps> = (props) => {
         title={event.title}
         subtitle={event.subtitle}
         createdAt={event.createdAt}
+        icon={<i className="material-icons md-18">photo</i>}
+        iconColor={"#03a9f4"}
       >
         {event.description}
       </TimelineEvent>

@@ -61,7 +61,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
             Description:
             <input name="description" type="text" value={this.state.description} onChange={this.handleChange} />
           </label>
-          <button type="submit" value="Add event" />
+          <button type="submit">Submit event</button>
         </form>
       </Modal>
     );

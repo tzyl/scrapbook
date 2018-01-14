@@ -1,13 +1,15 @@
 import { Dispatch } from "redux";
 
+import { IStoreEditorState } from "./editor";
 import { IStoreEventsState } from "./events";
 import { IStoreGalleryState } from "./gallery";
 import { IStoreTimelineState } from "./timeline";
 
 export interface IStoreState {
+  events: IStoreEventsState;
   timeline: IStoreTimelineState;
   gallery: IStoreGalleryState;
-  events: IStoreEventsState;
+  editor: IStoreEditorState;
 }
 
 export interface IAction {

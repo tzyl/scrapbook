@@ -5,12 +5,12 @@ import { IAction } from "./redux";
 export interface IStoreEventsState extends Array<IScrapbookEvent> {}
 
 export interface IScrapbookEvent {
+  id: string;
   title: string;
+  createdAt: string;
   subtitle?: string;
   description?: string;
-  createdAt: string;
   photos: IScrapbookPhoto[];
-  id: string;
 }
 
 export type IScrapbookPhoto = IPhotoProps & ILightboxPhoto;

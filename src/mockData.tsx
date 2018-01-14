@@ -4,9 +4,11 @@ import { IScrapbookEvent, IScrapbookPhoto } from "./types/events";
 
 export const mockEvents: IScrapbookEvent[] = [
   {
-    createdAt: "2016-01-01",
-    description: "Description for album 1",
     id: "123",
+    title: "John Doe sent a SMS",
+    createdAt: "2016-01-01",
+    subtitle: "Test subtitle",
+    description: "Description for album 1",
     photos: [
       { src: require("../public/album1/1.jpg"), width: 4, height: 3 },
       { src: require("../public/album1/2.jpg"), width: 1, height: 1 },
@@ -18,13 +20,12 @@ export const mockEvents: IScrapbookEvent[] = [
       { src: require("../public/album1/8.jpg"), width: 4, height: 3 },
       { src: require("../public/album1/9.jpg"), width: 4, height: 3 },
     ],
-    subtitle: "Test subtitle",
-    title: "John Doe sent a SMS",
   },
   {
+    id: "456",
+    title: "You sent an email to John Doe",
     createdAt: "2016-09-11 09:06 AM",
     description: "Description for album 2",
-    id: "456",
     photos: [
       { src: require("../public/album2/1.jpg"), width: 1, height: 1 },
       { src: require("../public/album2/2.jpg"), width: 480, height: 318 },
@@ -32,7 +33,6 @@ export const mockEvents: IScrapbookEvent[] = [
       { src: require("../public/album2/4.jpg"), width: 480, height: 318 },
       { src: require("../public/album2/5.jpg"), width: 480, height: 318 },
     ],
-    title: "You sent an email to John Doe",
   },
 ];
 

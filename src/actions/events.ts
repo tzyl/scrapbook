@@ -2,18 +2,18 @@ import { EventsActionsDefinitions, IEventsAction, IScrapbookEvent } from "../typ
 
 export const addEvent = (event: IScrapbookEvent): IEventsAction => {
   return {
+    type: EventsActionsDefinitions.ADD_EVENT,
     payload: {
       event,
     },
-    type: EventsActionsDefinitions.ADD_EVENT,
   };
 };
 
 export const removeEvent = (id: string): IEventsAction => {
   return {
+    type: EventsActionsDefinitions.REMOVE_EVENT,
     payload: {
       id,
     },
-    type: EventsActionsDefinitions.REMOVE_EVENT,
   };
 };

@@ -3,9 +3,9 @@ import { ITimelineAction, TimelineActionDefinitions } from "../types/timeline";
 
 export const selectEvent = (event: IScrapbookEvent): ITimelineAction => {
   return {
+    type: TimelineActionDefinitions.SELECT_EVENT,
     payload: {
       event,
     },
-    type: TimelineActionDefinitions.SELECT_EVENT,
   };
 };

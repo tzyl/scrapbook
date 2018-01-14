@@ -38,9 +38,9 @@ export const selectNextPhoto = (): IGalleryAction => {
 
 export const selectPhoto = (index: number): IGalleryAction => {
   return {
+    type: GalleryActionDefinitions.SELECT_PHOTO,
     payload: {
       index,
     },
-    type: GalleryActionDefinitions.SELECT_PHOTO,
   };
 };

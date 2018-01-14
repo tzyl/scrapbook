@@ -3,6 +3,7 @@ import * as React from "react";
 import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
 import { IGalleryProps } from "react-photo-gallery";
 
+import Button from "../components/Button";
 import { IScrapbookEvent } from "../types/events";
 
 export interface ITimelinePageStateProps {
@@ -10,16 +11,17 @@ export interface ITimelinePageStateProps {
 }
 
 export interface ITimelinePageDispatchProps {
-  openEventCreator: (scrapbookEvent: IScrapbookEvent) => ((event: any) => any);
+  openEvent: (scrapbookEvent: IScrapbookEvent) => ((event: any) => any);
+  openEditor: (event: any) => any;
 }
 
 export type ITimelinePageProps = ITimelinePageStateProps & ITimelinePageDispatchProps;
 
 const TimelinePage: React.SFC<ITimelinePageProps> = (props) => {
-  const { events, openEventCreator } = props;
+  const { events, openEvent, openEditor } = props;
 
   const timelineEvents = events.map((event) => (
-    <div key={event.id} onClick={openEventCreator(event)}>
+    <div key={event.id} onClick={openEvent(event)}>
       <TimelineEvent
         title={event.title}
         subtitle={event.subtitle}
@@ -32,9 +34,12 @@ const TimelinePage: React.SFC<ITimelinePageProps> = (props) => {
     </div>
   ));
   return (
-    <Timeline>
-      {timelineEvents}
-    </Timeline>
+    <div>
+      <Timeline>
+        {timelineEvents}
+      </Timeline>
+      <Button onClick={openEditor}>Create new event</Button>
+    </div>
   );
 };
 

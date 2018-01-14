@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import { openEditor } from "../actions/editor";
 import { openGallery } from "../actions/gallery";
 import { selectEvent } from "../actions/timeline";
 import TimelinePage, {
@@ -19,10 +20,11 @@ const mapStateToProps = (state: IStoreState): ITimelinePageStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): ITimelinePageDispatchProps => {
   return {
-    openEventCreator: (event: IScrapbookEvent) => () => {
+    openEvent: (event: IScrapbookEvent) => () => {
       dispatch(selectEvent(event));
       dispatch(openGallery());
     },
+    openEditor: () => dispatch(openEditor()),
   };
 };
 

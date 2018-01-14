@@ -9,16 +9,16 @@ export interface ITimelinePageStateProps {
 }
 
 export interface ITimelinePageDispatchProps {
-  openEvent: (scrapbookEvent: IScrapbookEvent) => ((event: any) => any);
+  openEventCreator: (scrapbookEvent: IScrapbookEvent) => ((event: any) => any);
 }
 
 export type ITimelinePageProps = ITimelinePageStateProps & ITimelinePageDispatchProps;
 
 const TimelinePage: React.SFC<ITimelinePageProps> = (props) => {
-  const { events, openEvent } = props;
+  const { events, openEventCreator } = props;
 
   const timelineEvents = events.map((event) => (
-    <div key={event.id} onClick={openEvent(event)}>
+    <div key={event.id} onClick={openEventCreator(event)}>
       <TimelineEvent
         title={event.title}
         subtitle={event.subtitle}

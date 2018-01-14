@@ -19,7 +19,7 @@ const mapStateToProps = (state: IStoreState): ITimelinePageStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): ITimelinePageDispatchProps => {
   return {
-    openEvent: (event: IScrapbookEvent) => () => {
+    openEventCreator: (event: IScrapbookEvent) => () => {
       dispatch(selectEvent(event));
       dispatch(openGallery());
     },

@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
 import { IGalleryProps } from "react-photo-gallery";
+
 import { IScrapbookEvent } from "../types/events";
 
 export interface ITimelinePageStateProps {

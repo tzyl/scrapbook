@@ -3,6 +3,7 @@ import * as React from "react";
 import Lightbox, { ILightboxProps } from "react-images";
 import Modal = require("react-modal");
 import Gallery, { IGalleryProps, IPhotoObject } from "react-photo-gallery";
+
 import { IScrapbookPhoto } from "../types/events";
 
 export interface IGalleryModalStateProps {

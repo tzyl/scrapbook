@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { storiesOf } from "@storybook/react";
 
-import Header from "../src/components/Header";
 import GalleryModal from "../src/components/GalleryModal";
+import Header from "../src/components/Header";
 import TimelinePage from "../src/components/TimelinePage";
 import { IScrapbookEvent, IScrapbookPhoto } from "../src/types/events";
 
@@ -11,16 +11,13 @@ import { mockEvents, mockPhotos } from "../src/mockData";
 
 import "../src/styles.less";
 
-storiesOf("Header", module)
-  .add("Header title", () => <Header title="Storybook title 😀" goHome={null} />);
-
-storiesOf("TimelinePage", module)
-  .add("Example with mock events", () => {
+storiesOf("scrapbook", module)
+  .add("Header", () => <Header />)
+  .add("Timeline page", () => {
     const openEvent = (): any => null;
-    return <TimelinePage events={mockEvents} openEvent={openEvent} />;
-  });
-
-storiesOf("GalleryModal", module)
+    const openEditor = (): any => null;
+    return <TimelinePage events={mockEvents} openEvent={openEvent} openEditor={openEditor} />;
+  })
   .add("Lightbox closed", () => {
     return (
       <GalleryModal
@@ -35,7 +32,8 @@ storiesOf("GalleryModal", module)
         currentImage={0}
       />
     );
-  }).add("Lightbox open", () => {
+  })
+  .add("Lightbox open", () => {
     return (
       <GalleryModal
         photos={mockPhotos}

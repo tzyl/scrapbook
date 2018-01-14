@@ -3,21 +3,21 @@ import { connect } from "react-redux";
 
 import { openGallery } from "../actions/gallery";
 import { selectEvent } from "../actions/timeline";
-import ScrapbookTimeline, {
-  IScrapbookTimelineDispatchProps,
-  IScrapbookTimelineStateProps,
-} from "../components/ScrapbookTimeline";
+import TimelinePage, {
+  ITimelinePageDispatchProps,
+  ITimelinePageStateProps,
+} from "../components/TimelinePage";
 import { IScrapbookEvent } from "../types/events";
 import { Dispatch } from "../types/redux";
 import { IStoreState } from "../types/redux";
 
-const mapStateToProps = (state: IStoreState): IScrapbookTimelineStateProps => {
+const mapStateToProps = (state: IStoreState): ITimelinePageStateProps => {
   return {
     events: state.events,
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): IScrapbookTimelineDispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch): ITimelinePageDispatchProps => {
   return {
     openEvent: (event: IScrapbookEvent) => () => {
       dispatch(selectEvent(event));
@@ -26,6 +26,6 @@ const mapDispatchToProps = (dispatch: Dispatch): IScrapbookTimelineDispatchProps
   };
 };
 
-const ConnectedScrapbookTimeline = connect(mapStateToProps, mapDispatchToProps)(ScrapbookTimeline);
+const ConnectedTimelinePage = connect(mapStateToProps, mapDispatchToProps)(TimelinePage);
 
-export default ConnectedScrapbookTimeline;
+export default ConnectedTimelinePage;

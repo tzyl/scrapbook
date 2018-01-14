@@ -3,8 +3,8 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react";
 
 import Header from "../src/components/Header";
-import ScrapbookGallery from "../src/components/ScrapbookGallery";
-import ScrapbookTimeline from "../src/components/ScrapbookTimeline";
+import GalleryModal from "../src/components/GalleryModal";
+import TimelinePage from "../src/components/TimelinePage";
 import { IScrapbookEvent, IScrapbookPhoto } from "../src/types/events";
 
 import { mockEvents, mockPhotos } from "../src/mockData";
@@ -14,16 +14,16 @@ import "../src/styles.less";
 storiesOf("Header", module)
   .add("Header title", () => <Header title="Storybook title 😀" goHome={null} />);
 
-storiesOf("ScrapbookTimeline", module)
+storiesOf("TimelinePage", module)
   .add("Example with mock events", () => {
     const openEvent = (): any => null;
-    return <ScrapbookTimeline events={mockEvents} openEvent={openEvent} />;
+    return <TimelinePage events={mockEvents} openEvent={openEvent} />;
   });
 
-storiesOf("ScrapbookGallery", module)
+storiesOf("GalleryModal", module)
   .add("Lightbox closed", () => {
     return (
-      <ScrapbookGallery
+      <GalleryModal
         photos={mockPhotos}
         galleryIsOpen={true}
         lightboxIsOpen={false}
@@ -37,7 +37,7 @@ storiesOf("ScrapbookGallery", module)
     );
   }).add("Lightbox open", () => {
     return (
-      <ScrapbookGallery
+      <GalleryModal
         photos={mockPhotos}
         galleryIsOpen={true}
         lightboxIsOpen={true}

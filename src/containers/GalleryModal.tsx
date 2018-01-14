@@ -10,13 +10,13 @@ import {
   selectPhoto,
   selectPreviousPhoto,
 } from "../actions/gallery";
-import ScrapbookGallery, {
-  IScrapbookGalleryDispatchProps,
-  IScrapbookGalleryStateProps,
-} from "../components/ScrapbookGallery";
+import GalleryModal, {
+  IGalleryModalDispatchProps,
+  IGalleryModalStateProps,
+} from "../components/GalleryModal";
 import { Dispatch, IStoreState } from "../types/redux";
 
-const mapStateToProps = (state: IStoreState): IScrapbookGalleryStateProps => {
+const mapStateToProps = (state: IStoreState): IGalleryModalStateProps => {
   return {
     currentImage: state.gallery.selectedPhotoIndex,
     galleryIsOpen: state.gallery.galleryIsOpen,
@@ -25,7 +25,7 @@ const mapStateToProps = (state: IStoreState): IScrapbookGalleryStateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): IScrapbookGalleryDispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch): IGalleryModalDispatchProps => {
   return {
     closeGallery: () => dispatch(closeGallery()),
     closeLightbox: () => dispatch(closeLightbox()),
@@ -38,6 +38,6 @@ const mapDispatchToProps = (dispatch: Dispatch): IScrapbookGalleryDispatchProps 
   };
 };
 
-const ConnectedScrapbookGallery = connect(mapStateToProps, mapDispatchToProps)(ScrapbookGallery);
+const ConnectedGalleryModal = connect(mapStateToProps, mapDispatchToProps)(GalleryModal);
 
-export default ConnectedScrapbookGallery;
+export default ConnectedGalleryModal;

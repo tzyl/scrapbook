@@ -4,17 +4,17 @@ import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeli
 import { IGalleryProps } from "react-photo-gallery";
 import { IScrapbookEvent } from "../types/events";
 
-export interface IScrapbookTimelineStateProps {
+export interface ITimelinePageStateProps {
   events: IScrapbookEvent[];
 }
 
-export interface IScrapbookTimelineDispatchProps {
+export interface ITimelinePageDispatchProps {
   openEvent: (scrapbookEvent: IScrapbookEvent) => ((event: any) => any);
 }
 
-export type IScrapbookTimelineProps = IScrapbookTimelineStateProps & IScrapbookTimelineDispatchProps;
+export type ITimelinePageProps = ITimelinePageStateProps & ITimelinePageDispatchProps;
 
-const ScrapbookTimeline: React.SFC<IScrapbookTimelineProps> = (props) => {
+const TimelinePage: React.SFC<ITimelinePageProps> = (props) => {
   const { events, openEvent } = props;
 
   const timelineEvents = events.map((event) => (
@@ -37,4 +37,4 @@ const ScrapbookTimeline: React.SFC<IScrapbookTimelineProps> = (props) => {
   );
 };
 
-export default ScrapbookTimeline;
+export default TimelinePage;

@@ -1,16 +1,16 @@
 import * as React from "react";
 
-import ConnectedHeader from "../containers/Header";
-import ConnectedScrapbookGallery from "../containers/ScrapbookGallery";
-import ConnectedScrapbookTimeline from "../containers/ScrapbookTimeline";
+import Header from "../components/Header";
+import ConnectedGalleryModal from "../containers/GalleryModal";
+import ConnectedTimelinePage from "../containers/TimelinePage";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
 
 const App: React.SFC<{}> = (props) => {
   return (
     <div>
-      <ConnectedHeader />
-      <ConnectedScrapbookTimeline />
-      <ConnectedScrapbookGallery />
+      <Header />
+      <ConnectedTimelinePage />
+      <ConnectedGalleryModal />
     </div>
   );
 };

@@ -14,11 +14,11 @@ export interface IGalleryModalStateProps {
 }
 
 export interface IGalleryModalDispatchProps {
-  closeGallery: (e: any) => any;
+  closeGallery: () => any;
   openLightbox: (e: any, photoObject: IPhotoObject) => any;
-  closeLightbox: (e: any) => any;
-  gotoPrevious: (e: any) => any;
-  gotoNext: (e: any) => any;
+  closeLightbox: () => any;
+  gotoPrevious: () => any;
+  gotoNext: () => any;
 }
 
 export type IGalleryModalProps = IGalleryModalStateProps & IGalleryModalDispatchProps;

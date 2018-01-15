@@ -9,10 +9,10 @@ declare module "react-images" {
     images: ILightboxPhoto[];
     isOpen?: boolean;
     leftArrowTitle?: string;
-    onClickImage?: (event: any) => any;
-    onClickNext?: (event: any) => any;
-    onClickPrev?: (event: any) => any;
-    onClose: (event: any) => any;
+    onClickImage?: (e: any) => any;
+    onClickNext?: (e: any) => any;
+    onClickPrev?: (e: any) => any;
+    onClose: (e: any) => any;
     preloadNextImage?: boolean;
     rightArrowTitle?: string;
     showCloseButton?: boolean;

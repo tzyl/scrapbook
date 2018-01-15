@@ -4,7 +4,7 @@ declare module "react-photo-gallery" {
   export interface IGalleryProps {
     photos: IPhotoProps[];
     columns?: number;
-    onClick?: (event: any, photoObject: IPhotoObject) => any;
+    onClick?: (e: any, photoObject: IPhotoObject) => any;
     margin?: number;
     ImageComponent?: JSX.Element;
   }

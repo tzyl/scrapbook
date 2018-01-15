@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IGalleryModalDispatchProps => {
     closeLightbox: () => dispatch(closeLightbox()),
     gotoNext: () => dispatch(selectNextPhoto()),
     gotoPrevious: () => dispatch(selectPreviousPhoto()),
-    openLightbox: (event: any, photoObject: IPhotoObject) => {
+    openLightbox: (e: any, photoObject: IPhotoObject) => {
       dispatch(selectPhoto(photoObject.index));
       dispatch(openLightbox());
     },

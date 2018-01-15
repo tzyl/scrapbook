@@ -11,8 +11,8 @@ export interface ITimelinePageStateProps {
 }
 
 export interface ITimelinePageDispatchProps {
-  openEvent: (scrapbookEvent: IScrapbookEvent) => ((event: any) => any);
-  openEditor: (event: any) => any;
+  openEvent: (scrapbookEvent: IScrapbookEvent) => ((e: any) => any);
+  openEditor: (e: any) => any;
 }
 
 export type ITimelinePageProps = ITimelinePageStateProps & ITimelinePageDispatchProps;

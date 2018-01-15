@@ -14,7 +14,7 @@ export interface IEditorModalStateProps {
 export interface IEditorModalDispatchProps {
   addEvent: (scrapbookEvent: IScrapbookEvent) => any;
   removeEvent: (id: string) => any;
-  closeEditor: (event: any) => any;
+  closeEditor: (e: any) => any;
 }
 
 export type IEditorModalProps = IEditorModalStateProps & IEditorModalDispatchProps;
@@ -64,8 +64,8 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     );
   }
 
-  private handleChange(event: any) {
-    const target = event.target;
+  private handleChange(e: any) {
+    const target = e.target;
     const value = target.value;
     const name = target.name;
     this.setState({
@@ -74,16 +74,16 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   }
 
   // TODO: Validate event
-  private handleSubmit(event: any) {
+  private handleSubmit(e: any) {
+    e.preventDefault();
     const { addEvent, removeEvent, mode } = this.props;
     if (mode === EditorMode.edit) {
       removeEvent(this.state.id);
     }
     addEvent(this.state);
-    event.preventDefault();
   }
 
-  private handleClose(event: any) {
+  private handleClose(e: any) {
     const { closeEditor } = this.props;
     this.setState(this.createEmptyState());
     closeEditor(event);

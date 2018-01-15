@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface IButtonDispatchProps {
-  onClick: (event: any) => any;
+  onClick: (e: any) => any;
 }
 
 export interface IButtonOwnProps {

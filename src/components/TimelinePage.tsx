@@ -4,6 +4,7 @@ import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeli
 import { IGalleryProps } from "react-photo-gallery";
 
 import Button from "../components/Button";
+import { EditorMode } from "../types/editor";
 import { IScrapbookEvent } from "../types/events";
 
 export interface ITimelinePageStateProps {
@@ -11,14 +12,45 @@ export interface ITimelinePageStateProps {
 }
 
 export interface ITimelinePageDispatchProps {
-  openEvent: (scrapbookEvent: IScrapbookEvent) => ((e: any) => any);
-  openEditor: (e: any) => any;
+  selectEvent: (scrapbookEvent: IScrapbookEvent) => any;
+  removeEvent: (id: string) => any;
+  openGallery: () => any;
+  openEditor: () => any;
+  setEditorMode: (mode: EditorMode) => any;
 }
 
 export type ITimelinePageProps = ITimelinePageStateProps & ITimelinePageDispatchProps;
 
-const TimelinePage: React.SFC<ITimelinePageProps> = (props) => {
-  const { events, openEvent, openEditor } = props;
+const TimelinePage: React.SFC<ITimelinePageProps> = ({
+  events,
+  selectEvent,
+  removeEvent,
+  openGallery,
+  openEditor,
+  setEditorMode,
+}) => {
+  const openEvent = (event: IScrapbookEvent) => (e: any) => {
+    e.stopPropagation();
+    selectEvent(event);
+    openGallery();
+  };
+
+  const deleteEvent = (event: IScrapbookEvent) => (e: any) => {
+    e.stopPropagation();
+    removeEvent(event.id);
+  };
+
+  const openEditorEdit = (event: IScrapbookEvent) => (e: any) => {
+    e.stopPropagation();
+    selectEvent(event);
+    setEditorMode(EditorMode.edit);
+    openEditor();
+  };
+
+  const openEditorAdd = () => {
+    setEditorMode(EditorMode.add);
+    openEditor();
+  };
 
   const timelineEvents = events.map((event) => (
     <div key={event.id} onClick={openEvent(event)}>
@@ -29,6 +61,8 @@ const TimelinePage: React.SFC<ITimelinePageProps> = (props) => {
         icon={<i className="material-icons md-18">photo</i>}
         iconColor={"#03a9f4"}
       >
+        <Button onClick={openEditorEdit(event)}>Edit event</Button>
+        <Button onClick={deleteEvent(event)}>Delete event</Button>
         {event.description}
       </TimelineEvent>
     </div>
@@ -38,7 +72,7 @@ const TimelinePage: React.SFC<ITimelinePageProps> = (props) => {
       <Timeline>
         {timelineEvents}
       </Timeline>
-      <Button onClick={openEditor}>Create new event</Button>
+      <Button onClick={openEditorAdd}>Create new event</Button>
     </div>
   );
 };

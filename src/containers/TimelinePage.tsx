@@ -1,13 +1,15 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { openEditor } from "../actions/editor";
+import { openEditor, setEditorMode } from "../actions/editor";
+import { removeEvent } from "../actions/events";
 import { openGallery } from "../actions/gallery";
 import { selectEvent } from "../actions/timeline";
 import TimelinePage, {
   ITimelinePageDispatchProps,
   ITimelinePageStateProps,
 } from "../components/TimelinePage";
+import { EditorMode } from "../types/editor";
 import { IScrapbookEvent } from "../types/events";
 import { Dispatch } from "../types/redux";
 import { IStoreState } from "../types/redux";
@@ -20,11 +22,11 @@ const mapStateToProps = (state: IStoreState): ITimelinePageStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): ITimelinePageDispatchProps => {
   return {
-    openEvent: (event: IScrapbookEvent) => () => {
-      dispatch(selectEvent(event));
-      dispatch(openGallery());
-    },
+    selectEvent: (event: IScrapbookEvent) => dispatch(selectEvent(event)),
+    openGallery: () => dispatch(openGallery()),
     openEditor: () => dispatch(openEditor()),
+    setEditorMode: (mode: EditorMode) => dispatch(setEditorMode(mode)),
+    removeEvent: (id: string) => dispatch(removeEvent(id)),
   };
 };
 

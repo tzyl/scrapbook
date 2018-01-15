@@ -9,12 +9,13 @@ import { IScrapbookEvent } from "../types/events";
 export interface IEditorModalStateProps {
   editorIsOpen: boolean;
   mode: EditorMode;
+  selectedEvent: IScrapbookEvent;
 }
 
 export interface IEditorModalDispatchProps {
   addEvent: (scrapbookEvent: IScrapbookEvent) => any;
   removeEvent: (id: string) => any;
-  closeEditor: (e: any) => any;
+  closeEditor: () => any;
 }
 
 export type IEditorModalProps = IEditorModalStateProps & IEditorModalDispatchProps;
@@ -28,15 +29,16 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    this.initializeState = this.initializeState.bind(this);
   }
 
   public render() {
-    const { editorIsOpen, mode } = this.props;
+    const { editorIsOpen, mode, closeEditor } = this.props;
     return (
       <Modal
         isOpen={editorIsOpen}
-        onRequestClose={this.handleClose}
+        onAfterOpen={this.initializeState}
+        onRequestClose={closeEditor}
         shouldCloseOnEsc={false}
       >
         {mode === EditorMode.add && <h2>Add event</h2>}
@@ -77,16 +79,22 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   private handleSubmit(e: any) {
     e.preventDefault();
     const { addEvent, removeEvent, mode } = this.props;
-    if (mode === EditorMode.edit) {
+    if (mode === EditorMode.add) {
+      addEvent(this.state);
+      this.setState(this.createEmptyState());
+    } else if (mode === EditorMode.edit) {
       removeEvent(this.state.id);
+      addEvent(this.state);
     }
-    addEvent(this.state);
   }
 
-  private handleClose(e: any) {
-    const { closeEditor } = this.props;
-    this.setState(this.createEmptyState());
-    closeEditor(event);
+  private initializeState() {
+    const { mode, selectedEvent } = this.props;
+    if (mode === EditorMode.add) {
+      this.setState(this.createEmptyState());
+    } else if (mode === EditorMode.edit) {
+      this.setState(selectedEvent);
+    }
   }
 
   private createEmptyState(): IEditorModalState {
@@ -94,8 +102,8 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
       id: v4(),
       title: "",
       createdAt: "",
-      subtitle: undefined,
-      description: undefined,
+      subtitle: "",
+      description: "",
       photos: [],
     };
   }

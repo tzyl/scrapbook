@@ -14,6 +14,7 @@ const mapStateToProps = (state: IStoreState): IEditorModalStateProps => {
   return {
     editorIsOpen: state.editor.editorIsOpen,
     mode: state.editor.mode,
+    selectedEvent: state.timeline.selectedEvent,
   };
 };
 

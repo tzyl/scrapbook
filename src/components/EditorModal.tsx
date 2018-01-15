@@ -12,7 +12,8 @@ export interface IEditorModalStateProps {
 }
 
 export interface IEditorModalDispatchProps {
-  submitEvent: (scrapbookEvent: IScrapbookEvent) => any;
+  addEvent: (scrapbookEvent: IScrapbookEvent) => any;
+  removeEvent: (id: string) => any;
   closeEditor: (event: any) => any;
 }
 
@@ -31,13 +32,15 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   }
 
   public render() {
-    const { editorIsOpen, submitEvent } = this.props;
+    const { editorIsOpen, mode } = this.props;
     return (
       <Modal
         isOpen={editorIsOpen}
         onRequestClose={this.handleClose}
         shouldCloseOnEsc={false}
       >
+        {mode === EditorMode.add && <h2>Add event</h2>}
+        {mode === EditorMode.edit && <h2>Edit event</h2>}
         <form onSubmit={this.handleSubmit}>
           <label>
             Title:
@@ -70,9 +73,14 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     });
   }
 
-  // TODO: Validate and submit event
+  // TODO: Validate event
   private handleSubmit(event: any) {
-    return;
+    const { addEvent, removeEvent, mode } = this.props;
+    if (mode === EditorMode.edit) {
+      removeEvent(this.state.id);
+    }
+    addEvent(this.state);
+    event.preventDefault();
   }
 
   private handleClose(event: any) {
@@ -86,8 +94,8 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
       id: v4(),
       title: "",
       createdAt: "",
-      subtitle: "",
-      description: "",
+      subtitle: undefined,
+      description: undefined,
       photos: [],
     };
   }

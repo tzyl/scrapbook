@@ -1,13 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import {
-  closeEditor,
-} from "../actions/editor";
+import { closeEditor } from "../actions/editor";
+import { addEvent, removeEvent } from "../actions/events";
 import EditorModal, {
   IEditorModalDispatchProps,
   IEditorModalStateProps,
 } from "../components/EditorModal";
+import { IScrapbookEvent } from "../types/events";
 import { Dispatch, IStoreState } from "../types/redux";
 
 const mapStateToProps = (state: IStoreState): IEditorModalStateProps => {
@@ -19,8 +19,8 @@ const mapStateToProps = (state: IStoreState): IEditorModalStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): IEditorModalDispatchProps => {
   return {
-    // TODO: Finish submitEvent with correct mode behaviour.
-    submitEvent: () => null,
+    addEvent: (scrapbookEvent: IScrapbookEvent) => dispatch(addEvent(scrapbookEvent)),
+    removeEvent: (id: string) => dispatch(removeEvent(id)),
     closeEditor: () => dispatch(closeEditor()),
   };
 };

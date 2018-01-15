@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { v4 } from "node-uuid";
 import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
@@ -22,26 +23,19 @@ export type IEditorModalState = IScrapbookEvent;
 export default class EditorModal extends React.Component<IEditorModalProps, IEditorModalState> {
   constructor(props: IEditorModalProps) {
     super(props);
-    // TODO: Initial state?
-    this.state = {
-      id: "",
-      title: "",
-      createdAt: "",
-      subtitle: "",
-      description: "",
-      photos: [],
-    };
+    this.state = this.createEmptyState();
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   public render() {
-    const { editorIsOpen, submitEvent, closeEditor } = this.props;
+    const { editorIsOpen, submitEvent } = this.props;
     return (
       <Modal
         isOpen={editorIsOpen}
-        onRequestClose={closeEditor}
+        onRequestClose={this.handleClose}
         shouldCloseOnEsc={false}
       >
         <form onSubmit={this.handleSubmit}>
@@ -50,7 +44,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
             <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
           </label>
           <label>
-            Date:
+            Date (yyyy-MM-dd):
             <input name="createdAt" type="text" value={this.state.createdAt} onChange={this.handleChange} />
           </label>
           <label>
@@ -79,5 +73,22 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   // TODO: Validate and submit event
   private handleSubmit(event: any) {
     return;
+  }
+
+  private handleClose(event: any) {
+    const { closeEditor } = this.props;
+    this.setState(this.createEmptyState());
+    closeEditor(event);
+  }
+
+  private createEmptyState(): IEditorModalState {
+    return {
+      id: v4(),
+      title: "",
+      createdAt: "",
+      subtitle: "",
+      description: "",
+      photos: [],
+    };
   }
 }

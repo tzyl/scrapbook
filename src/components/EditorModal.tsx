@@ -26,13 +26,6 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   constructor(props: IEditorModalProps) {
     super(props);
     this.state = this.createEmptyState();
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePhotoChange = this.handlePhotoChange.bind(this);
-    this.handleAddPhoto = this.handleAddPhoto.bind(this);
-    this.handleRemovePhoto = this.handleRemovePhoto.bind(this);
-    this.initializeState = this.initializeState.bind(this);
   }
 
   public render() {
@@ -105,28 +98,26 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     );
   }
 
-  private handleChange(e: any) {
+  private handleChange = (e: any) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   }
 
-  private handlePhotoChange(sindex: number): (e: any) => any {
-    return (e) => {
-      const newPhotos = this.state.photos.map((photo, index) => {
-        if (index !== sindex) { return photo; }
-        return {
-          ...photo,
-          [e.target.name]: e.target.value,
-        };
-      });
-      this.setState({
-        photos: newPhotos,
-      });
-    };
+  private handlePhotoChange = (sindex: number) => (e: any) => {
+    const newPhotos = this.state.photos.map((photo, index) => {
+      if (index !== sindex) { return photo; }
+      return {
+        ...photo,
+        [e.target.name]: e.target.value,
+      };
+    });
+    this.setState({
+      photos: newPhotos,
+    });
   }
 
-  private handleAddPhoto(e: any) {
+  private handleAddPhoto = () => {
     const newPhoto = {
       src: "",
       width: 1,
@@ -137,16 +128,14 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     });
   }
 
-  private handleRemovePhoto(sindex: number): (e: any) => any {
-    return (e) => {
-      this.setState({
-        photos: this.state.photos.filter((photo, index) => index !== sindex),
-      });
-    };
+  private handleRemovePhoto = (sindex: number) => (e: any) => {
+    this.setState({
+      photos: this.state.photos.filter((photo, index) => index !== sindex),
+    });
   }
 
   // TODO: Validate event + notification on add/edit.
-  private handleSubmit(e: any) {
+  private handleSubmit = (e: any) => {
     e.preventDefault();
     const { addEvent, removeEvent, mode } = this.props;
     if (mode === EditorMode.add) {
@@ -158,7 +147,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     }
   }
 
-  private initializeState() {
+  private initializeState = () => {
     const { mode, selectedEvent } = this.props;
     if (mode === EditorMode.add) {
       this.setState(this.createEmptyState());

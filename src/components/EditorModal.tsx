@@ -29,6 +29,9 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePhotoChange = this.handlePhotoChange.bind(this);
+    this.handleAddPhoto = this.handleAddPhoto.bind(this);
+    this.handleRemovePhoto = this.handleRemovePhoto.bind(this);
     this.initializeState = this.initializeState.bind(this);
   }
 
@@ -45,37 +48,104 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         {mode === EditorMode.edit && <h2>Edit event</h2>}
         <form onSubmit={this.handleSubmit}>
           <label>
-            Title:
+            <h3>Title:</h3>
             <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
           </label>
           <label>
-            Date (yyyy-MM-dd):
+            <h3>Date (yyyy-MM-dd):</h3>
             <input name="createdAt" type="text" value={this.state.createdAt} onChange={this.handleChange} />
           </label>
           <label>
-            Subtitle:
+            <h3>Subtitle:</h3>
             <input name="subtitle" type="text" value={this.state.subtitle} onChange={this.handleChange} />
           </label>
           <label>
-            Description:
+            <h3>Description:</h3>
             <input name="description" type="text" value={this.state.description} onChange={this.handleChange} />
           </label>
+          <div>
+            <h3>Photos:</h3>
+            {this.renderPhotoInputs()}
+          </div>
           <button type="submit">Submit event</button>
         </form>
       </Modal>
     );
   }
 
+  private renderPhotoInputs() {
+    const photoInputs = this.state.photos.map((photo, index) => (
+      <div key={index}>
+        <input
+          type="text"
+          name="src"
+          value={photo.src}
+          onChange={this.handlePhotoChange(index)}
+        />
+        <input
+          type="number"
+          name="width"
+          value={photo.width}
+          onChange={this.handlePhotoChange(index)}
+        />
+        <input
+          type="number"
+          name="height"
+          value={photo.height}
+          onChange={this.handlePhotoChange(index)}
+        />
+        <button type="button" onClick={this.handleRemovePhoto(index)}>-</button>
+      </div>
+    ));
+    return (
+      <div>
+        <button type="button" onClick={this.handleAddPhoto}>Add Photo</button>
+        {photoInputs}
+      </div>
+    );
+  }
+
   private handleChange(e: any) {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
     this.setState({
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
   }
 
-  // TODO: Validate event
+  private handlePhotoChange(sindex: number): (e: any) => any {
+    return (e) => {
+      const newPhotos = this.state.photos.map((photo, index) => {
+        if (index !== sindex) { return photo; }
+        return {
+          ...photo,
+          [e.target.name]: e.target.value,
+        };
+      });
+      this.setState({
+        photos: newPhotos,
+      });
+    };
+  }
+
+  private handleAddPhoto(e: any) {
+    const newPhoto = {
+      src: "",
+      width: 1,
+      height: 1,
+    };
+    this.setState({
+      photos: this.state.photos.concat([newPhoto]),
+    });
+  }
+
+  private handleRemovePhoto(sindex: number): (e: any) => any {
+    return (e) => {
+      this.setState({
+        photos: this.state.photos.filter((photo, index) => index !== sindex),
+      });
+    };
+  }
+
+  // TODO: Validate event + notification on add/edit.
   private handleSubmit(e: any) {
     e.preventDefault();
     const { addEvent, removeEvent, mode } = this.props;

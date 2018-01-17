@@ -76,13 +76,13 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
           type="number"
           name="width"
           value={photo.width}
-          onChange={this.handlePhotoChange(index)}
+          onChange={this.handlePhotoChange(index, true)}
         />
         <input
           type="number"
           name="height"
           value={photo.height}
-          onChange={this.handlePhotoChange(index)}
+          onChange={this.handlePhotoChange(index, true)}
         />
         <button type="button" onClick={this.handleRemovePhoto(index)}>-</button>
       </div>
@@ -101,12 +101,12 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     });
   }
 
-  private handlePhotoChange = (sindex: number) => (e: any) => {
+  private handlePhotoChange = (sindex: number, toInteger: boolean = false) => (e: any) => {
     const newPhotos = this.state.photos.map((photo, index) => {
       if (index !== sindex) { return photo; }
       return {
         ...photo,
-        [e.target.name]: e.target.value,
+        [e.target.name]: toInteger ? parseInt(e.target.value, 10) : e.target.value,
       };
     });
     this.setState({

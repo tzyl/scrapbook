@@ -23,10 +23,7 @@ export type IEditorModalProps = IEditorModalStateProps & IEditorModalDispatchPro
 export type IEditorModalState = IScrapbookEvent;
 
 export default class EditorModal extends React.Component<IEditorModalProps, IEditorModalState> {
-  constructor(props: IEditorModalProps) {
-    super(props);
-    this.state = this.createEmptyState();
-  }
+  public state: IEditorModalState = this.createEmptyState();
 
   public render() {
     const { editorIsOpen, mode, closeEditor } = this.props;

@@ -52,21 +52,28 @@ const TimelinePage: React.SFC<ITimelinePageProps> = ({
     openEditor();
   };
 
-  const timelineEvents = events.map((event) => (
-    <div key={event.id} onClick={openEvent(event)}>
-      <TimelineEvent
-        title={event.title}
-        subtitle={event.subtitle}
-        createdAt={event.createdAt}
-        icon={<i className="material-icons md-18">photo</i>}
-        iconColor={"#03a9f4"}
-      >
+  const timelineEvents = events.map((event) => {
+    const buttons = (
+      <div>
         <Button onClick={openEditorEdit(event)}>Edit event</Button>
         <Button onClick={deleteEvent(event)}>Delete event</Button>
-        {event.description}
-      </TimelineEvent>
-    </div>
-  ));
+      </div>
+    );
+    return (
+      <div className="timeline-event" key={event.id} onClick={openEvent(event)}>
+        <TimelineEvent
+          title={event.title}
+          subtitle={event.subtitle}
+          createdAt={event.createdAt}
+          icon={<i className="material-icons md-18">photo</i>}
+          iconColor={"#03a9f4"}
+          buttons={buttons}
+        >
+          {event.description}
+        </TimelineEvent>
+      </div>
+    );
+  });
   return (
     <div>
       <Timeline>

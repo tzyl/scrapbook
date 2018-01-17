@@ -5,6 +5,7 @@ import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent } from "../types/events";
+import Button from "./Button";
 
 export interface IEditorModalStateProps {
   editorIsOpen: boolean;
@@ -57,7 +58,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
             <h3>Photos:</h3>
             {this.renderPhotoInputs()}
           </div>
-          <button type="submit">Submit event</button>
+          <Button type="submit">Submit event</Button>
         </form>
       </Modal>
     );
@@ -84,12 +85,12 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
           value={photo.height}
           onChange={this.handlePhotoChange(index, true)}
         />
-        <button type="button" onClick={this.handleRemovePhoto(index)}>-</button>
+        <Button type="button" onClick={this.handleRemovePhoto(index)}>-</Button>
       </div>
     ));
     return (
       <div>
-        <button type="button" onClick={this.handleAddPhoto}>Add Photo</button>
+        <Button type="button" onClick={this.handleAddPhoto}>Add Photo</Button>
         {photoInputs}
       </div>
     );

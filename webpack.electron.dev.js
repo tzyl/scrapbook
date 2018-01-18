@@ -1,14 +1,13 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-
 module.exports = {
     entry: [
-        "./src/index.tsx",
-        "./src/styles.less"
+        "./src/main.ts",
     ],
     output: {
-        filename: "bundle.js",
+        filename: "main.js",
         path: __dirname + "/dist"
     },
+
+    target: "electron",
 
     devtool: "source-map",
 
@@ -20,13 +19,7 @@ module.exports = {
         rules: [
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-            { test: /\.(png|jpg|gif)$/, loader: "url-loader?limit=8192" },
         ]
     },
-
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: __dirname + "/src/index.html"
-        }),
-    ],
 };
+

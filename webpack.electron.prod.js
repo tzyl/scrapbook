@@ -37,4 +37,3 @@ module.exports = {
         __filename: false
     },
 };
-

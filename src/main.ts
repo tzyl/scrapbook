@@ -1,6 +1,14 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, dialog } from "electron";
+
+import * as fs from "fs";
+import * as sizeOf from "image-size";
 import * as path from "path";
 import * as url from "url";
+import { promisify } from "util";
+
+const readdirAsync = promisify(fs.readdir);
+const statAsync = promisify(fs.stat);
+const sizeOfAsync = promisify(sizeOf) as any;
 
 // Keep a global reference of the window object, if you don"t, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -8,7 +16,14 @@ let mainWindow: BrowserWindow;
 
 const createWindow = () => {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    // Disable security to load images from local filesystem.
+    webPreferences: {
+      webSecurity: false,
+    },
+  });
 
   // and load the index.html of the app.
   if (process.env.NODE_ENV === "production") {
@@ -55,5 +70,44 @@ app.on("activate", () => {
   }
 });
 
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
+// Select directory and return paths and dimensions of all images inside.
+(global as any).getPhotos = async () => {
+  const dirPath = dialog.showOpenDialog(mainWindow, {
+    properties: ["openDirectory"],
+  })[0];
+  const files = await crawlFolder(dirPath);
+  const photos = await Promise.all(files.map(async (f) => getDimensions(f)));
+  return photos.filter((photo) => photo !== null);
+};
+
+// Crawls a folder recursively and returns an array of all file paths.
+const crawlFolder = async (dirPath: string, files: string[] = []) => {
+  const results = (await readdirAsync(dirPath)).map((f) => path.join(dirPath, f));
+  await Promise.all(results.map(async (res) => {
+    if ((await statAsync(res)).isDirectory()) {
+      return crawlFolder(res, files);
+    } else {
+      files.push(res);
+    }
+  }));
+  return files;
+};
+
+// Tries to get the dimensions of a photo from src. Returns null if not a photo.
+const getDimensions = async (photoPath: string) => {
+  try {
+    const dimensions = await sizeOfAsync(photoPath);
+    return {
+      src: url.format({
+        pathname: photoPath,
+        protocol: "file:",
+        slashes: true,
+      }),
+      width: dimensions.width,
+      height: dimensions.height,
+    };
+  } catch {
+    // Unsupported file type
+    return null;
+  }
+};

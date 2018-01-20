@@ -7,7 +7,7 @@ module.exports = {
         path: __dirname + "/dist"
     },
 
-    target: "electron",
+    target: "electron-main",
 
     devtool: "source-map",
 

@@ -10,6 +10,8 @@ module.exports = {
         path: __dirname + "/dist"
     },
 
+    target: "electron-renderer",
+
     devtool: "source-map",
 
     resolve: {

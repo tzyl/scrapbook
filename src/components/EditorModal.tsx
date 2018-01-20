@@ -4,7 +4,7 @@ import { v4 } from "node-uuid";
 import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
-import { IScrapbookEvent } from "../types/events";
+import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
 import Button from "./Button";
 
 export interface IEditorModalStateProps {
@@ -19,7 +19,11 @@ export interface IEditorModalDispatchProps {
   closeEditor: () => any;
 }
 
-export type IEditorModalProps = IEditorModalStateProps & IEditorModalDispatchProps;
+export interface IEditorModalOwnProps {
+  getPhotos: () => Promise<IScrapbookPhoto[]>;
+}
+
+export type IEditorModalProps = IEditorModalOwnProps & IEditorModalStateProps & IEditorModalDispatchProps;
 
 export type IEditorModalState = IScrapbookEvent;
 
@@ -57,6 +61,9 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
           <div>
             <h3>Photos:</h3>
             {this.renderPhotoInputs()}
+          </div>
+          <div>
+            <Button type="button" onClick={this.handleGetPhotos}>Add from folder</Button>
           </div>
           <Button type="submit">Submit event</Button>
         </form>
@@ -100,6 +107,15 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     this.setState({
       [e.target.name]: e.target.value,
     });
+  }
+
+  private handleGetPhotos = () => {
+   const { getPhotos } = this.props;
+   getPhotos().then((photos) => {
+    this.setState({
+      photos: this.state.photos.concat(photos),
+    });
+   });
   }
 
   private handlePhotoChange = (sindex: number, toInteger: boolean = false) => (e: any) => {

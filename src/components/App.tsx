@@ -6,13 +6,16 @@ import ConnectedGalleryModal from "../containers/GalleryModal";
 import ConnectedTimelinePage from "../containers/TimelinePage";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
 
+import { remote } from "electron";
+const getPhotos = remote.getGlobal("getPhotos");
+
 const App: React.SFC<{}> = (props) => {
   return (
     <div>
       <Header />
       <ConnectedTimelinePage />
       <ConnectedGalleryModal />
-      <ConnectedEditorModal />
+      <ConnectedEditorModal getPhotos={getPhotos} />
     </div>
   );
 };

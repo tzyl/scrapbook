@@ -72,12 +72,16 @@ app.on("activate", () => {
 
 // Select directory and return paths and dimensions of all images inside.
 (global as any).getPhotos = async () => {
-  const dirPath = dialog.showOpenDialog(mainWindow, {
-    properties: ["openDirectory"],
-  })[0];
-  const files = await crawlFolder(dirPath);
-  const photos = await Promise.all(files.map(async (f) => getDimensions(f)));
-  return photos.filter((photo) => photo !== null);
+  try {
+    const dirPath = dialog.showOpenDialog(mainWindow, {
+      properties: ["openDirectory"],
+    })[0];
+    const files = await crawlFolder(dirPath);
+    const photos = await Promise.all(files.map(async (f) => getDimensions(f)));
+    return photos.filter((photo) => photo !== null);
+  } catch {
+    return [];
+  }
 };
 
 // Crawls a folder recursively and returns an array of all file paths.

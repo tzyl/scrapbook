@@ -1,11 +1,11 @@
 import * as React from "react";
 
+import { Button } from "@blueprintjs/core";
 import Lightbox, { ILightboxProps } from "react-images";
 import Modal = require("react-modal");
 import Gallery, { IGalleryProps, IPhotoObject } from "react-photo-gallery";
 
 import { IScrapbookPhoto } from "../types/events";
-import Button from "./Button";
 
 export interface IGalleryModalStateProps {
   photos: IScrapbookPhoto[];
@@ -43,7 +43,7 @@ const GalleryModal: React.SFC<IGalleryModalProps> = ({
       onRequestClose={closeGallery}
       shouldCloseOnEsc={false}
     >
-        <Button onClick={closeGallery}>Close gallery</Button>
+        <Button iconName="pt-icon-cross" onClick={closeGallery}>Close gallery</Button>
         <Gallery photos={photos} onClick={openLightbox} />
         <Lightbox
           images={photos}

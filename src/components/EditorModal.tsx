@@ -1,11 +1,11 @@
 import * as React from "react";
 
+import { Button, TextArea } from "@blueprintjs/core";
 import { v4 } from "node-uuid";
 import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
-import Button from "./Button";
 
 export interface IEditorModalStateProps {
   editorIsOpen: boolean;
@@ -74,10 +74,9 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
           </label>
           <label className="pt-label">
             Description
-            <input
-              className="pt-input"
+            <TextArea
               name="description"
-              type="text"
+              fill={true}
               value={this.state.description}
               onChange={this.handleChange}
             />
@@ -87,7 +86,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
             {this.renderPhotoInputs()}
           </div>
           <div>
-            <Button type="button" onClick={this.handleGetPhotos}>Add from folder</Button>
+            <Button onClick={this.handleGetPhotos}>Add from folder</Button>
           </div>
           <Button type="submit">Submit event</Button>
         </form>
@@ -126,12 +125,12 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
           value={photo.height}
           onChange={this.handlePhotoChange(index, true)}
         />
-        <Button type="button" onClick={this.handleRemovePhoto(index)}>-</Button>
+        <Button iconName="pt-icon-remove" onClick={this.handleRemovePhoto(index)} />
       </div>
     ));
     return (
       <div>
-        <Button type="button" onClick={this.handleAddPhoto}>Add Photo</Button>
+        <Button onClick={this.handleAddPhoto}>Add Photo</Button>
         {photoInputs}
       </div>
     );

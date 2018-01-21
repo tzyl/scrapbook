@@ -1,9 +1,9 @@
 import * as React from "react";
 
+import { Button } from "@blueprintjs/core";
 import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
 import { IGalleryProps } from "react-photo-gallery";
 
-import Button from "../components/Button";
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent } from "../types/events";
 
@@ -55,8 +55,8 @@ const TimelinePage: React.SFC<ITimelinePageProps> = ({
   const timelineEvents = events.map((event) => {
     const buttons = (
       <div>
-        <Button onClick={openEditorEdit(event)}>Edit event</Button>
-        <Button onClick={deleteEvent(event)}>Delete event</Button>
+        <Button iconName="pt-icon-edit" onClick={openEditorEdit(event)}>Edit</Button>
+        <Button iconName="pt-icon-delete" onClick={deleteEvent(event)}>Delete</Button>
       </div>
     );
     return (

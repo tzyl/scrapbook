@@ -30,8 +30,9 @@ export type IEditorModalState = IScrapbookEvent;
 export default class EditorModal extends React.Component<IEditorModalProps, IEditorModalState> {
   public state: IEditorModalState = this.createEmptyState();
 
+  // TODO: Use Label component after fix (https://github.com/palantir/blueprint/issues/1971)
   public render() {
-    const { editorIsOpen, mode, closeEditor } = this.props;
+    const { editorIsOpen, closeEditor } = this.props;
     return (
       <Modal
         isOpen={editorIsOpen}
@@ -39,24 +40,47 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         onRequestClose={closeEditor}
         shouldCloseOnEsc={false}
       >
-        {mode === EditorMode.add && <h2>Add event</h2>}
-        {mode === EditorMode.edit && <h2>Edit event</h2>}
+        {this.renderTitle()}
         <form onSubmit={this.handleSubmit}>
-          <label>
-            <h3>Title:</h3>
-            <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
+          <label className="pt-label">
+            Title
+            <input
+              className="pt-input"
+              name="title"
+              type="text"
+              value={this.state.title}
+              onChange={this.handleChange}
+            />
           </label>
-          <label>
-            <h3>Date (yyyy-MM-dd):</h3>
-            <input name="createdAt" type="text" value={this.state.createdAt} onChange={this.handleChange} />
+          <label className="pt-label">
+            Date (yyyy-MM-dd)
+            <input
+              className="pt-input"
+              name="createdAt"
+              type="text"
+              value={this.state.createdAt}
+              onChange={this.handleChange}
+            />
           </label>
-          <label>
-            <h3>Subtitle:</h3>
-            <input name="subtitle" type="text" value={this.state.subtitle} onChange={this.handleChange} />
+          <label className="pt-label">
+            Subtitle
+            <input
+              className="pt-input"
+              name="subtitle"
+              type="text"
+              value={this.state.subtitle}
+              onChange={this.handleChange}
+            />
           </label>
-          <label>
-            <h3>Description:</h3>
-            <input name="description" type="text" value={this.state.description} onChange={this.handleChange} />
+          <label className="pt-label">
+            Description
+            <input
+              className="pt-input"
+              name="description"
+              type="text"
+              value={this.state.description}
+              onChange={this.handleChange}
+            />
           </label>
           <div>
             <h3>Photos:</h3>
@@ -69,6 +93,16 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         </form>
       </Modal>
     );
+  }
+
+  private renderTitle() {
+    const { mode } = this.props;
+    if (mode === EditorMode.add) {
+      return <h2>Add event</h2>;
+    }
+    if (mode === EditorMode.edit) {
+      return <h2>Edit event</h2>;
+    }
   }
 
   private renderPhotoInputs() {

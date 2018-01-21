@@ -23,6 +23,26 @@ module.exports = {
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             { test: /\.(png|jpg|gif)$/, loader: "url-loader?limit=8192" },
+            { test: /\.css$/, use: "style-loader!css-loader" },
+            // {
+            //     test: /\.(woff|woff2)$/,
+            //     use: {
+            //         loader: 'url-loader',
+            //         options: {
+            //             name: 'fonts/[hash].[ext]',
+            //             limit: 5000,
+            //             mimetype: 'application/font-woff'
+            //         }
+            //     }
+            // }, {
+            //     test: /\.(ttf|eot|svg)$/,
+            //     use: {
+            //         loader: 'file-loader',
+            //         options: {
+            //             name: 'fonts/[hash].[ext]'
+            //         }
+            //     }
+            // },
         ]
     },
 

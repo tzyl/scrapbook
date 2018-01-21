@@ -17,8 +17,8 @@ let mainWindow: BrowserWindow;
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 900,
     // Disable security to load images from local filesystem.
     webPreferences: {
       webSecurity: false,

@@ -17,9 +17,33 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@blueprintjs/core@^2.0.0-beta.1":
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-2.0.0-beta.1.tgz#21faecdffd83e3233d0a17a1de1c87a64edeb179"
+  dependencies:
+    "@blueprintjs/icons" "^2.0.0-beta.1"
+    "@types/dom4" "^1.5.20"
+    classnames "^2.2"
+    dom4 "^1.8"
+    normalize.css "^7.0.0"
+    popper.js "^1.12.6"
+    react-popper "~0.7.4"
+    tslib "^1.5.0"
+
+"@blueprintjs/icons@^2.0.0-beta.1":
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-2.0.0-beta.1.tgz#f17f12ca2b221219d592cce11d2af682a4fec0f9"
+  dependencies:
+    classnames "^2.2"
+    tslib "^1.5.0"
+
 "@types/base16@*":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/base16/-/base16-1.0.1.tgz#76dc8630675e99d1d5be78dfef59307254831203"
+
+"@types/dom4@^1.5.20":
+  version "1.5.20"
+  resolved "https://registry.yarnpkg.com/@types/dom4/-/dom4-1.5.20.tgz#ccf636d3b794fe65a4191ebc7ff979a78efea6c2"
 
 "@types/image-size@^0.0.29":
   version "0.0.29"
@@ -905,6 +929,10 @@ class-utils@^0.3.5:
     lazy-cache "^2.0.2"
     static-extend "^0.1.1"
 
+classnames@^2.2:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 clean-css@4.1.x:
   version "4.1.9"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.9.tgz#35cee8ae7687a49b98034f70de00c4edd3826301"
@@ -1464,6 +1492,10 @@ dom-serializer@0:
     domelementtype "~1.1.1"
     entities "~1.1.1"
 
+dom4@^1.8:
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/dom4/-/dom4-1.8.5.tgz#4de3a2e59af45b2af8b30bc595713ecae5037037"
+
 domain-browser@^1.1.1:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
@@ -1531,6 +1563,10 @@ electron-download@^3.0.1:
     rc "^1.1.2"
     semver "^5.3.0"
     sumchecker "^1.2.0"
+
+electron-react-devtools@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/electron-react-devtools/-/electron-react-devtools-0.5.3.tgz#c74edb1245dc1cfe1380b93016cd4eb588ed00b7"
 
 electron-releases@^2.1.0:
   version "2.1.0"
@@ -3567,6 +3603,10 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
+normalize.css@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-7.0.0.tgz#abfb1dd82470674e0322b53ceb1aaf412938e4bf"
+
 npm-run-all@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/npm-run-all/-/npm-run-all-4.1.2.tgz#90d62d078792d20669139e718621186656cea056"
@@ -3921,6 +3961,10 @@ pkg-dir@^2.0.0:
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-2.0.0.tgz#f6d5d1109e19d63edf428e0bd57e12777615334b"
   dependencies:
     find-up "^2.1.0"
+
+popper.js@^1.12.5, popper.js@^1.12.6:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.13.0.tgz#e1e7ff65cc43f7cf9cf16f1510a75e81f84f4565"
 
 portfinder@^1.0.9:
   version "1.0.13"
@@ -4484,6 +4528,13 @@ react-photo-gallery@^6.0.22:
   resolved "https://registry.yarnpkg.com/react-photo-gallery/-/react-photo-gallery-6.0.22.tgz#733126f9a4c420af8977f868222b074faa0c764a"
   dependencies:
     prop-types "~15.6.0"
+
+react-popper@~0.7.4:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.7.5.tgz#71c25946f291db381231281f6b95729e8b801596"
+  dependencies:
+    popper.js "^1.12.5"
+    prop-types "^15.5.10"
 
 react-pure-render@^1.0.2:
   version "1.0.2"
@@ -5553,6 +5604,10 @@ trim-newlines@^1.0.0:
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
+
+tslib@^1.5.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.0.tgz#e37a86fda8cbbaf23a057f473c9f4dc64e5fc2e8"
 
 tslib@^1.7.1, tslib@^1.8.0:
   version "1.8.1"

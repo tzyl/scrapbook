@@ -30,6 +30,16 @@
     react-popper "~0.7.4"
     tslib "^1.5.0"
 
+"@blueprintjs/datetime@^2.0.0-beta.1":
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/datetime/-/datetime-2.0.0-beta.1.tgz#42b9212292d7633363292b1a4988816b70bb5499"
+  dependencies:
+    "@blueprintjs/core" "^2.0.0-beta.1"
+    classnames "^2.2"
+    moment "^2.14.1"
+    react-day-picker "^5.3.0"
+    tslib "^1.5.0"
+
 "@blueprintjs/icons@^2.0.0-beta.1":
   version "2.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-2.0.0-beta.1.tgz#f17f12ca2b221219d592cce11d2af682a4fec0f9"
@@ -50,6 +60,12 @@
   resolved "https://registry.yarnpkg.com/@types/image-size/-/image-size-0.0.29.tgz#0924d4ec95edc82f615b7f634cba31534b81c351"
   dependencies:
     "@types/node" "*"
+
+"@types/moment@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@types/moment/-/moment-2.13.0.tgz#604ebd189bc3bc34a1548689404e61a2a4aac896"
+  dependencies:
+    moment "*"
 
 "@types/node@*":
   version "8.5.2"
@@ -3441,6 +3457,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
+moment@*, moment@^2.14.1, moment@^2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -4467,6 +4487,12 @@ react-base16-styling@^0.5.1:
     lodash.curry "^4.0.1"
     lodash.flow "^3.3.0"
     pure-color "^1.2.0"
+
+react-day-picker@^5.3.0:
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-5.5.3.tgz#d6a03bb0b15c6bb58629d749d8a7489cf6cfa52b"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-dock@^0.2.4:
   version "0.2.4"

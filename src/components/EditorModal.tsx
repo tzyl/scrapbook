@@ -1,6 +1,8 @@
 import * as React from "react";
 
-import { Button, TextArea } from "@blueprintjs/core";
+import { Button, Tag, TextArea } from "@blueprintjs/core";
+import { DatePicker } from "@blueprintjs/datetime";
+import * as moment from "moment";
 import { v4 } from "node-uuid";
 import Modal = require("react-modal");
 
@@ -53,15 +55,17 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
             />
           </label>
           <label className="pt-label">
-            Date (yyyy-MM-dd)
-            <input
-              className="pt-input"
-              name="createdAt"
-              type="text"
-              value={this.state.createdAt}
-              onChange={this.handleChange}
-            />
+            Date
+            <Tag>{this.state.createdAt}</Tag>
           </label>
+          <div style={{display: "flex"}}>
+            <DatePicker
+              className="pt-elevation-1"
+              canClearSelection={false}
+              onChange={this.handleDateChange}
+              value={moment(this.state.createdAt).toDate()}
+            />
+          </div>
           <label className="pt-label">
             Subtitle
             <input
@@ -82,11 +86,8 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
             />
           </label>
           <div>
-            <h3>Photos:</h3>
+            <h3>Photos</h3>
             {this.renderPhotoInputs()}
-          </div>
-          <div>
-            <Button onClick={this.handleGetPhotos}>Add from folder</Button>
           </div>
           <Button type="submit">Submit event</Button>
         </form>
@@ -131,6 +132,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     return (
       <div>
         <Button onClick={this.handleAddPhoto}>Add Photo</Button>
+        <Button onClick={this.handleGetPhotos}>Add from folder</Button>
         {photoInputs}
       </div>
     );
@@ -139,6 +141,12 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   private handleChange = (e: any) => {
     this.setState({
       [e.target.name]: e.target.value,
+    });
+  }
+
+  private handleDateChange = (selectedDate: Date, hasUserManuallySelectedDate: boolean) => {
+    this.setState({
+      createdAt: moment(selectedDate).format("YYYY-MM-DD"),
     });
   }
 
@@ -207,7 +215,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     return {
       id: v4(),
       title: "",
-      createdAt: "",
+      createdAt: moment().format("YYYY-MM-DD"),
       subtitle: "",
       description: "",
       photos: [],

@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Button, Tag, TextArea } from "@blueprintjs/core";
-import { DatePicker } from "@blueprintjs/datetime";
+import { Button, FormGroup, TextArea } from "@blueprintjs/core";
+import { DateInput } from "@blueprintjs/datetime";
 import * as moment from "moment";
 import { v4 } from "node-uuid";
 import Modal = require("react-modal");
@@ -43,54 +43,62 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         shouldCloseOnEsc={false}
       >
         {this.renderTitle()}
-        <form onSubmit={this.handleSubmit}>
-          <label className="pt-label">
-            Title
-            <input
-              className="pt-input"
-              name="title"
-              type="text"
-              value={this.state.title}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label className="pt-label">
-            Date
-            <Tag>{this.state.createdAt}</Tag>
-          </label>
-          <div style={{display: "flex"}}>
-            <DatePicker
-              className="pt-elevation-1"
-              canClearSelection={false}
-              onChange={this.handleDateChange}
-              value={moment(this.state.createdAt).toDate()}
-            />
-          </div>
-          <label className="pt-label">
-            Subtitle
-            <input
-              className="pt-input"
-              name="subtitle"
-              type="text"
-              value={this.state.subtitle}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label className="pt-label">
-            Description
-            <TextArea
-              name="description"
-              fill={true}
-              value={this.state.description}
-              onChange={this.handleChange}
-            />
-          </label>
-          <div>
-            <h3>Photos</h3>
-            {this.renderPhotoInputs()}
-          </div>
-          <Button type="submit">Submit event</Button>
-        </form>
+        <FormGroup
+          label="Title"
+          labelFor="title-input"
+          requiredLabel={true}
+        >
+          <input
+            className="pt-input"
+            id="title-input"
+            name="title"
+            type="text"
+            value={this.state.title}
+            onChange={this.handleChange}
+          />
+        </FormGroup>
+        <FormGroup
+          label="Date"
+          requiredLabel={true}
+        >
+          <DateInput
+            canClearSelection={false}
+            format="YYYY-MM-DD"
+            onChange={this.handleDateChange}
+            value={moment(this.state.createdAt).toDate()}
+          />
+        </FormGroup>
+        <FormGroup
+          label="Subtitle"
+          labelFor="subtitle-input"
+        >
+          <input
+            className="pt-input"
+            id="subtitle-input"
+            name="subtitle"
+            type="text"
+            value={this.state.subtitle}
+            onChange={this.handleChange}
+          />
+        </FormGroup>
+        <FormGroup
+          label="Description"
+          labelFor="description-input"
+        >
+          <TextArea
+            id="description-input"
+            name="description"
+            fill={true}
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
+        </FormGroup>
+        <FormGroup
+          label="Photos"
+        >
+          {this.renderPhotoInputs()}
+        </FormGroup>
+        <Button onClick={this.handleSubmit}>Submit event</Button>
       </Modal>
     );
   }
@@ -144,7 +152,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     });
   }
 
-  private handleDateChange = (selectedDate: Date, hasUserManuallySelectedDate: boolean) => {
+  private handleDateChange = (selectedDate: Date) => {
     this.setState({
       createdAt: moment(selectedDate).format("YYYY-MM-DD"),
     });

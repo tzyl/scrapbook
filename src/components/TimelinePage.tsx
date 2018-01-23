@@ -47,16 +47,11 @@ const TimelinePage: React.SFC<ITimelinePageProps> = ({
     openEditor();
   };
 
-  const openEditorAdd = () => {
-    setEditorMode(EditorMode.add);
-    openEditor();
-  };
-
   const timelineEvents = events.map((event) => {
     const buttons = (
       <div>
-        <Button iconName="pt-icon-edit" onClick={openEditorEdit(event)}>Edit</Button>
-        <Button iconName="pt-icon-delete" onClick={deleteEvent(event)}>Delete</Button>
+        <Button className="pt-minimal" iconName="pt-icon-edit" onClick={openEditorEdit(event)}>Edit</Button>
+        <Button className="pt-minimal" iconName="pt-icon-delete" onClick={deleteEvent(event)}>Delete</Button>
       </div>
     );
     return (
@@ -79,7 +74,6 @@ const TimelinePage: React.SFC<ITimelinePageProps> = ({
       <Timeline>
         {timelineEvents}
       </Timeline>
-      <Button onClick={openEditorAdd}>Create new event</Button>
     </div>
   );
 };

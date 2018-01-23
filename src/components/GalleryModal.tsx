@@ -37,11 +37,13 @@ const GalleryModal: React.SFC<IGalleryModalProps> = ({
   gotoPrevious,
   gotoNext,
 }) => {
+  const modalStyles = {overlay: {zIndex: 10}};
   return (
     <Modal
       isOpen={galleryIsOpen}
       onRequestClose={closeGallery}
       shouldCloseOnEsc={false}
+      style={modalStyles}
     >
         <Button iconName="pt-icon-cross" onClick={closeGallery}>Close gallery</Button>
         <Gallery photos={photos} onClick={openLightbox} />

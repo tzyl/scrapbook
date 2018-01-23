@@ -35,12 +35,14 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   // TODO: Use Label component after fix (https://github.com/palantir/blueprint/issues/1971)
   public render() {
     const { editorIsOpen, closeEditor } = this.props;
+    const modalStyles = {overlay: {zIndex: 10}};
     return (
       <Modal
         isOpen={editorIsOpen}
         onAfterOpen={this.initializeState}
         onRequestClose={closeEditor}
         shouldCloseOnEsc={false}
+        style={modalStyles}
       >
         {this.renderTitle()}
         <FormGroup

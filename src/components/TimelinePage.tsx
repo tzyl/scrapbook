@@ -1,11 +1,10 @@
 import * as React from "react";
 
-import { Button } from "@blueprintjs/core";
-import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
-import { IGalleryProps } from "react-photo-gallery";
+import { Timeline } from "react-event-timeline";
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent } from "../types/events";
+import TimelineEntry from "./TimelineEntry";
 
 export interface ITimelinePageStateProps {
   events: IScrapbookEvent[];
@@ -21,61 +20,49 @@ export interface ITimelinePageDispatchProps {
 
 export type ITimelinePageProps = ITimelinePageStateProps & ITimelinePageDispatchProps;
 
-const TimelinePage: React.SFC<ITimelinePageProps> = ({
-  events,
-  selectEvent,
-  removeEvent,
-  openGallery,
-  openEditor,
-  setEditorMode,
-}) => {
-  const openEvent = (event: IScrapbookEvent) => (e: any) => {
+export default class TimelinePage extends React.Component<ITimelinePageProps> {
+
+  public render() {
+    return (
+      <div>
+        <Timeline>
+          {this.renderTimelineEvents()}
+        </Timeline>
+      </div>
+    );
+  }
+
+  private renderTimelineEvents() {
+    const { events } = this.props;
+    return events.map((event) => (
+      <TimelineEntry
+        key={event.id}
+        event={event}
+        handleOpenEvent={this.openEvent(event)}
+        handleDeleteEvent={this.deleteEvent(event)}
+        handleOpenEditorEdit={this.openEditorEdit(event)}
+      />
+    ));
+  }
+
+  private openEvent = (event: IScrapbookEvent) => (e: any) => {
+    const { selectEvent, openGallery } = this.props;
     e.stopPropagation();
     selectEvent(event);
     openGallery();
-  };
+  }
 
-  const deleteEvent = (event: IScrapbookEvent) => (e: any) => {
+  private deleteEvent = (event: IScrapbookEvent) => (e: any) => {
+    const { removeEvent } = this.props;
     e.stopPropagation();
     removeEvent(event.id);
-  };
+  }
 
-  const openEditorEdit = (event: IScrapbookEvent) => (e: any) => {
+  private openEditorEdit = (event: IScrapbookEvent) => (e: any) => {
+    const { selectEvent, setEditorMode, openEditor } = this.props;
     e.stopPropagation();
     selectEvent(event);
     setEditorMode(EditorMode.edit);
     openEditor();
-  };
-
-  const timelineEvents = events.map((event) => {
-    const buttons = (
-      <div>
-        <Button className="pt-minimal" iconName="pt-icon-edit" onClick={openEditorEdit(event)}>Edit</Button>
-        <Button className="pt-minimal" iconName="pt-icon-delete" onClick={deleteEvent(event)}>Delete</Button>
-      </div>
-    );
-    return (
-      <div className="timeline-event" key={event.id} onClick={openEvent(event)}>
-        <TimelineEvent
-          title={event.title}
-          subtitle={event.subtitle}
-          createdAt={event.createdAt}
-          icon={<i className="material-icons md-18">photo</i>}
-          iconColor={"#03a9f4"}
-          buttons={buttons}
-        >
-          {event.description}
-        </TimelineEvent>
-      </div>
-    );
-  });
-  return (
-    <div>
-      <Timeline>
-        {timelineEvents}
-      </Timeline>
-    </div>
-  );
-};
-
-export default TimelinePage;
+  }
+}

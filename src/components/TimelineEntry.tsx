@@ -76,7 +76,7 @@ export default class TimelineEntry extends React.Component<ITimelineEntryProps, 
       isDeleteAlertOpen: false,
     });
     ScrapbookToaster.show({
-      message: <span>Deleted event <b>${event.title}</b></span>,
+      message: <span>Deleted event: <b>{event.title}</b></span>,
       intent: Intent.PRIMARY,
     });
   }

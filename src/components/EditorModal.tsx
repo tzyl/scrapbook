@@ -208,14 +208,14 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
       addEvent(this.state);
       this.setState(this.createEmptyState());
       ScrapbookToaster.show({
-        message: <span>Added event <b>${this.state.title}</b></span>,
+        message: <span>Added event: <b>{this.state.title}</b></span>,
         intent: Intent.SUCCESS,
       });
     } else if (mode === EditorMode.edit) {
       removeEvent(this.state.id);
       addEvent(this.state);
       ScrapbookToaster.show({
-        message: <span>Edited event <b>${this.state.title}</b></span>,
+        message: <span>Edited event: <b>{this.state.title}</b></span>,
         intent: Intent.SUCCESS,
       });
     }

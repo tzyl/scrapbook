@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Button, FormGroup, TextArea } from "@blueprintjs/core";
+import { Button, FormGroup, Intent, TextArea } from "@blueprintjs/core";
 import { DateInput } from "@blueprintjs/datetime";
 import * as moment from "moment";
 import { v4 } from "node-uuid";
@@ -8,6 +8,7 @@ import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
+import ScrapbookToaster from "./ScrapbookToaster";
 
 export interface IEditorModalStateProps {
   editorIsOpen: boolean;
@@ -199,16 +200,24 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     });
   }
 
-  // TODO: Validate event + notification on add/edit.
+  // TODO: Validate event
   private handleSubmit = (e: any) => {
     e.preventDefault();
     const { addEvent, removeEvent, mode } = this.props;
     if (mode === EditorMode.add) {
       addEvent(this.state);
       this.setState(this.createEmptyState());
+      ScrapbookToaster.show({
+        message: <span>Added event <b>${this.state.title}</b></span>,
+        intent: Intent.SUCCESS,
+      });
     } else if (mode === EditorMode.edit) {
       removeEvent(this.state.id);
       addEvent(this.state);
+      ScrapbookToaster.show({
+        message: <span>Edited event <b>${this.state.title}</b></span>,
+        intent: Intent.SUCCESS,
+      });
     }
   }
 

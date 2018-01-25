@@ -4,6 +4,7 @@ import { Alert, Button, Intent } from "@blueprintjs/core";
 import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
 
 import { IScrapbookEvent } from "../types/events";
+import ScrapbookToaster from "./ScrapbookToaster";
 
 export interface ITimelineEntryProps {
   event: IScrapbookEvent;
@@ -37,6 +38,7 @@ export default class TimelineEntry extends React.Component<ITimelineEntryProps, 
             {event.description}
           </TimelineEvent>
         </div>
+        {/* TODO: Refactor this into a single instance on TimelinePage */}
         <Alert
           isOpen={this.state.isDeleteAlertOpen}
           intent={Intent.PRIMARY}
@@ -72,6 +74,10 @@ export default class TimelineEntry extends React.Component<ITimelineEntryProps, 
     handleDeleteEvent(e);
     this.setState({
       isDeleteAlertOpen: false,
+    });
+    ScrapbookToaster.show({
+      message: <span>Deleted event <b>${event.title}</b></span>,
+      intent: Intent.PRIMARY,
     });
   }
 

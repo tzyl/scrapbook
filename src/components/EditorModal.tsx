@@ -114,8 +114,10 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     if (mode === EditorMode.edit) {
       return <h2>Edit event</h2>;
     }
+    return undefined;
   }
 
+  // TODO: Scrollable container
   private renderPhotoInputs() {
     const photoInputs = this.state.photos.map((photo, index) => (
       <div key={index}>

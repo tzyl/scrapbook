@@ -46,7 +46,8 @@ const GalleryModal: React.SFC<IGalleryModalProps> = ({
       style={modalStyles}
     >
         <Button iconName="pt-icon-cross" onClick={closeGallery}>Close gallery</Button>
-        <Gallery photos={photos} onClick={openLightbox} />
+        {/* TODO: Custom ImageComponent for Gallery which shows thumbnail rather than main image */}
+        <Gallery photos={photos} onClick={openLightbox} columns={4} />
         <Lightbox
           images={photos}
           onClose={closeLightbox}

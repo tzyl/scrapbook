@@ -8,6 +8,7 @@ import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
+import EditorTitle from "./EditorTitle";
 import ScrapbookToaster from "./ScrapbookToaster";
 
 export interface IEditorModalStateProps {
@@ -35,7 +36,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
 
   // TODO: Use Label component after fix (https://github.com/palantir/blueprint/issues/1971)
   public render() {
-    const { editorIsOpen, closeEditor } = this.props;
+    const { editorIsOpen, closeEditor, mode } = this.props;
     const modalStyles = {overlay: {zIndex: 10}};
     return (
       <Modal
@@ -45,7 +46,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         shouldCloseOnEsc={false}
         style={modalStyles}
       >
-        {this.renderTitle()}
+        <EditorTitle mode={mode} />
         <FormGroup
           label="Title"
           labelFor="title-input"
@@ -104,17 +105,6 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         <Button onClick={this.handleSubmit}>Submit event</Button>
       </Modal>
     );
-  }
-
-  private renderTitle() {
-    const { mode } = this.props;
-    if (mode === EditorMode.add) {
-      return <h2>Add event</h2>;
-    }
-    if (mode === EditorMode.edit) {
-      return <h2>Edit event</h2>;
-    }
-    return undefined;
   }
 
   // TODO: Scrollable container

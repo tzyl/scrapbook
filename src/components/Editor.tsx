@@ -11,6 +11,7 @@ import EditorTitle from "./EditorTitle";
 export interface IEditorOwnProps {
   mode: EditorMode;
   event: IScrapbookEvent;
+  closeEditor: () => any;
   handleChange: (e: any) => any;
   handleDateChange: (e: any) => any;
   handleGetPhotos: () => any;
@@ -27,12 +28,14 @@ export default class Editor extends React.Component<IEditorProps> {
     const {
       mode,
       event,
+      closeEditor,
       handleChange,
       handleDateChange,
       handleSubmit,
     } = this.props;
     return (
       <div className="editor">
+        <Button className="editor-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeEditor} />
         <EditorTitle mode={mode} />
         <FormGroup
           label="Title"

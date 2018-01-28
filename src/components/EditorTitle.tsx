@@ -10,7 +10,7 @@ export interface IEditorTitleProps {
 
 const EditorTitle: React.SFC<IEditorTitleProps> = ({mode}) => {
   return (
-    <div className={"editor-title-group"}>
+    <div className="editor-title-group">
       <Icon iconSize={20} iconName="pt-icon-timeline-events" />
       <h2>{getTitleText(mode)}</h2>
     </div>

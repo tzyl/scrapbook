@@ -47,6 +47,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         <Editor
           mode={mode}
           event={this.state}
+          closeEditor={closeEditor}
           handleChange={this.handleChange}
           handleDateChange={this.handleDateChange}
           handleGetPhotos={this.handleGetPhotos}

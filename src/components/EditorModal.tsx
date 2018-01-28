@@ -1,14 +1,13 @@
 import * as React from "react";
 
-import { Button, FormGroup, Intent, TextArea } from "@blueprintjs/core";
-import { DateInput } from "@blueprintjs/datetime";
+import { Intent } from "@blueprintjs/core";
 import * as moment from "moment";
 import { v4 } from "node-uuid";
 import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
-import EditorTitle from "./EditorTitle";
+import Editor from "./Editor";
 import ScrapbookToaster from "./ScrapbookToaster";
 
 export interface IEditorModalStateProps {
@@ -34,7 +33,6 @@ export type IEditorModalState = IScrapbookEvent;
 export default class EditorModal extends React.Component<IEditorModalProps, IEditorModalState> {
   public state: IEditorModalState = this.createEmptyState();
 
-  // TODO: Use Label component after fix (https://github.com/palantir/blueprint/issues/1971)
   public render() {
     const { editorIsOpen, closeEditor, mode } = this.props;
     const modalStyles = {overlay: {zIndex: 10}};
@@ -46,98 +44,18 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         shouldCloseOnEsc={false}
         style={modalStyles}
       >
-        <EditorTitle mode={mode} />
-        <FormGroup
-          label="Title"
-          labelFor="title-input"
-          requiredLabel={true}
-        >
-          <input
-            className="pt-input"
-            id="title-input"
-            name="title"
-            type="text"
-            value={this.state.title}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup
-          label="Date"
-          requiredLabel={true}
-        >
-          <DateInput
-            canClearSelection={false}
-            format="YYYY-MM-DD"
-            onChange={this.handleDateChange}
-            value={moment(this.state.createdAt).toDate()}
-          />
-        </FormGroup>
-        <FormGroup
-          label="Subtitle"
-          labelFor="subtitle-input"
-        >
-          <input
-            className="pt-input"
-            id="subtitle-input"
-            name="subtitle"
-            type="text"
-            value={this.state.subtitle}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup
-          label="Description"
-          labelFor="description-input"
-        >
-          <TextArea
-            id="description-input"
-            name="description"
-            fill={true}
-            value={this.state.description}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup
-          label="Photos"
-        >
-          {this.renderPhotoInputs()}
-        </FormGroup>
-        <Button onClick={this.handleSubmit}>Submit event</Button>
+        <Editor
+          mode={mode}
+          event={this.state}
+          handleChange={this.handleChange}
+          handleDateChange={this.handleDateChange}
+          handleGetPhotos={this.handleGetPhotos}
+          handleAddPhoto={this.handleAddPhoto}
+          handleRemovePhoto={this.handleRemovePhoto}
+          handlePhotoChange={this.handlePhotoChange}
+          handleSubmit={this.handleSubmit}
+        />
       </Modal>
-    );
-  }
-
-  // TODO: Scrollable container
-  private renderPhotoInputs() {
-    const photoInputs = this.state.photos.map((photo, index) => (
-      <div key={index}>
-        <input
-          type="text"
-          name="src"
-          value={photo.src}
-          onChange={this.handlePhotoChange(index)}
-        />
-        <input
-          type="number"
-          name="width"
-          value={photo.width}
-          onChange={this.handlePhotoChange(index, true)}
-        />
-        <input
-          type="number"
-          name="height"
-          value={photo.height}
-          onChange={this.handlePhotoChange(index, true)}
-        />
-        <Button iconName="pt-icon-remove" onClick={this.handleRemovePhoto(index)} />
-      </div>
-    ));
-    return (
-      <div>
-        <Button onClick={this.handleAddPhoto}>Add Photo</Button>
-        <Button onClick={this.handleGetPhotos}>Add from folder</Button>
-        {photoInputs}
-      </div>
     );
   }
 
@@ -162,19 +80,6 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
    });
   }
 
-  private handlePhotoChange = (sindex: number, toInteger: boolean = false) => (e: any) => {
-    const newPhotos = this.state.photos.map((photo, index) => {
-      if (index !== sindex) { return photo; }
-      return {
-        ...photo,
-        [e.target.name]: toInteger ? parseInt(e.target.value, 10) : e.target.value,
-      };
-    });
-    this.setState({
-      photos: newPhotos,
-    });
-  }
-
   private handleAddPhoto = () => {
     const newPhoto = {
       src: "",
@@ -189,6 +94,19 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   private handleRemovePhoto = (sindex: number) => (e: any) => {
     this.setState({
       photos: this.state.photos.filter((photo, index) => index !== sindex),
+    });
+  }
+
+  private handlePhotoChange = (sindex: number, toInteger: boolean = false) => (e: any) => {
+    const newPhotos = this.state.photos.map((photo, index) => {
+      if (index !== sindex) { return photo; }
+      return {
+        ...photo,
+        [e.target.name]: toInteger ? parseInt(e.target.value, 10) : e.target.value,
+      };
+    });
+    this.setState({
+      photos: newPhotos,
     });
   }
 

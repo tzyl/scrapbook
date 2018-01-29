@@ -4,11 +4,11 @@ import Lightbox from "react-images";
 import Modal = require("react-modal");
 import { IPhotoObject } from "react-photo-gallery";
 
-import { IScrapbookPhoto } from "../types/events";
+import { IScrapbookEvent } from "../types/events";
 import Gallery from "./Gallery";
 
 export interface IGalleryModalStateProps {
-  photos: IScrapbookPhoto[];
+  event: IScrapbookEvent;
   galleryIsOpen: boolean;
   lightboxIsOpen: boolean;
   currentImage: number;
@@ -25,7 +25,7 @@ export interface IGalleryModalDispatchProps {
 export type IGalleryModalProps = IGalleryModalStateProps & IGalleryModalDispatchProps;
 
 const GalleryModal: React.SFC<IGalleryModalProps> = ({
-  photos,
+  event,
   galleryIsOpen,
   lightboxIsOpen,
   currentImage,
@@ -44,12 +44,12 @@ const GalleryModal: React.SFC<IGalleryModalProps> = ({
       style={modalStyles}
     >
         <Gallery
-          photos={photos}
+          event={event}
           openLightbox={openLightbox}
           closeGallery={closeGallery}
         />
         <Lightbox
-          images={photos}
+          images={event.photos}
           onClose={closeLightbox}
           onClickPrev={gotoPrevious}
           onClickNext={gotoNext}

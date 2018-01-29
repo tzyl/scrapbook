@@ -18,7 +18,7 @@ import { Dispatch, IStoreState } from "../types/redux";
 
 const mapStateToProps = (state: IStoreState): IGalleryModalStateProps => {
   return {
-    photos: state.timeline.selectedEvent ? state.timeline.selectedEvent.photos : [],
+    event: state.timeline.selectedEvent,
     galleryIsOpen: state.gallery.galleryIsOpen,
     lightboxIsOpen: state.gallery.lightboxIsOpen,
     currentImage: state.gallery.selectedPhotoIndex,

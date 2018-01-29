@@ -6,7 +6,7 @@ import * as moment from "moment";
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent } from "../types/events";
-import EditorTitle from "./EditorTitle";
+import TitleGroup from "./TitleGroup";
 
 export interface IEditorOwnProps {
   mode: EditorMode;
@@ -26,7 +26,6 @@ export type IEditorProps = IEditorOwnProps;
 export default class Editor extends React.Component<IEditorProps> {
   public render() {
     const {
-      mode,
       event,
       closeEditor,
       handleChange,
@@ -35,8 +34,8 @@ export default class Editor extends React.Component<IEditorProps> {
     } = this.props;
     return (
       <div className="editor">
-        <Button className="editor-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeEditor} />
-        <EditorTitle mode={mode} />
+        <Button className="modal-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeEditor} />
+        <TitleGroup text={this.getTitleText()} iconName="pt-icon-timeline-events" />
         <FormGroup
           label="Title"
           labelFor="title-input"
@@ -136,5 +135,16 @@ export default class Editor extends React.Component<IEditorProps> {
         {photoInputs}
       </div>
     );
+  }
+
+  private getTitleText() {
+    const { mode } = this.props;
+    if (mode === EditorMode.add) {
+      return "Add event";
+    }
+    if (mode === EditorMode.edit) {
+      return "Edit event";
+    }
+    return undefined;
   }
 }

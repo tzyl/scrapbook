@@ -17,6 +17,7 @@ import { IStoreState } from "../types/redux";
 const mapStateToProps = (state: IStoreState): ITimelinePageStateProps => {
   return {
     events: state.events,
+    selectedEvent: state.timeline.selectedEvent,
   };
 };
 

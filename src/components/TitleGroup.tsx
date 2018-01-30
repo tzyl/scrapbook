@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { Icon } from "@blueprintjs/core";
+import { Icon, IconName } from "@blueprintjs/core";
 
 export interface ITitleGroupProps {
   text: React.ReactNode;
-  iconName: string;
+  iconName: IconName;
 }
 
 const TitleGroup: React.SFC<ITitleGroupProps> = ({
@@ -13,7 +13,7 @@ const TitleGroup: React.SFC<ITitleGroupProps> = ({
 }) => {
   return (
     <div className="title-group">
-      <Icon iconSize={20} iconName="pt-icon-timeline-events" />
+      <Icon iconSize={20} iconName={iconName} />
       <h2>{text}</h2>
     </div>
   );

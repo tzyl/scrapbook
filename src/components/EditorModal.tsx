@@ -150,6 +150,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
       return photo;
     }
 
+    // TODO: Fix ES6 import
     const pica = require("pica")();
     const from = await this.loadImage(photo.src);
     const to = document.createElement("canvas");
@@ -159,7 +160,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
 
     const resized: HTMLCanvasElement = await pica.resize(from, to);
     // const thumbnail = await pica.toBlob(resized, "image/jpeg");
-    const thumbnail = resized.toDataURL();
+    const thumbnail = resized.toDataURL("image/jpeg");
 
     const withThumbnail: IScrapbookPhoto = {
       ...photo,

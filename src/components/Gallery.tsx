@@ -23,6 +23,9 @@ const Gallery: React.SFC<IGalleryProps> = (props) => {
     <div className="gallery">
       <Button className="modal-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeGallery} />
       <TitleGroup text={event.title} iconName="pt-icon-media" />
+      <h3>Thumbnails</h3>
+      {event.photos.map((photo) => <img key={photo.src} src={photo.thumbnail} />)}
+      <h3>Photos</h3>
       <ReactPhotoGallery photos={event.photos} onClick={openLightbox} columns={4} />
     </div>
   );

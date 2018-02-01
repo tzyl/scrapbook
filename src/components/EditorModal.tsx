@@ -112,24 +112,70 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   }
 
   // TODO: Validate event
-  private handleSubmit = (e: any) => {
+  private handleSubmit = async (e: any) => {
     e.preventDefault();
     const { addEvent, removeEvent, mode } = this.props;
+    const withThumbnails = await this.generateThumbnails(this.state);
     if (mode === EditorMode.add) {
-      addEvent(this.state);
+      addEvent(withThumbnails);
       this.setState(this.createEmptyState());
       ScrapbookToaster.show({
-        message: <span>Added event: <b>{this.state.title}</b></span>,
+        message: <span>Added event: <b>{withThumbnails.title}</b></span>,
         intent: Intent.SUCCESS,
       });
     } else if (mode === EditorMode.edit) {
-      removeEvent(this.state.id);
-      addEvent(this.state);
+      removeEvent(withThumbnails.id);
+      addEvent(withThumbnails);
+      this.setState(withThumbnails);
       ScrapbookToaster.show({
-        message: <span>Edited event: <b>{this.state.title}</b></span>,
+        message: <span>Edited event: <b>{withThumbnails.title}</b></span>,
         intent: Intent.SUCCESS,
       });
     }
+  }
+
+  private generateThumbnails = async (event: IScrapbookEvent): Promise<IScrapbookEvent> => {
+    const thumbnailHeight = 100;
+    const newPhotos = await Promise.all(
+      event.photos.map(async (photo) => this.generateThumbnail(photo, thumbnailHeight)));
+    const withThumbnails: IScrapbookEvent = {
+      ...event,
+      photos: newPhotos,
+    };
+    return withThumbnails;
+  }
+
+  private generateThumbnail = async (photo: IScrapbookPhoto, thumbnailHeight: number): Promise<IScrapbookPhoto> => {
+    if (photo.thumbnail) {
+      return photo;
+    }
+
+    const pica = require("pica")();
+    const from = await this.loadImage(photo.src);
+    const to = document.createElement("canvas");
+    const ratio = thumbnailHeight / photo.height;
+    to.height = photo.height * ratio;
+    to.width = photo.width * ratio;
+
+    const resized: HTMLCanvasElement = await pica.resize(from, to);
+    // const thumbnail = await pica.toBlob(resized, "image/jpeg");
+    const thumbnail = resized.toDataURL();
+
+    const withThumbnail: IScrapbookPhoto = {
+      ...photo,
+      thumbnail,
+    };
+    return withThumbnail;
+  }
+
+  private loadImage = (src: string): Promise<HTMLImageElement> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        resolve(img);
+      };
+      img.src = src;
+    });
   }
 
   private initializeState = () => {

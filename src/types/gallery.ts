@@ -19,3 +19,5 @@ export enum GalleryActionDefinitions {
 export interface IGalleryAction extends IAction {
   type: GalleryActionDefinitions;
 }
+
+export const THUMBNAIL_HEIGHT = 200;

@@ -28,7 +28,7 @@ const Gallery: React.SFC<IGalleryProps> = (props) => {
     <div className="gallery">
       <Button className="modal-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeGallery} />
       <TitleGroup text={event.title} iconName="pt-icon-media" />
-      <ReactPhotoGallery photos={thumbnails} onClick={openLightbox} columns={5} />
+      <ReactPhotoGallery photos={thumbnails} onClick={openLightbox} columns={6} />
     </div>
   );
 };

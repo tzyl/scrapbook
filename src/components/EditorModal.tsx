@@ -7,8 +7,13 @@ import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
+import { THUMBNAIL_HEIGHT } from "../types/gallery";
 import Editor from "./Editor";
 import ScrapbookToaster from "./ScrapbookToaster";
+
+// TODO: Fix ES6 import
+// tslint:disable-next-line:no-var-requires
+const pica = require("pica")();
 
 export interface IEditorModalStateProps {
   editorIsOpen: boolean;
@@ -135,9 +140,8 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   }
 
   private generateThumbnails = async (event: IScrapbookEvent): Promise<IScrapbookEvent> => {
-    const thumbnailHeight = 100;
     const newPhotos = await Promise.all(
-      event.photos.map(async (photo) => this.generateThumbnail(photo, thumbnailHeight)));
+      event.photos.map(async (photo) => this.generateThumbnail(photo, THUMBNAIL_HEIGHT)));
     const withThumbnails: IScrapbookEvent = {
       ...event,
       photos: newPhotos,
@@ -146,12 +150,9 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   }
 
   private generateThumbnail = async (photo: IScrapbookPhoto, thumbnailHeight: number): Promise<IScrapbookPhoto> => {
-    if (photo.thumbnail) {
+    if (photo.thumbnail || photo.height < 500 || photo.width < 500) {
       return photo;
     }
-
-    // TODO: Fix ES6 import
-    const pica = require("pica")();
     const from = await this.loadImage(photo.src);
     const to = document.createElement("canvas");
     const ratio = thumbnailHeight / photo.height;

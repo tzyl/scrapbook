@@ -5,7 +5,7 @@ import { Timeline } from "react-event-timeline";
 import { Alert, Intent } from "@blueprintjs/core";
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent } from "../types/events";
-import ScrapbookToaster from "./ScrapbookToaster";
+import toaster from "../util/toaster";
 import TimelineEntry from "./TimelineEntry";
 
 export interface ITimelinePageStateProps {
@@ -100,7 +100,7 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
     this.setState({
       isDeleteAlertOpen: false,
     });
-    ScrapbookToaster.show({
+    toaster.show({
       message: <span>Deleted event: <b>{event.title}</b></span>,
       intent: Intent.PRIMARY,
     });

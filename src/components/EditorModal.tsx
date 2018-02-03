@@ -8,12 +8,12 @@ import Modal = require("react-modal");
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
 import { THUMBNAIL_HEIGHT } from "../types/gallery";
+import toaster from "../util/toaster";
 import Editor from "./Editor";
-import ScrapbookToaster from "./ScrapbookToaster";
 
 // TODO: Fix ES6 import
 // tslint:disable-next-line:no-var-requires
-const pica = require("pica")();
+const pica = require("pica/dist/pica")();
 
 export interface IEditorModalStateProps {
   editorIsOpen: boolean;
@@ -124,7 +124,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     if (mode === EditorMode.add) {
       addEvent(withThumbnails);
       this.setState(this.createEmptyState());
-      ScrapbookToaster.show({
+      toaster.show({
         message: <span>Added event: <b>{withThumbnails.title}</b></span>,
         intent: Intent.SUCCESS,
       });
@@ -132,7 +132,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
       removeEvent(withThumbnails.id);
       addEvent(withThumbnails);
       this.setState(withThumbnails);
-      ScrapbookToaster.show({
+      toaster.show({
         message: <span>Edited event: <b>{withThumbnails.title}</b></span>,
         intent: Intent.SUCCESS,
       });
@@ -160,7 +160,6 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
     to.width = photo.width * ratio;
 
     const resized: HTMLCanvasElement = await pica.resize(from, to);
-    // const thumbnail = await pica.toBlob(resized, "image/jpeg");
     const thumbnail = resized.toDataURL("image/jpeg");
 
     const withThumbnail: IScrapbookPhoto = {

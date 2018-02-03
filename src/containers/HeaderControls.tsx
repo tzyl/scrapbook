@@ -2,19 +2,19 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import { openEditor, setEditorMode } from "../actions/editor";
-import Header, {
-  IHeaderDispatchProps,
-} from "../components/Header";
+import HeaderControls, {
+  IHeaderControlsDispatchProps,
+} from "../components/HeaderControls";
 import { EditorMode } from "../types/editor";
 import { Dispatch, IStoreState } from "../types/redux";
 
-const mapDispatchToProps = (dispatch: Dispatch): IHeaderDispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch): IHeaderControlsDispatchProps => {
   return {
     openEditor: () => dispatch(openEditor()),
     setEditorMode: (mode: EditorMode) => dispatch(setEditorMode(mode)),
   };
 };
 
-const ConnectedHeader = connect(null, mapDispatchToProps)(Header);
+const ConnectedHeaderControls = connect(null, mapDispatchToProps)(HeaderControls);
 
-export default ConnectedHeader;
+export default ConnectedHeaderControls;

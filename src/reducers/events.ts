@@ -13,8 +13,8 @@ const events = (state = defaultState, action: IAction): IStoreEventsState => {
       return state.filter((event) => event.id !== action.payload.id);
     case WorkerActionDefinitions.UPDATE_THUMBNAILS:
       return state.map((event) => {
-        if (event.id === action.payload.id) {
-          event.photos = action.payload.photos;
+        if (event.id === action.payload.response.id) {
+          event.photos = action.payload.response.photos;
         }
         return event;
       });

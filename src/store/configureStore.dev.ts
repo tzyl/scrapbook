@@ -4,6 +4,7 @@ import { persistState } from "redux-devtools";
 import logger from "redux-logger";
 import { persistReducer, persistStore } from "redux-persist";
 import { PersistConfig } from "redux-persist/es/types";
+import thunk from "redux-thunk";
 
 import rootReducer from "../reducers";
 import DevTools from "../root/DevTools";
@@ -15,7 +16,7 @@ const persistConfig: PersistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const enhancer = compose(
-  applyMiddleware(logger),
+  applyMiddleware(thunk, logger),
   DevTools.instrument(),
   persistState(getDebugSessionKey()),
 );

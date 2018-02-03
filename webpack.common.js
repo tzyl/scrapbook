@@ -20,10 +20,13 @@ module.exports = {
 
     module: {
         rules: [
+            // Core loaders
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             { test: /\.(png|jpg|gif)$/, loader: "url-loader?limit=8192" },
             { test: /\.css$/, use: "style-loader!css-loader" },
+            { test: /\.Worker\.ts$/, use: { loader: 'worker-loader' } },
+            // Assets for blueprint
             {
                 test: /\.(woff|woff2)$/,
                 use: {
@@ -34,7 +37,8 @@ module.exports = {
                         mimetype: 'application/font-woff'
                     }
                 }
-            }, {
+            },
+            {
                 test: /\.(ttf|eot|svg)$/,
                 use: {
                     loader: 'file-loader',

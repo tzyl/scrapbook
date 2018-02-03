@@ -1,3 +1,3 @@
 declare module "node-uuid" {
-  export var v4: any;
+  export const v4: any;
 }

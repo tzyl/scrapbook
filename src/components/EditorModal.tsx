@@ -7,15 +7,9 @@ import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
-import { THUMBNAIL_HEIGHT } from "../types/gallery";
-import { IThumbnailRequestResponse } from "../types/worker";
 import { getPhotos } from "../util/electron";
 import toaster from "../util/toaster";
 import Editor from "./Editor";
-
-// TODO: Fix ES6 import
-// tslint:disable-next-line:no-var-requires
-const pica = require("pica/dist/pica")();
 
 export interface IEditorModalStateProps {
   editorIsOpen: boolean;
@@ -27,7 +21,7 @@ export interface IEditorModalDispatchProps {
   addEvent: (scrapbookEvent: IScrapbookEvent) => any;
   removeEvent: (id: string) => any;
   closeEditor: () => any;
-  // requestThumbnails: (request: IThumbnailRequest) => any;
+  requestThumbnails: (id: string, photos: IScrapbookPhoto[]) => any;
 }
 
 export type IEditorModalProps = & IEditorModalStateProps & IEditorModalDispatchProps;
@@ -117,64 +111,23 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   // TODO: Validate event
   private handleSubmit = async (e: any) => {
     e.preventDefault();
-    const { addEvent, removeEvent, mode } = this.props;
-    const withThumbnails = await this.generateThumbnails(this.state);
+    const { addEvent, removeEvent, requestThumbnails, mode } = this.props;
+    requestThumbnails(this.state.id, this.state.photos);
     if (mode === EditorMode.add) {
-      addEvent(withThumbnails);
+      addEvent(this.state);
       this.setState(this.createEmptyState());
       toaster.show({
-        message: <span>Added event: <b>{withThumbnails.title}</b></span>,
+        message: <span>Added event: <b>{this.state.title}</b></span>,
         intent: Intent.SUCCESS,
       });
     } else if (mode === EditorMode.edit) {
-      removeEvent(withThumbnails.id);
-      addEvent(withThumbnails);
-      this.setState(withThumbnails);
+      removeEvent(this.state.id);
+      addEvent(this.state);
       toaster.show({
-        message: <span>Edited event: <b>{withThumbnails.title}</b></span>,
+        message: <span>Edited event: <b>{this.state.title}</b></span>,
         intent: Intent.SUCCESS,
       });
     }
-  }
-
-  private generateThumbnails = async (event: IScrapbookEvent): Promise<IScrapbookEvent> => {
-    const newPhotos = await Promise.all(
-      event.photos.map(async (photo) => this.generateThumbnail(photo, THUMBNAIL_HEIGHT)));
-    const withThumbnails: IScrapbookEvent = {
-      ...event,
-      photos: newPhotos,
-    };
-    return withThumbnails;
-  }
-
-  private generateThumbnail = async (photo: IScrapbookPhoto, thumbnailHeight: number): Promise<IScrapbookPhoto> => {
-    if (photo.thumbnail || photo.height < 500 || photo.width < 500) {
-      return photo;
-    }
-    const from = await this.loadImage(photo.src);
-    const to = document.createElement("canvas");
-    const ratio = thumbnailHeight / photo.height;
-    to.height = photo.height * ratio;
-    to.width = photo.width * ratio;
-
-    const resized: HTMLCanvasElement = await pica.resize(from, to);
-    const thumbnail = resized.toDataURL("image/jpeg");
-
-    const withThumbnail: IScrapbookPhoto = {
-      ...photo,
-      thumbnail,
-    };
-    return withThumbnail;
-  }
-
-  private loadImage = (src: string): Promise<HTMLImageElement> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        resolve(img);
-      };
-      img.src = src;
-    });
   }
 
   private initializeState = () => {

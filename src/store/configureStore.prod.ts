@@ -2,6 +2,7 @@ import * as localForage from "localforage";
 import { applyMiddleware, compose, createStore } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
 import { PersistConfig } from "redux-persist/es/types";
+import thunk from "redux-thunk";
 
 import rootReducer from "../reducers";
 
@@ -12,7 +13,7 @@ const persistConfig: PersistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const configureStore = () => {
-  const store = createStore(persistedReducer);
+  const store = createStore(persistedReducer, applyMiddleware(thunk));
   const persistor = persistStore(store);
   return { persistor, store };
 };

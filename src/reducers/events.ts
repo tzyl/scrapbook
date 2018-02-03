@@ -1,15 +1,23 @@
 import { mockEvents } from "../mockData";
-import { EventsActionsDefinitions, IScrapbookEvent, IStoreEventsState } from "../types/events";
+import { EventsActionDefinitions, IScrapbookEvent, IStoreEventsState } from "../types/events";
 import { IAction } from "../types/redux";
+import { WorkerActionDefinitions } from "../types/worker";
 
 const defaultState: IStoreEventsState = mockEvents;
 
 const events = (state = defaultState, action: IAction): IStoreEventsState => {
   switch (action.type) {
-    case EventsActionsDefinitions.ADD_EVENT:
+    case EventsActionDefinitions.ADD_EVENT:
       return [...state, action.payload.event].sort(compareEvents);
-    case EventsActionsDefinitions.REMOVE_EVENT:
+    case EventsActionDefinitions.REMOVE_EVENT:
       return state.filter((event) => event.id !== action.payload.id);
+    case WorkerActionDefinitions.UPDATE_THUMBNAILS:
+      return state.map((event) => {
+        if (event.id === action.payload.id) {
+          event.photos = action.payload.photos;
+        }
+        return event;
+      });
     default:
       return state;
   }

@@ -1,8 +1,8 @@
-import { EventsActionsDefinitions, IEventsAction, IScrapbookEvent } from "../types/events";
+import { EventsActionDefinitions, IEventsAction, IScrapbookEvent } from "../types/events";
 
 export const addEvent = (event: IScrapbookEvent): IEventsAction => {
   return {
-    type: EventsActionsDefinitions.ADD_EVENT,
+    type: EventsActionDefinitions.ADD_EVENT,
     payload: {
       event,
     },
@@ -11,7 +11,7 @@ export const addEvent = (event: IScrapbookEvent): IEventsAction => {
 
 export const removeEvent = (id: string): IEventsAction => {
   return {
-    type: EventsActionsDefinitions.REMOVE_EVENT,
+    type: EventsActionDefinitions.REMOVE_EVENT,
     payload: {
       id,
     },

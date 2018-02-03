@@ -3,12 +3,12 @@ import { IScrapbookPhoto } from "../types/events";
 import { Dispatch } from "../types/redux";
 import { IThumbnailRequestResponse, IWorkerAction, WorkerActionDefinitions } from "../types/worker";
 
-export const requestThumbnails = (id: string, photos: IScrapbookPhoto[]) => (dispatch: Dispatch) => {
+export const requestThumbnailsThenUpdate = (id: string, photos: IScrapbookPhoto[]) => (dispatch: Dispatch) => {
   const request: IThumbnailRequestResponse = {
     id,
     photos,
   };
-  dispatch(createThumbnailRequest(request));
+  dispatch(requestThumbnails(request));
   const worker = new ThumbnailWorker();
   console.log(worker);
   worker.onmessage = (event: MessageEvent) => {
@@ -28,7 +28,7 @@ export const updateThumbnails = (response: IThumbnailRequestResponse): IWorkerAc
   };
 };
 
-export const createThumbnailRequest = (request: IThumbnailRequestResponse) => {
+export const requestThumbnails = (request: IThumbnailRequestResponse) => {
   return {
     type: WorkerActionDefinitions.REQUEST_THUMBNAILS,
     payload: {

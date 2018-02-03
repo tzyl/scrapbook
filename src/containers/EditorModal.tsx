@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { closeEditor } from "../actions/editor";
 import { addEvent, removeEvent } from "../actions/events";
-import { requestThumbnails } from "../actions/worker";
+import { requestThumbnailsThenUpdate } from "../actions/worker";
 import EditorModal, {
   IEditorModalDispatchProps,
   IEditorModalStateProps,
@@ -24,7 +24,8 @@ const mapDispatchToProps = (dispatch: Dispatch): IEditorModalDispatchProps => {
     addEvent: (scrapbookEvent: IScrapbookEvent) => dispatch(addEvent(scrapbookEvent)),
     removeEvent: (id: string) => dispatch(removeEvent(id)),
     closeEditor: () => dispatch(closeEditor()),
-    requestThumbnails: (id: string, photos: IScrapbookPhoto[]) => dispatch(requestThumbnails(id, photos)),
+    requestThumbnailsThenUpdate: (id: string, photos: IScrapbookPhoto[]) =>
+      dispatch(requestThumbnailsThenUpdate(id, photos)),
   };
 };
 

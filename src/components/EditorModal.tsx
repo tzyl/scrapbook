@@ -21,7 +21,7 @@ export interface IEditorModalDispatchProps {
   addEvent: (scrapbookEvent: IScrapbookEvent) => any;
   removeEvent: (id: string) => any;
   closeEditor: () => any;
-  requestThumbnails: (id: string, photos: IScrapbookPhoto[]) => any;
+  requestThumbnailsThenUpdate: (id: string, photos: IScrapbookPhoto[]) => any;
 }
 
 export type IEditorModalProps = & IEditorModalStateProps & IEditorModalDispatchProps;
@@ -111,8 +111,8 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   // TODO: Validate event
   private handleSubmit = async (e: any) => {
     e.preventDefault();
-    const { addEvent, removeEvent, requestThumbnails, mode } = this.props;
-    requestThumbnails(this.state.id, this.state.photos);
+    const { addEvent, removeEvent, requestThumbnailsThenUpdate, mode } = this.props;
+    requestThumbnailsThenUpdate(this.state.id, this.state.photos);
     if (mode === EditorMode.add) {
       addEvent(this.state);
       this.setState(this.createEmptyState());

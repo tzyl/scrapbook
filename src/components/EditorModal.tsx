@@ -8,6 +8,8 @@ import Modal = require("react-modal");
 import { EditorMode } from "../types/editor";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
 import { THUMBNAIL_HEIGHT } from "../types/gallery";
+import { IThumbnailRequestResponse } from "../types/worker";
+import { getPhotos } from "../util/electron";
 import toaster from "../util/toaster";
 import Editor from "./Editor";
 
@@ -25,13 +27,10 @@ export interface IEditorModalDispatchProps {
   addEvent: (scrapbookEvent: IScrapbookEvent) => any;
   removeEvent: (id: string) => any;
   closeEditor: () => any;
+  // requestThumbnails: (request: IThumbnailRequest) => any;
 }
 
-export interface IEditorModalOwnProps {
-  getPhotos: () => Promise<IScrapbookPhoto[]>;
-}
-
-export type IEditorModalProps = IEditorModalOwnProps & IEditorModalStateProps & IEditorModalDispatchProps;
+export type IEditorModalProps = & IEditorModalStateProps & IEditorModalDispatchProps;
 
 export type IEditorModalState = IScrapbookEvent;
 
@@ -78,8 +77,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   }
 
   private handleGetPhotos = () => {
-   const { getPhotos } = this.props;
-   getPhotos().then((photos) => {
+   getPhotos().then((photos: IScrapbookPhoto[]) => {
     this.setState({
       photos: this.state.photos.concat(photos),
     });

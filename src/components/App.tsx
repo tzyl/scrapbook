@@ -8,9 +8,6 @@ import ConnectedGalleryModal from "../containers/GalleryModal";
 import ConnectedTimelinePage from "../containers/TimelinePage";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
 
-import { remote } from "electron";
-const getPhotos = remote.getGlobal("getPhotos");
-
 Modal.setAppElement("#root");
 
 const App: React.SFC<{}> = (props) => {
@@ -19,7 +16,7 @@ const App: React.SFC<{}> = (props) => {
       <Header />
       <ConnectedTimelinePage />
       <ConnectedGalleryModal />
-      <ConnectedEditorModal getPhotos={getPhotos} />
+      <ConnectedEditorModal />
     </div>
   );
 };

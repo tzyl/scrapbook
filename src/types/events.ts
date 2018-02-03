@@ -15,11 +15,11 @@ export interface IScrapbookEvent {
 
 export type IScrapbookPhoto = IPhotoProps & ILightboxPhoto;
 
-export enum EventsActionsDefinitions {
+export enum EventsActionDefinitions {
   ADD_EVENT = "ADD_EVENT",
   REMOVE_EVENT = "REMOVE_EVENT",
 }
 
 export interface IEventsAction extends IAction {
-  type: EventsActionsDefinitions;
+  type: EventsActionDefinitions;
 }

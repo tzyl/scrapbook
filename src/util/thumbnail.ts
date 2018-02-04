@@ -6,8 +6,10 @@ const pica = require("pica/dist/pica")();
 const THUMBNAIL_HEIGHT = 200;
 
 const generateThumbnails = async (photos: IScrapbookPhoto[]): Promise<IScrapbookPhoto[]> => {
-  const withThumbnails = await Promise.all(
-    photos.map(async (photo) => generateThumbnail(photo, THUMBNAIL_HEIGHT)));
+  const withThumbnails: IScrapbookPhoto[] = [];
+  for (const photo of photos) {
+    withThumbnails.push(await generateThumbnail(photo, THUMBNAIL_HEIGHT));
+  }
   return withThumbnails;
 };
 

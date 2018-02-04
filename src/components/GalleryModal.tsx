@@ -8,7 +8,7 @@ import { IScrapbookEvent } from "../types/events";
 import Gallery from "./Gallery";
 
 export interface IGalleryModalStateProps {
-  event: IScrapbookEvent;
+  selectedEvent: IScrapbookEvent;
   galleryIsOpen: boolean;
   lightboxIsOpen: boolean;
   currentImage: number;
@@ -25,7 +25,7 @@ export interface IGalleryModalDispatchProps {
 export type IGalleryModalProps = IGalleryModalStateProps & IGalleryModalDispatchProps;
 
 const GalleryModal: React.SFC<IGalleryModalProps> = ({
-  event,
+  selectedEvent,
   galleryIsOpen,
   lightboxIsOpen,
   currentImage,
@@ -35,6 +35,9 @@ const GalleryModal: React.SFC<IGalleryModalProps> = ({
   gotoPrevious,
   gotoNext,
 }) => {
+  if (!selectedEvent) {
+    return null;
+  }
   const modalStyles = {overlay: {zIndex: 10}};
   return (
     <Modal
@@ -44,12 +47,12 @@ const GalleryModal: React.SFC<IGalleryModalProps> = ({
       style={modalStyles}
     >
         <Gallery
-          event={event}
+          event={selectedEvent}
           openLightbox={openLightbox}
           closeGallery={closeGallery}
         />
         <Lightbox
-          images={event.photos}
+          images={selectedEvent.photos}
           onClose={closeLightbox}
           onClickPrev={gotoPrevious}
           onClickNext={gotoNext}

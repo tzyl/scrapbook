@@ -112,7 +112,6 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   private handleSubmit = async (e: any) => {
     e.preventDefault();
     const { addEvent, removeEvent, requestThumbnailsThenUpdate, mode } = this.props;
-    requestThumbnailsThenUpdate(this.state.id, this.state.photos);
     if (mode === EditorMode.add) {
       addEvent(this.state);
       this.setState(this.createEmptyState());
@@ -127,6 +126,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         message: <span>Edited event: <b>{this.state.title}</b></span>,
         intent: Intent.SUCCESS,
       });
+      requestThumbnailsThenUpdate(this.state.id, this.state.photos);
     }
   }
 

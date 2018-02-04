@@ -3,10 +3,16 @@ import { connect } from "react-redux";
 
 import { openEditor, setEditorMode } from "../actions/editor";
 import HeaderControls, {
-  IHeaderControlsDispatchProps,
+  IHeaderControlsDispatchProps, IHeaderControlsStateProps,
 } from "../components/HeaderControls";
 import { EditorMode } from "../types/editor";
 import { Dispatch, IStoreState } from "../types/redux";
+
+const mapStateToProps = (state: IStoreState): IHeaderControlsStateProps => {
+  return {
+    isGeneratingThumbnails: state.worker.requests.length > 0,
+  };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch): IHeaderControlsDispatchProps => {
   return {
@@ -15,6 +21,6 @@ const mapDispatchToProps = (dispatch: Dispatch): IHeaderControlsDispatchProps =>
   };
 };
 
-const ConnectedHeaderControls = connect(null, mapDispatchToProps)(HeaderControls);
+const ConnectedHeaderControls = connect(mapStateToProps, mapDispatchToProps)(HeaderControls);
 
 export default ConnectedHeaderControls;

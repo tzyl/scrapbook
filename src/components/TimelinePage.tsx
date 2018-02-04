@@ -46,7 +46,7 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
           onCancel={this.handleCancelDelete}
           onConfirm={this.handleConfirmDelete(selectedEvent)}
         >
-          <p>Are you sure you want to delete the event <b>{selectedEvent.title}</b>?</p>
+          <p>Are you sure you want to delete the event <b>{selectedEvent && selectedEvent.title}</b>?</p>
         </Alert>
       </div>
     );

@@ -10,12 +10,12 @@ const worker = (state = defaultState, action: IAction): IStoreWorkerState => {
     case WorkerActionDefinitions.REQUEST_THUMBNAILS:
       return {
         ...state,
-        requests: [...state.requests, action.payload.request.id],
+        requests: [...state.requests, action.payload.id],
       };
-    case WorkerActionDefinitions.UPDATE_THUMBNAILS:
+    case WorkerActionDefinitions.RECEIVE_THUMBNAILS:
       return {
         ...state,
-        requests: state.requests.filter((id) => id !== action.payload.request.id),
+        requests: state.requests.filter((id) => id !== action.payload.id),
       };
     default:
       return state;

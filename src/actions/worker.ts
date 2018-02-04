@@ -1,38 +1,29 @@
-import ThumbnailWorker = require("worker-loader!../util/ThumbnailWorker");
 import { IScrapbookPhoto } from "../types/events";
 import { Dispatch } from "../types/redux";
-import { IThumbnailRequestResponse, IWorkerAction, WorkerActionDefinitions } from "../types/worker";
+import { IWorkerAction, WorkerActionDefinitions } from "../types/worker";
+import generateThumbnails from "../util/thumbnail";
 
-export const requestThumbnailsThenUpdate = (id: string, photos: IScrapbookPhoto[]) => (dispatch: Dispatch) => {
-  const request: IThumbnailRequestResponse = {
-    id,
-    photos,
-  };
-  dispatch(requestThumbnails(request));
-  const worker = new ThumbnailWorker();
-  console.log(worker);
-  worker.onmessage = (event: MessageEvent) => {
-    console.log(event);
-    dispatch(updateThumbnails(event.data));
-    worker.terminate();
-  };
-  worker.postMessage(request);
+export const requestThumbnailsThenUpdate = (id: string, photos: IScrapbookPhoto[]) => async (dispatch: Dispatch) => {
+  dispatch(requestThumbnails(id));
+  const withThumbnails = await generateThumbnails(photos);
+  dispatch(receiveThumbnails(id, withThumbnails));
 };
 
-export const updateThumbnails = (response: IThumbnailRequestResponse): IWorkerAction => {
+export const requestThumbnails = (id: string) => {
   return {
     type: WorkerActionDefinitions.REQUEST_THUMBNAILS,
     payload: {
-      response,
+      id,
     },
   };
 };
 
-export const requestThumbnails = (request: IThumbnailRequestResponse) => {
+export const receiveThumbnails = (id: string, photos: IScrapbookPhoto[]): IWorkerAction => {
   return {
-    type: WorkerActionDefinitions.REQUEST_THUMBNAILS,
+    type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
     payload: {
-      request,
+      id,
+      photos,
     },
   };
 };

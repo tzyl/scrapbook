@@ -25,7 +25,6 @@ module.exports = {
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             { test: /\.(png|jpg|gif)$/, loader: "url-loader?limit=8192" },
             { test: /\.css$/, use: "style-loader!css-loader" },
-            { test: /\.Worker\.ts$/, use: { loader: 'worker-loader' } },
             // Assets for blueprint
             {
                 test: /\.(woff|woff2)$/,

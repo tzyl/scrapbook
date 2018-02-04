@@ -11,10 +11,10 @@ const events = (state = defaultState, action: IAction): IStoreEventsState => {
       return [...state, action.payload.event].sort(compareEvents);
     case EventsActionDefinitions.REMOVE_EVENT:
       return state.filter((event) => event.id !== action.payload.id);
-    case WorkerActionDefinitions.UPDATE_THUMBNAILS:
+    case WorkerActionDefinitions.RECEIVE_THUMBNAILS:
       return state.map((event) => {
-        if (event.id === action.payload.response.id) {
-          event.photos = action.payload.response.photos;
+        if (event.id === action.payload.id) {
+          event.photos = action.payload.photos;
         }
         return event;
       });

@@ -126,8 +126,8 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         message: <span>Edited event: <b>{this.state.title}</b></span>,
         intent: Intent.SUCCESS,
       });
-      requestThumbnailsThenUpdate(this.state.id, this.state.photos);
     }
+    requestThumbnailsThenUpdate(this.state.id, this.state.photos);
   }
 
   private initializeState = () => {

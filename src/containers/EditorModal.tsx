@@ -5,13 +5,13 @@ import { closeEditor } from "../actions/editor";
 import { addEvent, removeEvent } from "../actions/events";
 import { requestThumbnailsThenUpdate } from "../actions/worker";
 import EditorModal, {
-  IEditorModalDispatchProps,
-  IEditorModalStateProps,
+  IDispatchProps,
+  IStateProps,
 } from "../components/EditorModal";
 import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
 import { Dispatch, IStoreState } from "../types/redux";
 
-const mapStateToProps = (state: IStoreState): IEditorModalStateProps => {
+const mapStateToProps = (state: IStoreState): IStateProps => {
   return {
     editorIsOpen: state.editor.editorIsOpen,
     mode: state.editor.mode,
@@ -19,7 +19,7 @@ const mapStateToProps = (state: IStoreState): IEditorModalStateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): IEditorModalDispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
   return {
     addEvent: (scrapbookEvent: IScrapbookEvent) => dispatch(addEvent(scrapbookEvent)),
     removeEvent: (id: string) => dispatch(removeEvent(id)),

@@ -7,13 +7,13 @@ import ReactPhotoGallery from "react-photo-gallery";
 import { IScrapbookEvent } from "../types/events";
 import TitleGroup from "./TitleGroup";
 
-export interface IGalleryOwnProps {
+export interface IOwnProps {
   event: IScrapbookEvent;
   openLightbox: (e: any, photoObject: IPhotoObject) => any;
   closeGallery: () => any;
 }
 
-export type IGalleryProps = IGalleryOwnProps;
+export type IGalleryProps = IOwnProps;
 
 // TODO: Custom ImageComponent for Gallery which shows thumbnail rather than main image
 const Gallery: React.SFC<IGalleryProps> = (props) => {

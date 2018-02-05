@@ -11,20 +11,20 @@ import { getPhotos } from "../util/electron";
 import toaster from "../util/toaster";
 import Editor from "./Editor";
 
-export interface IEditorModalStateProps {
+export interface IStateProps {
   editorIsOpen: boolean;
   mode: EditorMode;
   selectedEvent: IScrapbookEvent;
 }
 
-export interface IEditorModalDispatchProps {
+export interface IDispatchProps {
   addEvent: (scrapbookEvent: IScrapbookEvent) => any;
   removeEvent: (id: string) => any;
   closeEditor: () => any;
   requestThumbnailsThenUpdate: (id: string, photos: IScrapbookPhoto[]) => any;
 }
 
-export type IEditorModalProps = & IEditorModalStateProps & IEditorModalDispatchProps;
+export type IEditorModalProps = & IStateProps & IDispatchProps;
 
 export type IEditorModalState = IScrapbookEvent;
 

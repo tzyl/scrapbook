@@ -7,14 +7,14 @@ import { IPhotoObject } from "react-photo-gallery";
 import { IScrapbookEvent } from "../types/events";
 import Gallery from "./Gallery";
 
-export interface IGalleryModalStateProps {
+export interface IStateProps {
   selectedEvent: IScrapbookEvent;
   galleryIsOpen: boolean;
   lightboxIsOpen: boolean;
   currentImage: number;
 }
 
-export interface IGalleryModalDispatchProps {
+export interface IDispatchProps {
   closeGallery: () => any;
   openLightbox: (e: any, photoObject: IPhotoObject) => any;
   closeLightbox: () => any;
@@ -22,7 +22,7 @@ export interface IGalleryModalDispatchProps {
   gotoNext: () => any;
 }
 
-export type IGalleryModalProps = IGalleryModalStateProps & IGalleryModalDispatchProps;
+export type IGalleryModalProps = IStateProps & IDispatchProps;
 
 const GalleryModal: React.SFC<IGalleryModalProps> = ({
   selectedEvent,

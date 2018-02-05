@@ -8,7 +8,7 @@ import { EditorMode } from "../types/editor";
 import { IScrapbookEvent } from "../types/events";
 import TitleGroup from "./TitleGroup";
 
-export interface IEditorOwnProps {
+export interface IOwnProps {
   mode: EditorMode;
   event: IScrapbookEvent;
   closeEditor: () => any;
@@ -21,7 +21,7 @@ export interface IEditorOwnProps {
   handleSubmit: (e: any) => any;
 }
 
-export type IEditorProps = IEditorOwnProps;
+export type IEditorProps = IOwnProps;
 
 export default class Editor extends React.Component<IEditorProps> {
   public render() {

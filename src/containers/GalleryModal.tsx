@@ -11,12 +11,12 @@ import {
   selectPreviousPhoto,
 } from "../actions/gallery";
 import GalleryModal, {
-  IGalleryModalDispatchProps,
-  IGalleryModalStateProps,
+  IDispatchProps,
+  IStateProps,
 } from "../components/GalleryModal";
 import { Dispatch, IStoreState } from "../types/redux";
 
-const mapStateToProps = (state: IStoreState): IGalleryModalStateProps => {
+const mapStateToProps = (state: IStoreState): IStateProps => {
   return {
     selectedEvent: state.timeline.selectedEvent,
     galleryIsOpen: state.gallery.galleryIsOpen,
@@ -25,7 +25,7 @@ const mapStateToProps = (state: IStoreState): IGalleryModalStateProps => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): IGalleryModalDispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
   return {
     closeGallery: () => dispatch(closeGallery()),
     closeLightbox: () => dispatch(closeLightbox()),

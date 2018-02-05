@@ -5,16 +5,16 @@ import { Button } from "@blueprintjs/core";
 import { EditorMode } from "../types/editor";
 import LoadingSpinner from "./LoadingSpinner";
 
-export interface IHeaderControlsStateProps {
+export interface IStateProps {
   isGeneratingThumbnails: boolean;
 }
 
-export interface IHeaderControlsDispatchProps {
+export interface IDispatchProps {
   openEditor: () => any;
   setEditorMode: (mode: EditorMode) => any;
 }
 
-export type IHeaderControlsProps = IHeaderControlsStateProps & IHeaderControlsDispatchProps;
+export type IHeaderControlsProps = IStateProps & IDispatchProps;
 
 const HeaderControls: React.SFC<IHeaderControlsProps> = ({
   openEditor,

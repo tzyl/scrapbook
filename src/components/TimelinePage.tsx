@@ -8,12 +8,12 @@ import { IScrapbookEvent } from "../types/events";
 import toaster from "../util/toaster";
 import TimelineEntry from "./TimelineEntry";
 
-export interface ITimelinePageStateProps {
+export interface IStateProps {
   events: IScrapbookEvent[];
   selectedEvent: IScrapbookEvent;
 }
 
-export interface ITimelinePageDispatchProps {
+export interface IDispatchProps {
   selectEvent: (scrapbookEvent: IScrapbookEvent) => any;
   removeEvent: (id: string) => any;
   openGallery: () => any;
@@ -21,7 +21,7 @@ export interface ITimelinePageDispatchProps {
   setEditorMode: (mode: EditorMode) => any;
 }
 
-export type ITimelinePageProps = ITimelinePageStateProps & ITimelinePageDispatchProps;
+export type ITimelinePageProps = IStateProps & IDispatchProps;
 
 export interface ITimelinePageState {
   isDeleteAlertOpen: boolean;

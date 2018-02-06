@@ -7,6 +7,7 @@ export const mockEvents: IScrapbookEvent[] = [
     id: "123",
     title: "John Doe sent a SMS",
     createdAt: "2016-01-01",
+    icon: ":speech_balloon:",
     subtitle: "Test subtitle",
     description: "Description for album 1",
     photos: [
@@ -25,6 +26,7 @@ export const mockEvents: IScrapbookEvent[] = [
     id: "456",
     title: "You sent an email to John Doe",
     createdAt: "2016-09-11 09:06 AM",
+    icon: ":email:",
     description: "Description for album 2",
     photos: [
       { src: require("../public/album2/1.jpg"), width: 1, height: 1 },

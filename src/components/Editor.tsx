@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import { Button, FormGroup, TextArea } from "@blueprintjs/core";
+import { Button, FormGroup, Popover, Position, TextArea } from "@blueprintjs/core";
 import { DateInput } from "@blueprintjs/datetime";
+import { Emoji, Picker, EmojiData } from "emoji-mart";
 import * as moment from "moment";
 
 import { EditorMode } from "../types/editor";
@@ -14,6 +15,7 @@ export interface IOwnProps {
   closeEditor: () => any;
   handleChange: (e: any) => any;
   handleDateChange: (e: any) => any;
+  handleEmojiChange: (emoji: EmojiData, e: React.MouseEvent<HTMLElement>) => void;
   handleGetPhotos: () => any;
   handleAddPhoto: () => any;
   handleRemovePhoto: (sindex: number) => (e: any) => any;
@@ -30,6 +32,7 @@ export default class Editor extends React.Component<IEditorProps> {
       closeEditor,
       handleChange,
       handleDateChange,
+      handleEmojiChange,
       handleSubmit,
     } = this.props;
     return (
@@ -60,6 +63,17 @@ export default class Editor extends React.Component<IEditorProps> {
             onChange={handleDateChange}
             value={moment(event.createdAt).toDate()}
           />
+        </FormGroup>
+        <FormGroup
+          className="emoji-picker-group"
+          label="Icon"
+          labelFor="icon-input"
+          inline={true}
+        >
+          <Popover inline={true} position={Position.RIGHT}>
+            <Button><Emoji emoji={event.icon} size={18} /></Button>
+            <Picker onClick={handleEmojiChange} custom={[]} />
+          </Popover>
         </FormGroup>
         <FormGroup
           label="Subtitle"

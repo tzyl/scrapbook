@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { Intent } from "@blueprintjs/core";
+import { EmojiData } from "emoji-mart";
 import * as moment from "moment";
 import { v4 } from "node-uuid";
 import Modal = require("react-modal");
@@ -48,6 +49,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
           closeEditor={closeEditor}
           handleChange={this.handleChange}
           handleDateChange={this.handleDateChange}
+          handleEmojiChange={this.handleEmojiChange}
           handleGetPhotos={this.handleGetPhotos}
           handleAddPhoto={this.handleAddPhoto}
           handleRemovePhoto={this.handleRemovePhoto}
@@ -67,6 +69,12 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   private handleDateChange = (selectedDate: Date) => {
     this.setState({
       createdAt: moment(selectedDate).format("YYYY-MM-DD"),
+    });
+  }
+
+  private handleEmojiChange = (emoji: EmojiData, e: React.MouseEvent<HTMLElement>): void => {
+    this.setState({
+      icon: emoji.colons,
     });
   }
 
@@ -144,6 +152,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
       id: v4(),
       title: "",
       createdAt: moment().format("YYYY-MM-DD"),
+      icon: ":rocket:",
       subtitle: "",
       description: "",
       photos: [],

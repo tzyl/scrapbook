@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { Button } from "@blueprintjs/core";
+import { Emoji } from "emoji-mart";
 import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
 
 import { IScrapbookEvent } from "../types/events";
@@ -21,8 +22,7 @@ export default class TimelineEntry extends React.Component<ITimelineEntryProps> 
           title={event.title}
           subtitle={event.subtitle}
           createdAt={event.createdAt}
-          icon={<i className="material-icons md-18">photo</i>}
-          iconColor={"#03a9f4"}
+          icon={<Emoji emoji={event.icon} size={18} />}
           buttons={this.renderButtons()}
         >
           {event.description}

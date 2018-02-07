@@ -1,6 +1,6 @@
 {
   "name": "scrapbook",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "scrapbook is a web app to store and browse your best memories.",
   "main": "./dist/main.js",
   "scripts": {
@@ -56,7 +56,8 @@
     "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",
     "css-loader": "^0.28.7",
-    "electron": "^1.8.2-beta.3",
+    "electron": "^1.8.2",
+    "electron-packager": "^11.0.0",
     "electron-react-devtools": "^0.5.3",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",

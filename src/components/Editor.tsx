@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { Button, FormGroup, Popover, Position, TextArea } from "@blueprintjs/core";
 import { DateInput } from "@blueprintjs/datetime";
-import { Emoji, Picker, EmojiData } from "emoji-mart";
+import { Emoji, EmojiData, Picker } from "emoji-mart";
 import * as moment from "moment";
 
 import { EditorMode } from "../types/editor";

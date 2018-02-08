@@ -6,7 +6,7 @@ declare module "react-photo-gallery" {
     columns?: number;
     onClick?: (e: any, photoObject: IPhotoObject) => any;
     margin?: number;
-    ImageComponent?: JSX.Element;
+    ImageComponent?: React.ReactNode;
   }
 
   export interface IPhotoProps {

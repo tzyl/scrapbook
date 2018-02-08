@@ -5,6 +5,7 @@ import { IPhotoObject } from "react-photo-gallery";
 import ReactPhotoGallery from "react-photo-gallery";
 
 import { IScrapbookEvent } from "../types/events";
+import Thumbnail from "./Thumbnail";
 import TitleGroup from "./TitleGroup";
 
 export interface IOwnProps {
@@ -15,20 +16,13 @@ export interface IOwnProps {
 
 export type IGalleryProps = IOwnProps;
 
-// TODO: Custom ImageComponent for Gallery which shows thumbnail rather than main image
 const Gallery: React.SFC<IGalleryProps> = (props) => {
   const { event, openLightbox, closeGallery } = props;
-  const thumbnails = event.photos.map((photo) => {
-    return {
-      ...photo,
-      src: photo.thumbnail || photo.src,
-    };
-  });
   return (
     <div className="gallery">
       <Button className="modal-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeGallery} />
       <TitleGroup text={event.title} iconName="pt-icon-media" />
-      <ReactPhotoGallery photos={thumbnails} onClick={openLightbox} columns={6} />
+      <ReactPhotoGallery ImageComponent={Thumbnail} photos={event.photos} onClick={openLightbox} columns={6} />
     </div>
   );
 };

@@ -17,31 +17,29 @@ const Thumbnail: React.SFC<IThumbnailProps> = ({
   index,
   onClick,
 }) => {
-  if (!photo.thumbnail) {
-    return (
-      <div className="pt-card">
-        <h5 className="pt-skeleton">Card heading</h5>
-        <p className="pt-skeleton">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget tortor felis.
-          Fusce dapibus metus in dapibus mollis. Quisque eget ex diam.
-        </p>
-        <p className="pt-skeleton">Lorem ipsum dolor</p>
-      </div>
-    );
-  }
-
   const handleClick = () => {
     onClick(event, { photo, index });
   };
-  const imgWithClick = { cursor: "pointer" };
-  const imgStyle = { display: "block", float: "left", margin };
+  const imgStyle = { display: "block", float: "left", margin, cursor: "pointer" };
+  if (!photo.thumbnail) {
+    return (
+      <div
+        className="thumbnail-loading"
+        style={{ ...imgStyle, width: photo.width, height: photo.height }}
+        onClick={handleClick}
+      >
+        <h5 className="pt-skeleton">Image</h5>
+        <div className="pt-skeleton" style={{ height: "50%" }}/>
+      </div>
+    );
+  }
   return (
     <img
-      style={onClick ? { ...imgStyle, ...imgWithClick } : imgStyle}
+      style={imgStyle}
       src={photo.thumbnail}
       width={photo.width}
       height={photo.height}
-      onClick={onClick ? handleClick : null}
+      onClick={handleClick}
     />
   );
 };

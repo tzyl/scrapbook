@@ -15,7 +15,10 @@ const generateThumbnails = async (photos: IScrapbookPhoto[]): Promise<IScrapbook
 
 const generateThumbnail = async (photo: IScrapbookPhoto, thumbnailHeight: number): Promise<IScrapbookPhoto> => {
   if (photo.thumbnail || photo.height < 500 || photo.width < 500) {
-    return photo;
+    return {
+      ...photo,
+      thumbnail: photo.thumbnail || photo.src,
+    };
   }
   const from = await loadImage(photo.src);
   const to = document.createElement("canvas");

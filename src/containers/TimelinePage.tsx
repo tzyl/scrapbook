@@ -1,9 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import { IPhotoObject } from "react-photo-gallery";
+
 import { openEditor, setEditorMode } from "../actions/editor";
 import { removeEvent } from "../actions/events";
-import { openGallery } from "../actions/gallery";
+import { openGallery, openLightbox, selectPhoto } from "../actions/gallery";
 import { selectEvent } from "../actions/timeline";
 import TimelinePage, {
   IDispatchProps,
@@ -28,6 +30,10 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
     openEditor: () => dispatch(openEditor()),
     setEditorMode: (mode: EditorMode) => dispatch(setEditorMode(mode)),
     removeEvent: (id: string) => dispatch(removeEvent(id)),
+    openLightbox: (e: any, photoObject: IPhotoObject) => {
+      dispatch(selectPhoto(photoObject.index));
+      dispatch(openLightbox());
+    },
   };
 };
 

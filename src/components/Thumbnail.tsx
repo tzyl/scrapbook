@@ -17,15 +17,24 @@ const Thumbnail: React.SFC<IThumbnailProps> = ({
   index,
   onClick,
 }) => {
-  const handleClick = () => {
+  const handleClick = (e: any) => {
     onClick(event, { photo, index });
   };
-  const imgStyle = { display: "block", float: "left", margin, cursor: "pointer" };
+  const maxHeight = 150;
+  const dimensions = { width: photo.width, height: photo.height };
+  const imgStyle = {
+    display: "block",
+    float: "left",
+    margin,
+    cursor: "pointer",
+    maxWidth: maxHeight * photo.width / photo.height,
+    maxHeight,
+  };
   if (!photo.thumbnail) {
     return (
       <div
-        className="thumbnail-loading"
-        style={{ ...imgStyle, width: photo.width, height: photo.height }}
+        style={{ ...imgStyle, ...dimensions }}
+        className="thumbnail thumbnail-loading"
         onClick={handleClick}
       >
         <h5 className="pt-skeleton">Image</h5>
@@ -36,6 +45,7 @@ const Thumbnail: React.SFC<IThumbnailProps> = ({
   return (
     <img
       style={imgStyle}
+      className="thumbnail"
       src={photo.thumbnail}
       width={photo.width}
       height={photo.height}

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { Timeline } from "react-event-timeline";
+import { IPhotoObject } from "react-photo-gallery";
 
 import { Alert, Intent } from "@blueprintjs/core";
 import { EditorMode } from "../types/editor";
@@ -19,6 +20,7 @@ export interface IDispatchProps {
   openGallery: () => any;
   openEditor: () => any;
   setEditorMode: (mode: EditorMode) => any;
+  openLightbox: (e: any, photoObject: IPhotoObject) => any;
 }
 
 export type ITimelinePageProps = IStateProps & IDispatchProps;
@@ -53,7 +55,7 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
   }
 
   private renderTimelineEvents() {
-    const { events } = this.props;
+    const { events, openLightbox } = this.props;
     return events.map((event) => (
       <TimelineEntry
         key={event.id}
@@ -61,6 +63,7 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
         handleOpenEvent={this.handleOpenEvent(event)}
         handleOpenEditorEdit={this.handleOpenEditorEdit(event)}
         handleOpenDelete={this.handleOpenDelete(event)}
+        openLightbox={openLightbox}
       />
     ));
   }

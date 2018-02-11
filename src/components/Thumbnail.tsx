@@ -20,7 +20,7 @@ const Thumbnail: React.SFC<IThumbnailProps> = ({
   const handleClick = (e: any) => {
     onClick(event, { photo, index });
   };
-  const maxHeight = 150;
+  const maxHeight = 200;
   const dimensions = { width: photo.width, height: photo.height };
   const imgStyle = {
     display: "block",

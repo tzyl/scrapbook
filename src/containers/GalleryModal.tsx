@@ -31,8 +31,8 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
     closeLightbox: () => dispatch(closeLightbox()),
     gotoNext: () => dispatch(selectNextPhoto()),
     gotoPrevious: () => dispatch(selectPreviousPhoto()),
-    openLightbox: (e: any, photoObject: IPhotoObject) => {
-      dispatch(selectPhoto(photoObject.index));
+    openLightbox: (index: number) => {
+      dispatch(selectPhoto(index));
       dispatch(openLightbox());
     },
   };

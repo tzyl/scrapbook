@@ -2,7 +2,6 @@ import * as React from "react";
 
 import Lightbox from "react-images";
 import Modal = require("react-modal");
-import { IPhotoObject } from "react-photo-gallery";
 
 import { IScrapbookEvent } from "../types/events";
 import Gallery from "./Gallery";
@@ -16,7 +15,7 @@ export interface IStateProps {
 
 export interface IDispatchProps {
   closeGallery: () => any;
-  openLightbox: (e: any, photoObject: IPhotoObject) => any;
+  openLightbox: (index: number) => any;
   closeLightbox: () => any;
   gotoPrevious: () => any;
   gotoNext: () => any;

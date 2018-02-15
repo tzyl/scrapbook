@@ -6,12 +6,13 @@ import { IPhotoObject } from "react-photo-gallery";
 import ReactPhotoGallery from "react-photo-gallery";
 
 import { IScrapbookEvent } from "../types/events";
+import GalleryRowContainer from "./GalleryRowContainer";
 import Thumbnail from "./Thumbnail";
 import TitleGroup from "./TitleGroup";
 
 export interface IOwnProps {
   event: IScrapbookEvent;
-  openLightbox: (e: any, photoObject: IPhotoObject) => any;
+  openLightbox: (index: number) => any;
   closeGallery: () => any;
 }
 
@@ -44,13 +45,7 @@ export default class Gallery extends React.Component<IGalleryProps, IGalleryStat
       <div className="gallery" ref={measureRef}>
         <Button className="modal-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeGallery} />
         <TitleGroup text={event.title} iconName="pt-icon-media" />
-        <ReactPhotoGallery
-          ImageComponent={Thumbnail}
-          photos={event.photos}
-          onClick={openLightbox}
-          margin={2}
-          columns={6}
-        />
+        <GalleryRowContainer photos={event.photos} width={width} openLightbox={openLightbox} />
       </div>
     );
   }

@@ -20,7 +20,7 @@ export interface IDispatchProps {
   openGallery: () => any;
   openEditor: () => any;
   setEditorMode: (mode: EditorMode) => any;
-  openLightbox: (e: any, photoObject: IPhotoObject) => any;
+  openLightbox: (index: number) => any;
 }
 
 export type ITimelinePageProps = IStateProps & IDispatchProps;

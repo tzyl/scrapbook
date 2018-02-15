@@ -30,8 +30,8 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
     openEditor: () => dispatch(openEditor()),
     setEditorMode: (mode: EditorMode) => dispatch(setEditorMode(mode)),
     removeEvent: (id: string) => dispatch(removeEvent(id)),
-    openLightbox: (e: any, photoObject: IPhotoObject) => {
-      dispatch(selectPhoto(photoObject.index));
+    openLightbox: (index: number) => {
+      dispatch(selectPhoto(index));
       dispatch(openLightbox());
     },
   };

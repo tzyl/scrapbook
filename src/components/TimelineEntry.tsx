@@ -3,9 +3,9 @@ import * as React from "react";
 import { Button } from "@blueprintjs/core";
 import { Emoji } from "emoji-mart";
 import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
-import ReactPhotoGallery, { IPhotoObject } from "react-photo-gallery";
 
 import { IScrapbookEvent } from "../types/events";
+import GalleryRowContainer from "./GalleryRowContainer";
 import Thumbnail from "./Thumbnail";
 
 export interface ITimelineEntryProps {
@@ -13,7 +13,7 @@ export interface ITimelineEntryProps {
   handleOpenEvent: (e: any) => any;
   handleOpenEditorEdit: (e: any) => any;
   handleOpenDelete: (e: any) => any;
-  openLightbox: (e: any, photoObject: IPhotoObject) => any;
+  openLightbox: (index: number) => any;
 }
 
 export default class TimelineEntry extends React.Component<ITimelineEntryProps> {
@@ -29,13 +29,7 @@ export default class TimelineEntry extends React.Component<ITimelineEntryProps> 
           buttons={this.renderButtons()}
         >
           {event.description}
-          <ReactPhotoGallery
-            ImageComponent={Thumbnail}
-            photos={event.photos.slice(0, 3)}
-            onClick={openLightbox}
-            margin={2}
-            columns={6}
-          />
+          <GalleryRowContainer photos={event.photos.slice(0, 3)} width={800} openLightbox={openLightbox} />
         </TimelineEvent>
       </div>
     );

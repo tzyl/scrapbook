@@ -29,7 +29,7 @@ export default class TimelineEntry extends React.Component<ITimelineEntryProps> 
           buttons={this.renderButtons()}
         >
           {event.description}
-          <GalleryRowContainer photos={event.photos.slice(0, 3)} width={800} openLightbox={openLightbox} />
+          <GalleryRowContainer photos={event.photos.slice(0, 3)} openLightbox={openLightbox} />
         </TimelineEvent>
       </div>
     );

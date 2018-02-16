@@ -1,20 +1,43 @@
 import * as React from "react";
 
+import Measure, { ContentRect, MeasuredComponentProps } from "react-measure";
+
 import { IScrapbookPhoto } from "../types/events";
 import GalleryRow from "./GalleryRow";
 
 export interface IOwnProps {
   photos: IScrapbookPhoto[];
-  width: number;
   openLightbox: (index: number) => any;
 }
 
 export type IGalleryRowContainerProps = IOwnProps;
 
+export interface IGalleryRowContainerState {
+  height: number;
+  width: number;
+}
+
 export default class GalleryRowContainer extends React.Component<IGalleryRowContainerProps> {
+  public state: IGalleryRowContainerState = {
+    height: -1,
+    width: -1,
+  };
+
   public render() {
     return (
-      <div className="gallery-row-container">
+    <Measure
+      bounds={true}
+      onResize={this.handleOnResize}
+    >
+      {this.renderMeasuredGalleryRowContainer}
+    </Measure>
+    );
+  }
+
+  private renderMeasuredGalleryRowContainer: React.SFC<MeasuredComponentProps> = ({measureRef}) =>  {
+    const { height } = this.state;
+    return (
+      <div className="gallery-row-container" ref={measureRef}>
         {this.renderGalleryRows()}
       </div>
     );
@@ -22,7 +45,8 @@ export default class GalleryRowContainer extends React.Component<IGalleryRowCont
 
   // TODO: Pass indexes rather than copies of photos?
   private renderGalleryRows() {
-    const { photos, width, openLightbox } = this.props;
+    const { photos, openLightbox } = this.props;
+    const { width } = this.state;
     const maxWidth = width - 50;
     const maxHeight = 150;
     let currentWidth = 0;
@@ -56,11 +80,18 @@ export default class GalleryRowContainer extends React.Component<IGalleryRowCont
             photos={[...currentRow]}
             rowHeight={maxHeight + 20}
             photoHeight={maxHeight}
-            startIndex={galleryRows.length}
+            startIndex={currentIndex - currentRow.length}
             openLightbox={openLightbox}
         />,
       );
     }
     return galleryRows;
+  }
+
+  private handleOnResize = (contentRect: ContentRect) => {
+    this.setState({
+      height: contentRect.bounds.height,
+      width: contentRect.bounds.width,
+    });
   }
 }

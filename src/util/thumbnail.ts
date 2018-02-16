@@ -3,7 +3,7 @@ import { IScrapbookPhoto } from "../types/events";
 // tslint:disable-next-line:no-var-requires
 const pica = require("pica/dist/pica")();
 
-const THUMBNAIL_HEIGHT = 200;
+const THUMBNAIL_HEIGHT = 150;
 
 const generateThumbnails = async (photos: IScrapbookPhoto[]): Promise<IScrapbookPhoto[]> => {
   const withThumbnails: IScrapbookPhoto[] = [];

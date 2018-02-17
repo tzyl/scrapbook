@@ -1,9 +1,9 @@
 import { ILightboxPhoto } from "react-images";
 import { IAction } from "./redux";
 
-export interface IStoreEventsState extends Array<IScrapbookEvent> {}
+export interface IStoreEventsState extends Array<IEvent> {}
 
-export interface IScrapbookEvent {
+export interface IEvent {
   /**
    * Unique UUID to identify event.
    */
@@ -25,11 +25,6 @@ export interface IScrapbookEvent {
   icon: string;
 
   /**
-   * Optional subtitle to display under title in timeline.
-   */
-  subtitle?: string;
-
-  /**
    * Optional description to show in card in timeline.
    */
   description?: string;
@@ -37,10 +32,10 @@ export interface IScrapbookEvent {
   /**
    * Photos in the event.
    */
-  photos: IScrapbookPhoto[];
+  photos: IPhoto[];
 }
 
-export interface IScrapbookPhoto {
+export interface IPhoto {
   src: string;
   thumbnail?: string;
   width: number;

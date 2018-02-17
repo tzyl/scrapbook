@@ -1,20 +1,18 @@
 import * as React from "react";
 
-import { Timeline } from "react-event-timeline";
-
 import { Alert, Intent } from "@blueprintjs/core";
 import { EditorMode } from "../types/editor";
-import { IScrapbookEvent } from "../types/events";
+import { IEvent } from "../types/events";
 import toaster from "../util/toaster";
 import TimelineEntry from "./TimelineEntry";
 
 export interface IStateProps {
-  events: IScrapbookEvent[];
-  selectedEvent: IScrapbookEvent;
+  events: IEvent[];
+  selectedEvent: IEvent;
 }
 
 export interface IDispatchProps {
-  selectEvent: (scrapbookEvent: IScrapbookEvent) => any;
+  selectEvent: (event: IEvent) => any;
   removeEvent: (id: string) => any;
   openGallery: () => any;
   openEditor: () => any;
@@ -36,10 +34,11 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
   public render() {
     const { selectedEvent } = this.props;
     return (
-      <div>
-        <Timeline>
+      <div className="timeline-page">
+        <div className="timeline">
           {this.renderTimelineEvents()}
-        </Timeline>
+          <div className="timeline-bar" />
+        </div>
         <Alert
           isOpen={this.state.isDeleteAlertOpen}
           intent={Intent.PRIMARY}
@@ -67,20 +66,20 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
     ));
   }
 
-  private handleOpenEvent = (event: IScrapbookEvent) => (e: any) => {
+  private handleOpenEvent = (event: IEvent) => (e: any) => {
     const { selectEvent, openGallery } = this.props;
     e.stopPropagation();
     selectEvent(event);
     openGallery();
   }
 
-  private handleDeleteEvent = (event: IScrapbookEvent) => (e: any) => {
+  private handleDeleteEvent = (event: IEvent) => (e: any) => {
     const { removeEvent } = this.props;
     e.stopPropagation();
     removeEvent(event.id);
   }
 
-  private handleOpenEditorEdit = (event: IScrapbookEvent) => (e: any) => {
+  private handleOpenEditorEdit = (event: IEvent) => (e: any) => {
     const { selectEvent, setEditorMode, openEditor } = this.props;
     e.stopPropagation();
     selectEvent(event);
@@ -88,7 +87,7 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
     openEditor();
   }
 
-  private handleOpenDelete = (event: IScrapbookEvent) => (e: any) => {
+  private handleOpenDelete = (event: IEvent) => (e: any) => {
     const { selectEvent } = this.props;
     e.stopPropagation();
     selectEvent(event);
@@ -97,7 +96,7 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
     });
   }
 
-  private handleConfirmDelete = (event: IScrapbookEvent) => (e: any) => {
+  private handleConfirmDelete = (event: IEvent) => (e: any) => {
     this.handleDeleteEvent(event)(e);
     this.setState({
       isDeleteAlertOpen: false,

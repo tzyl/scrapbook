@@ -1,10 +1,10 @@
 import * as React from "react";
 
-import { IScrapbookPhoto } from "../types/events";
+import { IPhoto } from "../types/events";
 import { GalleryDimensions } from "../types/gallery";
 
 export interface IThumbnailProps {
-  photo: IScrapbookPhoto;
+  photo: IPhoto;
   handleClick: () => any;
 }
 

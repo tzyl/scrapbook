@@ -10,7 +10,7 @@ import TimelinePage, {
   IStateProps,
 } from "../components/TimelinePage";
 import { EditorMode } from "../types/editor";
-import { IScrapbookEvent } from "../types/events";
+import { IEvent } from "../types/events";
 import { Dispatch } from "../types/redux";
 import { IStoreState } from "../types/redux";
 
@@ -23,7 +23,7 @@ const mapStateToProps = (state: IStoreState): IStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
   return {
-    selectEvent: (event: IScrapbookEvent) => dispatch(selectEvent(event)),
+    selectEvent: (event: IEvent) => dispatch(selectEvent(event)),
     openGallery: () => dispatch(openGallery()),
     openEditor: () => dispatch(openEditor()),
     setEditorMode: (mode: EditorMode) => dispatch(setEditorMode(mode)),

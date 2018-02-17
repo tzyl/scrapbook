@@ -1,5 +1,5 @@
 import { mockEvents } from "../mockData";
-import { EventsActionDefinitions, IScrapbookEvent, IStoreEventsState } from "../types/events";
+import { EventsActionDefinitions, IEvent, IStoreEventsState } from "../types/events";
 import { IAction } from "../types/redux";
 import { WorkerActionDefinitions } from "../types/worker";
 
@@ -23,7 +23,7 @@ const events = (state = defaultState, action: IAction): IStoreEventsState => {
   }
 };
 
-const compareEvents = (a: IScrapbookEvent, b: IScrapbookEvent) => {
+const compareEvents = (a: IEvent, b: IEvent) => {
   if (a.createdAt < b.createdAt) {
     return -1;
   }

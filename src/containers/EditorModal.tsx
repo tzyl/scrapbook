@@ -8,7 +8,7 @@ import EditorModal, {
   IDispatchProps,
   IStateProps,
 } from "../components/EditorModal";
-import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
+import { IEvent, IPhoto } from "../types/events";
 import { Dispatch, IStoreState } from "../types/redux";
 
 const mapStateToProps = (state: IStoreState): IStateProps => {
@@ -21,10 +21,10 @@ const mapStateToProps = (state: IStoreState): IStateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
   return {
-    addEvent: (scrapbookEvent: IScrapbookEvent) => dispatch(addEvent(scrapbookEvent)),
+    addEvent: (event: IEvent) => dispatch(addEvent(event)),
     removeEvent: (id: string) => dispatch(removeEvent(id)),
     closeEditor: () => dispatch(closeEditor()),
-    requestThumbnailsThenUpdate: (id: string, photos: IScrapbookPhoto[]) =>
+    requestThumbnailsThenUpdate: (id: string, photos: IPhoto[]) =>
       dispatch(requestThumbnailsThenUpdate(id, photos)),
   };
 };

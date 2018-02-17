@@ -6,12 +6,12 @@ import { Emoji, EmojiData, Picker } from "emoji-mart";
 import * as moment from "moment";
 
 import { EditorMode } from "../types/editor";
-import { IScrapbookEvent } from "../types/events";
+import { IEvent } from "../types/events";
 import TitleGroup from "./TitleGroup";
 
 export interface IOwnProps {
   mode: EditorMode;
-  event: IScrapbookEvent;
+  event: IEvent;
   closeEditor: () => any;
   handleChange: (e: any) => any;
   handleDateChange: (e: any) => any;
@@ -72,21 +72,8 @@ export default class Editor extends React.Component<IEditorProps> {
         >
           <Popover inline={true} position={Position.RIGHT}>
             <Button><Emoji emoji={event.icon} size={18} /></Button>
-            <Picker onClick={handleEmojiChange} custom={[]} />
+            <Picker title="Pick your icon" onClick={handleEmojiChange} custom={[]} />
           </Popover>
-        </FormGroup>
-        <FormGroup
-          label="Subtitle"
-          labelFor="subtitle-input"
-        >
-          <input
-            className="pt-input"
-            id="subtitle-input"
-            name="subtitle"
-            type="text"
-            value={event.subtitle}
-            onChange={handleChange}
-          />
         </FormGroup>
         <FormGroup
           label="Description"

@@ -4,12 +4,12 @@ import { Button } from "@blueprintjs/core";
 import Lightbox from "react-images";
 import Modal = require("react-modal");
 
-import { IScrapbookEvent } from "../types/events";
+import { IEvent } from "../types/events";
 import Gallery from "./Gallery";
 import TitleGroup from "./TitleGroup";
 
 export interface IStateProps {
-  selectedEvent: IScrapbookEvent;
+  selectedEvent: IEvent;
   galleryIsOpen: boolean;
   lightboxIsOpen: boolean;
   currentImage: number;

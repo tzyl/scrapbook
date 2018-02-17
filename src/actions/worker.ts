@@ -1,9 +1,9 @@
-import { IScrapbookPhoto } from "../types/events";
+import { IPhoto } from "../types/events";
 import { Dispatch } from "../types/redux";
 import { IWorkerAction, WorkerActionDefinitions } from "../types/worker";
 import generateThumbnails from "../util/thumbnail";
 
-export const requestThumbnailsThenUpdate = (id: string, photos: IScrapbookPhoto[]) => async (dispatch: Dispatch) => {
+export const requestThumbnailsThenUpdate = (id: string, photos: IPhoto[]) => async (dispatch: Dispatch) => {
   dispatch(requestThumbnails(id));
   const withThumbnails = await generateThumbnails(photos);
   dispatch(receiveThumbnails(id, withThumbnails));
@@ -18,7 +18,7 @@ export const requestThumbnails = (id: string) => {
   };
 };
 
-export const receiveThumbnails = (id: string, photos: IScrapbookPhoto[]): IWorkerAction => {
+export const receiveThumbnails = (id: string, photos: IPhoto[]): IWorkerAction => {
   return {
     type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
     payload: {

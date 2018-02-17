@@ -1,19 +1,19 @@
-import { IScrapbookPhoto } from "../types/events";
+import { IPhoto } from "../types/events";
 
 // tslint:disable-next-line:no-var-requires
 const pica = require("pica/dist/pica")();
 
 import { GalleryDimensions } from "../types/gallery";
 
-const generateThumbnails = async (photos: IScrapbookPhoto[]): Promise<IScrapbookPhoto[]> => {
-  const withThumbnails: IScrapbookPhoto[] = [];
+const generateThumbnails = async (photos: IPhoto[]): Promise<IPhoto[]> => {
+  const withThumbnails: IPhoto[] = [];
   for (const photo of photos) {
     withThumbnails.push(await generateThumbnail(photo, GalleryDimensions.THUMBNAIL_HEIGHT));
   }
   return withThumbnails;
 };
 
-const generateThumbnail = async (photo: IScrapbookPhoto, thumbnailHeight: number): Promise<IScrapbookPhoto> => {
+const generateThumbnail = async (photo: IPhoto, thumbnailHeight: number): Promise<IPhoto> => {
   if (photo.thumbnail || photo.height < 500 || photo.width < 500) {
     return {
       ...photo,
@@ -29,7 +29,7 @@ const generateThumbnail = async (photo: IScrapbookPhoto, thumbnailHeight: number
   const resized: HTMLCanvasElement = await pica.resize(from, to);
   const thumbnail = resized.toDataURL("image/jpeg");
 
-  const withThumbnail: IScrapbookPhoto = {
+  const withThumbnail: IPhoto = {
     ...photo,
     thumbnail,
   };

@@ -7,7 +7,7 @@ import { v4 } from "node-uuid";
 import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
-import { IScrapbookEvent, IScrapbookPhoto } from "../types/events";
+import { IEvent, IPhoto } from "../types/events";
 import { getPhotos } from "../util/electron";
 import toaster from "../util/toaster";
 import Editor from "./Editor";
@@ -15,19 +15,19 @@ import Editor from "./Editor";
 export interface IStateProps {
   editorIsOpen: boolean;
   mode: EditorMode;
-  selectedEvent: IScrapbookEvent;
+  selectedEvent: IEvent;
 }
 
 export interface IDispatchProps {
-  addEvent: (scrapbookEvent: IScrapbookEvent) => any;
+  addEvent: (event: IEvent) => any;
   removeEvent: (id: string) => any;
   closeEditor: () => any;
-  requestThumbnailsThenUpdate: (id: string, photos: IScrapbookPhoto[]) => any;
+  requestThumbnailsThenUpdate: (id: string, photos: IPhoto[]) => any;
 }
 
 export type IEditorModalProps = & IStateProps & IDispatchProps;
 
-export type IEditorModalState = IScrapbookEvent;
+export type IEditorModalState = IEvent;
 
 export default class EditorModal extends React.Component<IEditorModalProps, IEditorModalState> {
   public state: IEditorModalState = this.createEmptyState();
@@ -79,7 +79,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   }
 
   private handleGetPhotos = () => {
-   getPhotos().then((photos: IScrapbookPhoto[]) => {
+   getPhotos().then((photos: IPhoto[]) => {
     this.setState({
       photos: this.state.photos.concat(photos),
     });
@@ -153,7 +153,6 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
       title: "",
       createdAt: moment().format("YYYY-MM-DD"),
       icon: ":rocket:",
-      subtitle: "",
       description: "",
       photos: [],
     };

@@ -7,6 +7,7 @@ import Thumbnail from "./Thumbnail";
 export interface IOwnProps {
   photos: IScrapbookPhoto[];
   startIndex: number;
+  length: number;
   openLightbox: (index: number) => any;
 }
 
@@ -14,13 +15,13 @@ export type IGalleryRowProps = IOwnProps;
 
 export default class GalleryRow extends React.Component<IGalleryRowProps> {
   public render() {
-    const { photos } = this.props;
+    const { photos, startIndex, length } = this.props;
     const height = GalleryDimensions.THUMBNAIL_HEIGHT + GalleryDimensions.ROW_VERTICAL_MARGIN;
-    const maxWidth = photos
-      ? photos
-          .map((photo) => photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height)
-          .reduce((a, b) => a + b, 0) + GalleryDimensions.ROW_HORIZONTAL_MARGIN * photos.length
-          : "100%";
+    let maxWidth = 0;
+    for (let i = startIndex; i < startIndex + length; i++) {
+      maxWidth += photos[i].width * GalleryDimensions.THUMBNAIL_HEIGHT / photos[i].height;
+      maxWidth += GalleryDimensions.ROW_HORIZONTAL_MARGIN;
+    }
     return (
       <div className="gallery-row" style={{ height, maxWidth }}>
         {this.renderThumbnails()}
@@ -29,16 +30,18 @@ export default class GalleryRow extends React.Component<IGalleryRowProps> {
   }
 
   public renderThumbnails = () => {
-    const { photos, startIndex, openLightbox } = this.props;
-    return photos.map((photo, index) => {
-      return (
+    const { photos, startIndex, length, openLightbox } = this.props;
+    const thumbnails = [];
+    for (let i = startIndex; i < startIndex + length; i++) {
+      thumbnails.push(
         <Thumbnail
-          key={startIndex + index}
-          photo={photo}
-          handleClick={this.openLightboxAtIndex(startIndex + index)}
-        />
+          key={i}
+          photo={photos[i]}
+          handleClick={this.openLightboxAtIndex(i)}
+        />,
       );
-    });
+    }
+    return thumbnails;
   }
 
   private openLightboxAtIndex = (index: number) => () => {

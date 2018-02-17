@@ -41,7 +41,6 @@ export default class Gallery extends React.Component<IGalleryProps> {
     );
   }
 
-  // TODO: Pass indexes rather than copies of photos?
   private renderGalleryRows() {
     const { photos, openLightbox } = this.props;
     const { width } = this.state;
@@ -56,8 +55,9 @@ export default class Gallery extends React.Component<IGalleryProps> {
         galleryRows.push(
           <GalleryRow
             key={galleryRows.length}
-            photos={[...currentRow]}
+            photos={photos}
             startIndex={currentIndex - currentRow.length}
+            length={currentRow.length}
             openLightbox={openLightbox}
           />,
         );
@@ -72,8 +72,9 @@ export default class Gallery extends React.Component<IGalleryProps> {
       galleryRows.push(
         <GalleryRow
             key={galleryRows.length}
-            photos={[...currentRow]}
+            photos={photos}
             startIndex={currentIndex - currentRow.length}
+            length={currentRow.length}
             openLightbox={openLightbox}
         />,
       );

@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import { IScrapbookPhoto } from "../types/events";
+import { IPhoto } from "../types/events";
 import { GalleryDimensions } from "../types/gallery";
 import Thumbnail from "./Thumbnail";
 
 export interface IOwnProps {
-  photos: IScrapbookPhoto[];
+  photos: IPhoto[];
   startIndex: number;
   length: number;
   openLightbox: (index: number) => any;

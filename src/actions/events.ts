@@ -1,6 +1,6 @@
-import { EventsActionDefinitions, IEventsAction, IScrapbookEvent } from "../types/events";
+import { EventsActionDefinitions, IEvent, IEventsAction } from "../types/events";
 
-export const addEvent = (event: IScrapbookEvent): IEventsAction => {
+export const addEvent = (event: IEvent): IEventsAction => {
   return {
     type: EventsActionDefinitions.ADD_EVENT,
     payload: {

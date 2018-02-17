@@ -2,12 +2,12 @@ import * as React from "react";
 
 import Measure, { ContentRect, MeasuredComponentProps } from "react-measure";
 
-import { IScrapbookPhoto } from "../types/events";
+import { IPhoto } from "../types/events";
 import { GalleryDimensions } from "../types/gallery";
 import GalleryRow from "./GalleryRow";
 
 export interface IOwnProps {
-  photos: IScrapbookPhoto[];
+  photos: IPhoto[];
   openLightbox: (index: number) => any;
 }
 
@@ -47,7 +47,7 @@ export default class Gallery extends React.Component<IGalleryProps> {
     const maxWidth = width - GalleryDimensions.ROW_RESERVED_HORIZONTAL_SPACE;
     let currentWidth = 0;
     const galleryRows: JSX.Element[] = [];
-    let currentRow: IScrapbookPhoto[] = [];
+    let currentRow: IPhoto[] = [];
     let currentIndex = 0;
     for (const photo of photos) {
       const scaledWidth = photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height;

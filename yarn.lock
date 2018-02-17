@@ -4808,12 +4808,6 @@ react-emotion@^8.0.6:
     babel-plugin-emotion "^8.0.12"
     emotion-utils "^8.0.12"
 
-react-event-timeline@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/react-event-timeline/-/react-event-timeline-1.4.1.tgz#8c4c058e71e249c65725bdfcff3297fb6e7c14a4"
-  dependencies:
-    prop-types "^15.6.0"
-
 react-images@^0.5.14:
   version "0.5.14"
   resolved "https://registry.yarnpkg.com/react-images/-/react-images-0.5.14.tgz#02410a3fa63a4eddfde19a26bb8e3dc758d2d44a"

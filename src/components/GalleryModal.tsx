@@ -1,10 +1,12 @@
 import * as React from "react";
 
+import { Button } from "@blueprintjs/core";
 import Lightbox from "react-images";
 import Modal = require("react-modal");
 
 import { IScrapbookEvent } from "../types/events";
 import Gallery from "./Gallery";
+import TitleGroup from "./TitleGroup";
 
 export interface IStateProps {
   selectedEvent: IScrapbookEvent;
@@ -45,20 +47,21 @@ const GalleryModal: React.SFC<IGalleryModalProps> = ({
       shouldCloseOnEsc={false}
       style={modalStyles}
     >
-        <Gallery
-          event={selectedEvent}
-          openLightbox={openLightbox}
-          closeGallery={closeGallery}
-        />
-        <Lightbox
-          images={selectedEvent.photos}
-          onClose={closeLightbox}
-          onClickPrev={gotoPrevious}
-          onClickNext={gotoNext}
-          currentImage={currentImage}
-          isOpen={lightboxIsOpen}
-          backdropClosesModal={true}
-        />
+      <Button className="modal-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeGallery} />
+      <TitleGroup text={selectedEvent.title} iconName="pt-icon-media" />
+      <Gallery
+        photos={selectedEvent.photos}
+        openLightbox={openLightbox}
+      />
+      <Lightbox
+        images={selectedEvent.photos}
+        onClose={closeLightbox}
+        onClickPrev={gotoPrevious}
+        onClickNext={gotoNext}
+        currentImage={currentImage}
+        isOpen={lightboxIsOpen}
+        backdropClosesModal={true}
+      />
     </Modal>
   );
 };

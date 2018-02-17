@@ -1,5 +1,4 @@
 import { ILightboxPhoto } from "react-images";
-import { IPhotoProps } from "react-photo-gallery";
 import { IAction } from "./redux";
 
 export interface IStoreEventsState extends Array<IScrapbookEvent> {}
@@ -41,7 +40,12 @@ export interface IScrapbookEvent {
   photos: IScrapbookPhoto[];
 }
 
-export type IScrapbookPhoto = IPhotoProps & ILightboxPhoto;
+export interface IScrapbookPhoto {
+  src: string;
+  thumbnail?: string;
+  width: number;
+  height: number;
+}
 
 export enum EventsActionDefinitions {
   ADD_EVENT = "ADD_EVENT",

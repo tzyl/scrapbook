@@ -5,7 +5,7 @@ import { Emoji } from "emoji-mart";
 import { ITimelineEventProps, Timeline, TimelineEvent } from "react-event-timeline";
 
 import { IScrapbookEvent } from "../types/events";
-import GalleryRowContainer from "./GalleryRowContainer";
+import Gallery from "./Gallery";
 import Thumbnail from "./Thumbnail";
 
 export interface ITimelineEntryProps {
@@ -29,7 +29,7 @@ export default class TimelineEntry extends React.Component<ITimelineEntryProps> 
           buttons={this.renderButtons()}
         >
           {event.description}
-          <GalleryRowContainer photos={event.photos.slice(0, 3)} openLightbox={openLightbox} />
+          <Gallery photos={event.photos.slice(0, 3)} openLightbox={openLightbox} />
         </TimelineEvent>
       </div>
     );

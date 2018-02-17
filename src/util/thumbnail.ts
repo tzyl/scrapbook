@@ -3,12 +3,12 @@ import { IScrapbookPhoto } from "../types/events";
 // tslint:disable-next-line:no-var-requires
 const pica = require("pica/dist/pica")();
 
-const THUMBNAIL_HEIGHT = 150;
+import { GalleryDimensions } from "../types/gallery";
 
 const generateThumbnails = async (photos: IScrapbookPhoto[]): Promise<IScrapbookPhoto[]> => {
   const withThumbnails: IScrapbookPhoto[] = [];
   for (const photo of photos) {
-    withThumbnails.push(await generateThumbnail(photo, THUMBNAIL_HEIGHT));
+    withThumbnails.push(await generateThumbnail(photo, GalleryDimensions.THUMBNAIL_HEIGHT));
   }
   return withThumbnails;
 };

@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { Timeline } from "react-event-timeline";
-import { IPhotoObject } from "react-photo-gallery";
 
 import { Alert, Intent } from "@blueprintjs/core";
 import { EditorMode } from "../types/editor";

@@ -19,3 +19,10 @@ export enum GalleryActionDefinitions {
 export interface IGalleryAction extends IAction {
   type: GalleryActionDefinitions;
 }
+
+export enum GalleryDimensions {
+  THUMBNAIL_HEIGHT = 150,
+  ROW_VERTICAL_MARGIN = 20,
+  ROW_HORIZONTAL_MARGIN = 10,
+  ROW_RESERVED_HORIZONTAL_SPACE = 50,
+}

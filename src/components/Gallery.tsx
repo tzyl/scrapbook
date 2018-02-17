@@ -1,30 +1,89 @@
 import * as React from "react";
 
-import { Button } from "@blueprintjs/core";
-import { IPhotoObject } from "react-photo-gallery";
+import Measure, { ContentRect, MeasuredComponentProps } from "react-measure";
 
-import { IScrapbookEvent } from "../types/events";
-import GalleryRowContainer from "./GalleryRowContainer";
-import Thumbnail from "./Thumbnail";
-import TitleGroup from "./TitleGroup";
+import { IScrapbookPhoto } from "../types/events";
+import { GalleryDimensions } from "../types/gallery";
+import GalleryRow from "./GalleryRow";
 
 export interface IOwnProps {
-  event: IScrapbookEvent;
+  photos: IScrapbookPhoto[];
   openLightbox: (index: number) => any;
-  closeGallery: () => any;
 }
 
 export type IGalleryProps = IOwnProps;
 
+export interface IGalleryState {
+  width: number;
+}
+
 export default class Gallery extends React.Component<IGalleryProps> {
+  public state: IGalleryState = {
+    width: -1,
+  };
+
   public render() {
-    const { event, openLightbox, closeGallery } = this.props;
     return (
-      <div className="gallery">
-        <Button className="modal-close-button pt-minimal" iconName="pt-icon-cross" onClick={closeGallery} />
-        <TitleGroup text={event.title} iconName="pt-icon-media" />
-        <GalleryRowContainer photos={event.photos} openLightbox={openLightbox} />
+    <Measure
+      bounds={true}
+      onResize={this.handleOnResize}
+    >
+      {this.renderMeasuredGallery}
+    </Measure>
+    );
+  }
+
+  private renderMeasuredGallery: React.SFC<MeasuredComponentProps> = ({measureRef}) =>  {
+    return (
+      <div className="gallery" ref={measureRef}>
+        {this.renderGalleryRows()}
       </div>
     );
+  }
+
+  // TODO: Pass indexes rather than copies of photos?
+  private renderGalleryRows() {
+    const { photos, openLightbox } = this.props;
+    const { width } = this.state;
+    const maxWidth = width - GalleryDimensions.ROW_RESERVED_HORIZONTAL_SPACE;
+    let currentWidth = 0;
+    const galleryRows: JSX.Element[] = [];
+    let currentRow: IScrapbookPhoto[] = [];
+    let currentIndex = 0;
+    for (const photo of photos) {
+      const scaledWidth = photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height;
+      if (currentRow && currentWidth + scaledWidth > maxWidth) {
+        galleryRows.push(
+          <GalleryRow
+            key={galleryRows.length}
+            photos={[...currentRow]}
+            startIndex={currentIndex - currentRow.length}
+            openLightbox={openLightbox}
+          />,
+        );
+        currentWidth = 0;
+        currentRow = [];
+      }
+      currentRow.push(photo);
+      currentWidth += scaledWidth;
+      currentIndex++;
+    }
+    if (currentRow) {
+      galleryRows.push(
+        <GalleryRow
+            key={galleryRows.length}
+            photos={[...currentRow]}
+            startIndex={currentIndex - currentRow.length}
+            openLightbox={openLightbox}
+        />,
+      );
+    }
+    return galleryRows;
+  }
+
+  private handleOnResize = (contentRect: ContentRect) => {
+    this.setState({
+      width: contentRect.bounds.width,
+    });
   }
 }

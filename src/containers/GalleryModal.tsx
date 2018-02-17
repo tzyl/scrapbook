@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { IPhotoObject } from "react-photo-gallery";
 import {
   closeGallery,
   closeLightbox,

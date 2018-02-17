@@ -1,8 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { IPhotoObject } from "react-photo-gallery";
-
 import { openEditor, setEditorMode } from "../actions/editor";
 import { removeEvent } from "../actions/events";
 import { openGallery, openLightbox, selectPhoto } from "../actions/gallery";

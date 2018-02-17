@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import { IPhotoObject } from "react-photo-gallery";
-
 import { IScrapbookPhoto } from "../types/events";
+import { GalleryDimensions } from "../types/gallery";
 
 export interface IThumbnailProps {
   photo: IScrapbookPhoto;
@@ -13,7 +12,10 @@ const Thumbnail: React.SFC<IThumbnailProps> = ({
   photo,
   handleClick,
 }) => {
-  const dimensions = { width: photo.width, height: photo.height };
+  const dimensions = {
+    width: photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height,
+    height: GalleryDimensions.THUMBNAIL_HEIGHT,
+  };
   if (!photo.thumbnail) {
     return (
       <div

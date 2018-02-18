@@ -61,6 +61,8 @@ export default class Editor extends React.Component<IEditorProps> {
             canClearSelection={false}
             format="YYYY-MM-DD"
             onChange={handleDateChange}
+            minDate={moment("1900-01-01").toDate()}
+            maxDate={moment("2050-01-01").toDate()}
             value={moment(event.createdAt).toDate()}
           />
         </FormGroup>

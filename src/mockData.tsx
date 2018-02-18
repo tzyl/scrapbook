@@ -25,7 +25,7 @@ export const mockEvents: IEvent[] = [
   {
     id: "456",
     title: "You sent an email to John Doe",
-    createdAt: "2016-09-11 09:06 AM",
+    createdAt: "2016-09-11",
     icon: ":email:",
     description: "Description for album 2",
     photos: [

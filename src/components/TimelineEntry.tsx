@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Button } from "@blueprintjs/core";
+import { Button, Card, Elevation } from "@blueprintjs/core";
 import { Emoji } from "emoji-mart";
 
 import { IEvent } from "../types/events";
@@ -19,12 +19,12 @@ export default class TimelineEntry extends React.Component<ITimelineEntryProps> 
   public render() {
     const { event, handleOpenEvent, openLightbox } = this.props;
     return (
-      <div className="pt-card timeline-event" onClick={handleOpenEvent}>
+      <Card className="timeline-event" onClick={handleOpenEvent} elevation={Elevation.TWO} interactive={true}>
         {this.renderIcon()}
         {this.renderHeading()}
         {this.renderDescription()}
         <Gallery photos={event.photos.slice(0, 3)} openLightbox={openLightbox} />
-      </div>
+      </Card>
     );
   }
 

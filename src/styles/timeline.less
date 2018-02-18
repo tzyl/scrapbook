@@ -1,13 +1,11 @@
 .timeline-page {
   position: relative;
-  margin: 0 30px;
-  font-size: 80%;
-  font-weight: 300;
+  margin: 0 150px 0 60px;
 
   .timeline {
     position: relative;
 
-    .timeline-bar {
+    .timeline-stripe {
       position: absolute;
       z-index: -1;
       top: 0;
@@ -40,7 +38,6 @@
             margin-bottom: 3px;
           }
         }
-
       }
 
       .timeline-event-icon {
@@ -62,9 +59,7 @@
       }
 
       &:hover {
-        position: relative;
         transform: scale(1.01);
-        box-shadow: 0 2px 14px rgba(66, 66, 66, 0.2);
         transition: transform 100ms linear;
       }
     }

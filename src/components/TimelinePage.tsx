@@ -36,8 +36,8 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
     return (
       <div className="timeline-page">
         <div className="timeline">
+          <div className="timeline-stripe" />
           {this.renderTimelineEvents()}
-          <div className="timeline-bar" />
         </div>
         <Alert
           isOpen={this.state.isDeleteAlertOpen}

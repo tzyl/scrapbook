@@ -2,12 +2,13 @@ import * as React from "react";
 
 import { Button, Card, Elevation } from "@blueprintjs/core";
 import { Emoji } from "emoji-mart";
+import * as Scroll from "react-scroll";
 
 import { IEvent } from "../types/events";
 import Gallery from "./Gallery";
 import Thumbnail from "./Thumbnail";
 
-export interface ITimelineEntryProps {
+export interface ITimelineEventProps {
   event: IEvent;
   handleOpenEvent: (e: any) => any;
   handleOpenEditorEdit: (e: any) => any;
@@ -15,16 +16,18 @@ export interface ITimelineEntryProps {
   openLightbox: (index: number) => any;
 }
 
-export default class TimelineEntry extends React.Component<ITimelineEntryProps> {
+export default class TimelineEvent extends React.Component<ITimelineEventProps> {
   public render() {
     const { event, handleOpenEvent, openLightbox } = this.props;
     return (
-      <Card className="timeline-event" onClick={handleOpenEvent} elevation={Elevation.TWO} interactive={true}>
-        {this.renderIcon()}
-        {this.renderHeading()}
-        {this.renderDescription()}
-        <Gallery photos={event.photos.slice(0, 3)} openLightbox={openLightbox} />
-      </Card>
+      <Scroll.Element name={event.id}>
+        <Card className="timeline-event" onClick={handleOpenEvent} elevation={Elevation.TWO} interactive={true}>
+          {this.renderIcon()}
+          {this.renderHeading()}
+          {this.renderDescription()}
+          <Gallery photos={event.photos.slice(0, 3)} openLightbox={openLightbox} />
+        </Card>
+      </Scroll.Element>
     );
   }
 

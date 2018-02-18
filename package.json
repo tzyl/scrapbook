@@ -4,6 +4,7 @@
   "description": "scrapbook is a web app to store and browse your best memories.",
   "main": "./dist/main.js",
   "scripts": {
+    "package": "electron-packager . --all --out=./out --ignore='node_modules|src'",
     "dev": "npm-run-all -r -p start electron:dev",
     "prod": "npm-run-all build:renderer electron:prod",
     "electron:dev": "npm-run-all build:main:dev electron",

@@ -97,7 +97,6 @@ export default class Editor extends React.Component<IEditorProps> {
     );
   }
 
-  // TODO: Scrollable container
   private renderPhotoInputs() {
     const {
       event,
@@ -107,20 +106,23 @@ export default class Editor extends React.Component<IEditorProps> {
       handlePhotoChange,
     } = this.props;
     const photoInputs = event.photos.map((photo, index) => (
-      <div key={index}>
+      <div className="editor-photo-input-group" key={index}>
         <input
+          className="pt-input editor-photo-input src-input"
           type="text"
           name="src"
           value={photo.src}
           onChange={handlePhotoChange(index)}
         />
         <input
+          className="pt-input editor-photo-input dimension-input"
           type="number"
           name="width"
           value={photo.width}
           onChange={handlePhotoChange(index, true)}
         />
         <input
+          className="pt-input editor-photo-input dimension-input"
           type="number"
           name="height"
           value={photo.height}
@@ -133,7 +135,24 @@ export default class Editor extends React.Component<IEditorProps> {
       <div>
         <Button onClick={handleAddPhoto}>Add Photo</Button>
         <Button onClick={handleGetPhotos}>Add from folder</Button>
-        {photoInputs}
+        <div className="editor-photo-inputs">
+          {this.maybeRenderPhotoInputsHeadings()}
+          {photoInputs}
+        </div>
+      </div>
+    );
+  }
+
+  private maybeRenderPhotoInputsHeadings = () => {
+    const { event } = this.props;
+    if (!event.photos.length) {
+      return null;
+    }
+    return (
+      <div>
+        <h6 className="editor-photo-input-heading src-heading">Source</h6>
+        <h6 className="editor-photo-input-heading dimension-heading">Width</h6>
+        <h6 className="editor-photo-input-heading dimension-heading">Height</h6>
       </div>
     );
   }

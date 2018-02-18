@@ -51,7 +51,7 @@ export default class Gallery extends React.Component<IGalleryProps> {
     let currentIndex = 0;
     for (const photo of photos) {
       const scaledWidth = photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height;
-      if (currentRow && currentWidth + scaledWidth > maxWidth) {
+      if (currentRow.length && currentWidth + scaledWidth > maxWidth) {
         galleryRows.push(
           <GalleryRow
             key={galleryRows.length}
@@ -68,7 +68,7 @@ export default class Gallery extends React.Component<IGalleryProps> {
       currentWidth += scaledWidth;
       currentIndex++;
     }
-    if (currentRow) {
+    if (currentRow.length) {
       galleryRows.push(
         <GalleryRow
             key={galleryRows.length}

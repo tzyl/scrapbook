@@ -8,4 +8,48 @@
       }
     }
   }
+
+  .editor-photo-inputs {
+    border-radius: 3px;
+    box-shadow: 0 0 0 0 rgba(19,124,189,0), 0 0 0 0 rgba(19,124,189,0), inset 0 0 0 1px rgba(16,22,26,.15), inset 0 1px 1px rgba(16,22,26,.2);
+    height: 250px;
+    margin: 10px 0;
+    overflow: scroll;
+    padding: 20px;
+
+    .editor-photo-input-heading {
+      display: inline-block;
+      text-align: center;
+
+      &.src-heading {
+        width: 500px;
+      }
+
+      &.dimension-heading {
+        width: 80px;
+      }
+    }
+
+    .editor-photo-input-dimension-heading {
+      display: inline-block;
+      text-align: center;
+      width: 80px;
+    }
+
+    .editor-photo-input-group {
+      margin-bottom: 5px;
+
+      .editor-photo-input {
+        margin: 0 3px;
+
+        &.src-input {
+          width: 500px;
+        }
+
+        &.dimension-input {
+          width: 80px;
+        }
+      }
+    }
+  }
 }

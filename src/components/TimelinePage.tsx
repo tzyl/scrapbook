@@ -4,7 +4,8 @@ import { Alert, Intent } from "@blueprintjs/core";
 import { EditorMode } from "../types/editor";
 import { IEvent } from "../types/events";
 import toaster from "../util/toaster";
-import TimelineEntry from "./TimelineEntry";
+import TimelineEvent from "./TimelineEvent";
+import TimelineScroller from "./TimelineScroller";
 
 export interface IStateProps {
   events: IEvent[];
@@ -32,9 +33,10 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
   };
 
   public render() {
-    const { selectedEvent } = this.props;
+    const { events, selectedEvent } = this.props;
     return (
       <div className="timeline-page">
+        <TimelineScroller events={events} />
         <div className="timeline">
           <div className="timeline-stripe" />
           {this.renderTimelineEvents()}
@@ -55,7 +57,7 @@ export default class TimelinePage extends React.Component<ITimelinePageProps, IT
   private renderTimelineEvents() {
     const { events, openLightbox } = this.props;
     return events.map((event) => (
-      <TimelineEntry
+      <TimelineEvent
         key={event.id}
         event={event}
         handleOpenEvent={this.handleOpenEvent(event)}

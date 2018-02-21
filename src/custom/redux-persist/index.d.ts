@@ -1,4 +1,3 @@
-
 declare module "redux-persist" {
     export * from "redux-persist/es/constants";
     export * from "redux-persist/es/types";

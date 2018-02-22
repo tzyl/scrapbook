@@ -1,5 +1,7 @@
 .npmrc
 
+coverage/
+
 bin/
 build/
 dist/

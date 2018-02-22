@@ -3,7 +3,7 @@ import { EventsActionDefinitions, IEvent, IStoreEventsState } from "../types/eve
 import { IAction } from "../types/redux";
 import { WorkerActionDefinitions } from "../types/worker";
 
-const defaultState: IStoreEventsState = mockEvents;
+export const defaultState: IStoreEventsState = mockEvents;
 
 const events = (state = defaultState, action: IAction): IStoreEventsState => {
   switch (action.type) {

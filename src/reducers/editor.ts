@@ -1,7 +1,7 @@
 import { EditorActionDefinitions, EditorMode, IStoreEditorState } from "../types/editor";
 import { IAction } from "../types/redux";
 
-const defaultState: IStoreEditorState = {
+export const defaultState: IStoreEditorState = {
   editorIsOpen: false,
   mode: EditorMode.add,
 };

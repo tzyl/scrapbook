@@ -93,14 +93,6 @@ describe("events reducer", () => {
     expect(mockState).toEqual([]);
   });
 
-  it("returns state for an unrecognized action", () => {
-    expect(events(mockState, { type: null })).toBe(mockState);
-  });
-
-  it("returns default state if not initialized", () => {
-    expect(events(undefined, { type: null })).toBe(defaultState);
-  });
-
   it("receives thumbnails for matching id", () => {
     const mockPhotosWithThumbnails: IPhoto[] = [
       {
@@ -137,5 +129,13 @@ describe("events reducer", () => {
       },
     });
     expect(mockState[0].photos).not.toBe(mockPhotosWithThumbnails);
+  });
+
+  it("returns state for an unrecognized action", () => {
+    expect(events(mockState, { type: null })).toBe(mockState);
+  });
+
+  it("returns default state if not initialized", () => {
+    expect(events(undefined, { type: null })).toBe(defaultState);
   });
 });

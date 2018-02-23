@@ -2,7 +2,7 @@ import { IAction } from "../types/redux";
 import { IStoreTimelineState, TimelineActionDefinitions } from "../types/timeline";
 import { WorkerActionDefinitions } from "../types/worker";
 
-const defaultState: IStoreTimelineState = {
+export const defaultState: IStoreTimelineState = {
   selectedEvent: null,
 };
 

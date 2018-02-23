@@ -1,6 +1,7 @@
-import { IEvent } from "../../types/events";
+import { IEvent, IPhoto } from "../../types/events";
 import { IAction } from "../../types/redux";
 import { IStoreTimelineState, TimelineActionDefinitions } from "../../types/timeline";
+import { WorkerActionDefinitions } from "../../types/worker";
 import timeline, { defaultState } from "../timeline";
 
 describe("timeline reducer", () => {
@@ -40,7 +41,41 @@ describe("timeline reducer", () => {
   });
 
   it("receives thumbnails for the selected event", () => {
-    return;
+    const mockPhotosWithThumbnails: IPhoto[] = [
+      {
+        src: "src",
+        width: 1,
+        height: 1,
+        thumbnail: "thumbnail",
+      },
+    ];
+    mockState = timeline(mockState, {
+      type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
+      payload: {
+        id: mockState.selectedEvent.id,
+        photos: mockPhotosWithThumbnails,
+      },
+    });
+    expect(mockState.selectedEvent.photos).toBe(mockPhotosWithThumbnails);
+  });
+
+  it("doesn't receive thumbnails from a different event", () => {
+    const mockPhotosWithThumbnails: IPhoto[] = [
+      {
+        src: "src",
+        width: 1,
+        height: 1,
+        thumbnail: "thumbnail",
+      },
+    ];
+    mockState = timeline(mockState, {
+      type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
+      payload: {
+        id: "non-matching-id",
+        photos: mockPhotosWithThumbnails,
+      },
+    });
+    expect(mockState.selectedEvent.photos).not.toBe(mockPhotosWithThumbnails);
   });
 
   it("returns state for an unrecognized action", () => {

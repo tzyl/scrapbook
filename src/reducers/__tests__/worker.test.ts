@@ -1,0 +1,41 @@
+import { IStoreWorkerState, WorkerActionDefinitions } from "../../types/worker";
+import worker, { defaultState } from "../worker";
+
+describe("worker reducer", () => {
+  let mockState: IStoreWorkerState;
+
+  beforeEach(() => {
+    mockState = {
+      requests: ["123"],
+    };
+  });
+
+  it("requests thumbnails", () => {
+    mockState = worker(mockState, {
+      type: WorkerActionDefinitions.REQUEST_THUMBNAILS,
+      payload: {
+        id: "456",
+      },
+    });
+    expect(mockState.requests).toEqual(["123", "456"]);
+  });
+
+  it("receives thumbnails", () => {
+    mockState = worker(mockState, {
+      type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
+      payload: {
+        id: "123",
+        photos: [],
+      },
+    });
+    expect(mockState.requests).toHaveLength(0);
+  });
+
+  it("returns state for an unrecognized action", () => {
+    expect(worker(mockState, { type: null })).toBe(mockState);
+  });
+
+  it("returns default state if not initialized", () => {
+    expect(worker(undefined, { type: null })).toBe(defaultState);
+  });
+});

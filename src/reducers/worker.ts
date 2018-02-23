@@ -1,7 +1,7 @@
 import { IAction } from "../types/redux";
 import { IStoreWorkerState, WorkerActionDefinitions } from "../types/worker";
 
-const defaultState: IStoreWorkerState = {
+export const defaultState: IStoreWorkerState = {
   requests: [],
 };
 

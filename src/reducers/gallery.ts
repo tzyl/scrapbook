@@ -1,7 +1,7 @@
 import { GalleryActionDefinitions, IStoreGalleryState } from "../types/gallery";
 import { IAction } from "../types/redux";
 
-const defaultState: IStoreGalleryState = {
+export const defaultState: IStoreGalleryState = {
   galleryIsOpen: false,
   lightboxIsOpen: false,
   selectedPhotoIndex: 0,

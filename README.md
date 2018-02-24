@@ -12,7 +12,7 @@ Features:
 
 ## Installation
 
-Download the latest version from the releases tab.
+Download the latest version from the releases tab and extract using a program like 7-zip or `tar -xzvf <archive_name>` from the terminal.
 
 ## Running locally
 

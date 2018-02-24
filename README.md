@@ -1,4 +1,4 @@
-# scrapbook
+# scrapbook [![CircleCI](https://circleci.com/gh/tzyl/scrapbook.svg?style=svg)](https://circleci.com/gh/tzyl/scrapbook)
 
 **scrapbook** is a React/Redux/Typescript/Electron app to view and organize your backup photos.
 

@@ -12,3 +12,7 @@ export enum WorkerActionDefinitions {
 export interface IWorkerAction extends IAction {
   type: WorkerActionDefinitions;
 }
+
+export interface IWorker {
+  addRequest: (request: string) => void;
+}

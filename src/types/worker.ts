@@ -1,4 +1,5 @@
-import { IAction } from "./redux";
+import { IEvent, IPhoto } from "./events";
+import { Dispatch, IAction, IStoreState } from "./redux";
 
 export interface IStoreWorkerState {
   requests: string[];
@@ -14,5 +15,9 @@ export interface IWorkerAction extends IAction {
 }
 
 export interface IWorker {
-  addRequest: (request: string) => void;
+  update: (events: IEvent[], requests: string[]) => any;
+}
+
+export interface IThumbnailWorker extends IWorker {
+  generateThumbnail: (photo: IPhoto, thumbnailHeight: number) => Promise<IPhoto>;
 }

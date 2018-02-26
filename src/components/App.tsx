@@ -7,6 +7,7 @@ import ConnectedEditorModal from "../containers/EditorModal";
 import ConnectedGalleryModal from "../containers/GalleryModal";
 import ConnectedTimelinePage from "../containers/TimelinePage";
 import { IWorker } from "../types/worker";
+import ThumbnailWorker from "../util/thumbnailWorker";
 
 Modal.setAppElement("#root");
 
@@ -41,6 +42,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
   }
 
   private initializeWorker = () => {
-    return;
+    const thumbnailWorker = new ThumbnailWorker();
   }
 }

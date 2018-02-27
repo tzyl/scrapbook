@@ -8,6 +8,7 @@ export interface IStoreWorkerState {
 export enum WorkerActionDefinitions {
   REQUEST_THUMBNAILS = "REQUEST_THUMBNAILS",
   RECEIVE_THUMBNAILS = "RECEIVE_THUMBNAILS",
+  FINISH_THUMBNAILS = "FINISH_THUMBNAILS",
 }
 
 export interface IWorkerAction extends IAction {

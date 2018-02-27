@@ -6,16 +6,23 @@ import Header from "../components/Header";
 import ConnectedEditorModal from "../containers/EditorModal";
 import ConnectedGalleryModal from "../containers/GalleryModal";
 import ConnectedTimelinePage from "../containers/TimelinePage";
+import { IEvent, IPhoto } from "../types/events";
 import { IWorker } from "../types/worker";
 import ThumbnailWorker from "../util/thumbnailWorker";
 
 Modal.setAppElement("#root");
 
-export interface IDispatchProps {
-  workerRequests: string[];
+export interface IStateProps {
+  requests: string[];
+  events: IEvent[];
 }
 
-export type IAppProps = IDispatchProps;
+export interface IDispatchProps {
+  receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any;
+  finishThumbnails: (id: string) => any;
+}
+
+export type IAppProps = IStateProps & IDispatchProps;
 
 export interface IAppState {
   worker: IWorker;
@@ -30,6 +37,15 @@ export default class App extends React.Component<IAppProps, IAppState> {
     this.initializeWorker();
   }
 
+  public componentWillReceiveProps(nextProps: IAppProps) {
+    const { events, requests } = this.props;
+    if (this.state.worker !== null) {
+      if (events !== nextProps.events || requests !== nextProps.requests) {
+        this.state.worker.update(events, requests);
+      }
+    }
+  }
+
   public render() {
     return (
       <div>
@@ -42,6 +58,11 @@ export default class App extends React.Component<IAppProps, IAppState> {
   }
 
   private initializeWorker = () => {
-    const thumbnailWorker = new ThumbnailWorker();
+    const { events, requests, receiveThumbnails, finishThumbnails } = this.props;
+    const thumbnailWorker = new ThumbnailWorker(receiveThumbnails, finishThumbnails);
+    thumbnailWorker.update(events, requests);
+    this.setState({
+      worker: thumbnailWorker,
+    });
   }
 }

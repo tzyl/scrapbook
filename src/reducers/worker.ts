@@ -12,7 +12,7 @@ const worker = (state = defaultState, action: IAction): IStoreWorkerState => {
         ...state,
         requests: [...state.requests, action.payload.id],
       };
-    case WorkerActionDefinitions.RECEIVE_THUMBNAILS:
+    case WorkerActionDefinitions.FINISH_THUMBNAILS:
       return {
         ...state,
         requests: state.requests.filter((id) => id !== action.payload.id),

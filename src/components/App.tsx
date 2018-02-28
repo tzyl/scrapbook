@@ -41,7 +41,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
     const { events, requests } = this.props;
     if (this.state.worker !== null) {
       if (events !== nextProps.events || requests !== nextProps.requests) {
-        this.state.worker.update(events, requests);
+        this.state.worker.update(nextProps.events, nextProps.requests);
       }
     }
   }

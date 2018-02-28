@@ -3,12 +3,6 @@ import { Dispatch } from "../types/redux";
 import { IWorkerAction, WorkerActionDefinitions } from "../types/worker";
 import generateThumbnails from "../util/thumbnail";
 
-export const requestThumbnailsThenUpdate = (id: string, photos: IPhoto[]) => async (dispatch: Dispatch) => {
-  dispatch(requestThumbnails(id));
-  const withThumbnails = await generateThumbnails(photos);
-  dispatch(receiveThumbnails(id, withThumbnails));
-};
-
 export const requestThumbnails = (id: string) => {
   return {
     type: WorkerActionDefinitions.REQUEST_THUMBNAILS,
@@ -18,12 +12,22 @@ export const requestThumbnails = (id: string) => {
   };
 };
 
-export const receiveThumbnails = (id: string, photos: IPhoto[]): IWorkerAction => {
+export const receiveThumbnails = (id: string, photos: IPhoto[], startIndex: number): IWorkerAction => {
   return {
     type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
     payload: {
       id,
       photos,
+      startIndex,
+    },
+  };
+};
+
+export const finishThumbnails = (id: string): IWorkerAction => {
+  return {
+    type: WorkerActionDefinitions.FINISH_THUMBNAILS,
+    payload: {
+      id,
     },
   };
 };

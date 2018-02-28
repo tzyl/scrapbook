@@ -14,7 +14,14 @@ const events = (state = defaultState, action: IAction): IStoreEventsState => {
     case WorkerActionDefinitions.RECEIVE_THUMBNAILS:
       return state.map((event) => {
         if (event.id === action.payload.id) {
-          event.photos = action.payload.photos;
+          return {
+            ...event,
+            photos: [
+              ...event.photos.slice(0, action.payload.startIndex),
+              ...action.payload.photos,
+              ...event.photos.slice(action.payload.startIndex + action.payload.photos.length),
+            ],
+          };
         }
         return event;
       });

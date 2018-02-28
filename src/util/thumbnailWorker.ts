@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 import { IEvent, IPhoto } from "../types/events";
 import { GalleryDimensions } from "../types/gallery";
 import { IThumbnailWorker } from "../types/worker";
@@ -8,6 +10,7 @@ const pica = require("pica/dist/pica")();
 export default class ThumbnailWorker implements IThumbnailWorker {
   private events: IEvent[];
   private requests: string[];
+  private batchSize: number;
   private queue: string[];
   private isRunning: boolean;
 
@@ -17,15 +20,19 @@ export default class ThumbnailWorker implements IThumbnailWorker {
   constructor(
     receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any,
     finishThumbnails: (id: string) => any,
+    batchSize = 25,
   ) {
     this.queue = [];
     this.isRunning = false;
+    this.batchSize = batchSize;
     this.receiveThumbnails = receiveThumbnails;
     this.finishThumbnails = finishThumbnails;
   }
 
   public update(events: IEvent[], requests: string[]) {
     this.events = events;
+    this.queue = this.queue.concat(_.difference(requests, this.requests));
+    this.requests = requests;
     this.run();
   }
 
@@ -52,18 +59,28 @@ export default class ThumbnailWorker implements IThumbnailWorker {
     return withThumbnail;
   }
 
-  private run() {
+  private async run() {
     if (this.queue.length > 0 && !this.isRunning) {
       this.isRunning = true;
       while (this.queue.length > 0) {
-        this.executeRequest(this.queue.shift());
+        await this.executeRequest(this.queue.shift());
       }
       this.isRunning = false;
     }
   }
 
-  private executeRequest(id: string) {
-    return;
+  private async executeRequest(id: string) {
+    const event = _.find(this.events, (evt) => evt.id === id);
+    if (event !== undefined) {
+      let currentIndex = 0;
+      let withThumbnails;
+      while (currentIndex <= event.photos.length) {
+        withThumbnails = await this.generateThumbnails(event.photos.slice(currentIndex, currentIndex + this.batchSize));
+        this.receiveThumbnails(id, withThumbnails, currentIndex);
+        currentIndex += this.batchSize;
+      }
+    }
+    this.finishThumbnails(id);
   }
 
   private generateThumbnails = async (photos: IPhoto[]): Promise<IPhoto[]> => {

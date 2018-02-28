@@ -22,7 +22,7 @@ export interface IDispatchProps {
   addEvent: (event: IEvent) => any;
   removeEvent: (id: string) => any;
   closeEditor: () => any;
-  requestThumbnailsThenUpdate: (id: string, photos: IPhoto[]) => any;
+  requestThumbnails: (id: string) => any;
 }
 
 export type IEditorModalProps = & IStateProps & IDispatchProps;
@@ -119,7 +119,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
   // TODO: Validate event
   private handleSubmit = async (e: any) => {
     e.preventDefault();
-    const { addEvent, removeEvent, requestThumbnailsThenUpdate, mode } = this.props;
+    const { addEvent, removeEvent, requestThumbnails, mode } = this.props;
     if (mode === EditorMode.add) {
       addEvent(this.state);
       this.setState(this.createEmptyState());
@@ -135,7 +135,7 @@ export default class EditorModal extends React.Component<IEditorModalProps, IEdi
         intent: Intent.SUCCESS,
       });
     }
-    requestThumbnailsThenUpdate(this.state.id, this.state.photos);
+    requestThumbnails(this.state.id);
   }
 
   private initializeState = () => {

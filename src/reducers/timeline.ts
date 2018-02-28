@@ -10,16 +10,18 @@ const timeline = (state = defaultState, action: IAction): IStoreTimelineState =>
   switch (action.type) {
     case TimelineActionDefinitions.SELECT_EVENT:
       return {
-        ...state,
         selectedEvent: action.payload.event,
       };
     case WorkerActionDefinitions.RECEIVE_THUMBNAILS:
       if (state.selectedEvent && state.selectedEvent.id === action.payload.id) {
         return {
-          ...state,
           selectedEvent: {
             ...state.selectedEvent,
-            photos: action.payload.photos,
+            photos: [
+              ...state.selectedEvent.photos.slice(0, action.payload.startIndex),
+              ...action.payload.photos,
+              ...state.selectedEvent.photos.slice(action.payload.startIndex + action.payload.photos.length),
+            ],
           },
         };
       }

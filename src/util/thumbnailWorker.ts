@@ -8,11 +8,11 @@ import { IThumbnailWorker } from "../types/worker";
 const pica = require("pica/dist/pica")();
 
 export default class ThumbnailWorker implements IThumbnailWorker {
-  private events: IEvent[];
-  private requests: string[];
-  private batchSize: number;
-  private queue: string[];
-  private isRunning: boolean;
+  private events = [] as IEvent[];
+  private requests = [] as string[];
+  private queue = [] as string[];
+  private isRunning = false;
+  private batchSize = 25;
 
   private receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any;
   private finishThumbnails: (id: string) => any;
@@ -20,10 +20,8 @@ export default class ThumbnailWorker implements IThumbnailWorker {
   constructor(
     receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any,
     finishThumbnails: (id: string) => any,
-    batchSize = 25,
+    batchSize ?: number,
   ) {
-    this.queue = [];
-    this.isRunning = false;
     this.batchSize = batchSize;
     this.receiveThumbnails = receiveThumbnails;
     this.finishThumbnails = finishThumbnails;

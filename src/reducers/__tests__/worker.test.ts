@@ -20,12 +20,11 @@ describe("worker reducer", () => {
     expect(mockState.requests).toEqual(["123", "456"]);
   });
 
-  it("receives thumbnails", () => {
+  it("finishes thumbnails", () => {
     mockState = worker(mockState, {
-      type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
+      type: WorkerActionDefinitions.FINISH_THUMBNAILS,
       payload: {
         id: "123",
-        photos: [],
       },
     });
     expect(mockState.requests).toHaveLength(0);

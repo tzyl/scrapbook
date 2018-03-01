@@ -1,7 +1,5 @@
 import { IPhoto } from "../types/events";
-import { Dispatch } from "../types/redux";
 import { IWorkerAction, WorkerActionDefinitions } from "../types/worker";
-import generateThumbnails from "../util/thumbnail";
 
 export const requestThumbnails = (id: string) => {
   return {
@@ -12,7 +10,7 @@ export const requestThumbnails = (id: string) => {
   };
 };
 
-export const receiveThumbnails = (id: string, photos: IPhoto[], startIndex: number): IWorkerAction => {
+export const receiveThumbnails = (id: string, photos: IPhoto[], startIndex = 0): IWorkerAction => {
   return {
     type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
     payload: {

@@ -109,7 +109,7 @@ describe("events reducer", () => {
         photos: mockPhotosWithThumbnails,
       },
     });
-    expect(mockState[0].photos).toBe(mockPhotosWithThumbnails);
+    expect(mockState[0].photos).toEqual(mockPhotosWithThumbnails);
   });
 
   it("doesn't change thumbnails for different id", () => {

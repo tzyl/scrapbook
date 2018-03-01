@@ -54,9 +54,10 @@ describe("timeline reducer", () => {
       payload: {
         id: mockState.selectedEvent.id,
         photos: mockPhotosWithThumbnails,
+        startIndex: 0,
       },
     });
-    expect(mockState.selectedEvent.photos).toBe(mockPhotosWithThumbnails);
+    expect(mockState.selectedEvent.photos).toEqual(mockPhotosWithThumbnails);
   });
 
   it("doesn't receive thumbnails from a different event", () => {
@@ -73,6 +74,7 @@ describe("timeline reducer", () => {
       payload: {
         id: "non-matching-id",
         photos: mockPhotosWithThumbnails,
+        startIndex: 0,
       },
     });
     expect(mockState.selectedEvent.photos).not.toBe(mockPhotosWithThumbnails);

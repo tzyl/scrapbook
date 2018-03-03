@@ -12,7 +12,7 @@ export default class ThumbnailWorker implements IThumbnailWorker {
   private requests = [] as string[];
   private queue = [] as string[];
   private isRunning = false;
-  private batchSize = 25;
+  private batchSize: number;
 
   private receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any;
   private finishThumbnails: (id: string) => any;
@@ -20,7 +20,7 @@ export default class ThumbnailWorker implements IThumbnailWorker {
   constructor(
     receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any,
     finishThumbnails: (id: string) => any,
-    batchSize ?: number,
+    batchSize = 25,
   ) {
     this.batchSize = batchSize;
     this.receiveThumbnails = receiveThumbnails;

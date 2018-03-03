@@ -16,7 +16,7 @@ export interface ITimelineEventProps {
   openLightbox: (index: number) => any;
 }
 
-export default class TimelineEvent extends React.Component<ITimelineEventProps> {
+export default class TimelineEvent extends React.PureComponent<ITimelineEventProps> {
   public render() {
     const { event, handleOpenEvent, openLightbox } = this.props;
     return (

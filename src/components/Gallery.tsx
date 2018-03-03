@@ -17,7 +17,7 @@ export interface IGalleryState {
   width: number;
 }
 
-export default class Gallery extends React.Component<IGalleryProps> {
+export default class Gallery extends React.PureComponent<IGalleryProps> {
   public state: IGalleryState = {
     width: -1,
   };

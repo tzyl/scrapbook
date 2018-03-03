@@ -25,7 +25,7 @@ export interface IOwnProps {
 
 export type IEditorProps = IOwnProps;
 
-export default class Editor extends React.Component<IEditorProps> {
+export default class Editor extends React.PureComponent<IEditorProps> {
   public render() {
     const {
       event,

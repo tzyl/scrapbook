@@ -28,7 +28,7 @@ export interface IAppState {
   worker: IWorker;
 }
 
-export default class App extends React.Component<IAppProps, IAppState> {
+export default class App extends React.PureComponent<IAppProps, IAppState> {
   public state: IAppState = {
     worker: null,
   };

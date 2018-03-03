@@ -27,7 +27,7 @@ export interface ITimelinePageState {
   isDeleteAlertOpen: boolean;
 }
 
-export default class TimelinePage extends React.Component<ITimelinePageProps, ITimelinePageState> {
+export default class TimelinePage extends React.PureComponent<ITimelinePageProps, ITimelinePageState> {
   public state: ITimelinePageState = {
     isDeleteAlertOpen: false,
   };

@@ -29,7 +29,7 @@ export type IEditorModalProps = & IStateProps & IDispatchProps;
 
 export type IEditorModalState = IEvent;
 
-export default class EditorModal extends React.Component<IEditorModalProps, IEditorModalState> {
+export default class EditorModal extends React.PureComponent<IEditorModalProps, IEditorModalState> {
   public state: IEditorModalState = this.createEmptyState();
 
   public render() {

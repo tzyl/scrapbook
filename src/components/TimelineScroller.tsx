@@ -16,7 +16,7 @@ export interface ITimelineScrollerState {
 
 const OFFSET = -300;
 
-export default class TimelineScroller extends React.Component<ITimelineScrollerProps> {
+export default class TimelineScroller extends React.PureComponent<ITimelineScrollerProps> {
   public state: ITimelineScrollerState = {
     index: 0,
   };

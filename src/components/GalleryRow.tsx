@@ -13,7 +13,7 @@ export interface IOwnProps {
 
 export type IGalleryRowProps = IOwnProps;
 
-export default class GalleryRow extends React.Component<IGalleryRowProps> {
+export default class GalleryRow extends React.PureComponent<IGalleryRowProps> {
   public render() {
     const { photos, startIndex, length } = this.props;
     const height = GalleryDimensions.THUMBNAIL_HEIGHT + GalleryDimensions.ROW_VERTICAL_MARGIN;

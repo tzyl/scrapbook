@@ -1,6 +1,13 @@
-import { mockEvents } from "../../mockData";
 import { IPhoto } from "../../types/events";
+
 import ThumbnailWorker from "../thumbnailWorker";
+
+jest.mock("pica/dist/pica", () => () => ({
+    resize: () => ({
+        toDataURL: () => "thumbnail",
+    }),
+  }),
+);
 
 const mockPhotoWithoutThumbnail: IPhoto = {
   src: "src",
@@ -31,11 +38,15 @@ describe("thumbnail worker", () => {
   let thumbnailWorker;
   let receiveThumbnails;
   let finishThumbnails;
+  let loadImage;
 
   beforeEach(() => {
     receiveThumbnails = jest.fn();
     finishThumbnails = jest.fn();
+    loadImage = jest.fn();
     thumbnailWorker = new ThumbnailWorker(receiveThumbnails, finishThumbnails, 10);
+    (thumbnailWorker as any).loadImage = loadImage;
+
   });
 
   it("initializes correctly", () => {
@@ -48,9 +59,30 @@ describe("thumbnail worker", () => {
     expect(thumbnailWorker.finishThumbnails).toBe(finishThumbnails);
   });
 
+  it("updates then runs", async () => {
+    const mockExecuteRequest = jest.fn();
+    (thumbnailWorker as any).executeRequest = mockExecuteRequest;
+    await thumbnailWorker.update(undefined, ["1", "2", "3"]);
+    expect(mockExecuteRequest).toHaveBeenCalledTimes(3);
+  });
+
+  it("receives and finishes thumbnails", async () => {
+    await thumbnailWorker.update([{ id: "1", photos: [mockPhotoWithoutThumbnail] }], ["1"]);
+    expect(loadImage).toHaveBeenCalledTimes(1);
+    expect(receiveThumbnails).toHaveBeenCalledTimes(1);
+    expect(finishThumbnails).toHaveBeenCalledTimes(1);
+  });
+
   it("generates thumbnail when height and width >= 500", async () => {
-    // TODO: mock this
-    // expect(await thumbnailWorker.generateThumbnail(mockPhotoWithoutThumbnail, 150)).toEqual(mockPhotoWithThumbnail);
+    const result = await thumbnailWorker.generateThumbnail(mockPhotoWithoutThumbnail, 150);
+    expect(loadImage).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(mockPhotoWithThumbnail);
+  });
+
+  it("generates thumbnails when height and width >= 500", async () => {
+    const result = await (thumbnailWorker as any).generateThumbnails([mockPhotoWithoutThumbnail], 150);
+    expect(loadImage).toHaveBeenCalledTimes(1);
+    expect(result).toEqual([mockPhotoWithThumbnail]);
   });
 
   it("uses src for thumbnail if width or height < 500", async () => {

@@ -27,11 +27,11 @@ export default class ThumbnailWorker implements IThumbnailWorker {
     this.finishThumbnails = finishThumbnails;
   }
 
-  public update(events: IEvent[], requests: string[]) {
+  public async update(events: IEvent[], requests: string[]) {
     this.events = events;
     this.queue = this.queue.concat(_.difference(requests, this.requests));
     this.requests = requests;
-    this.run();
+    return this.run();
   }
 
   public generateThumbnail = async (photo: IPhoto, thumbnailHeight: number): Promise<IPhoto> => {

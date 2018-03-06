@@ -40,6 +40,7 @@ export interface IPhoto {
   thumbnail?: string;
   width: number;
   height: number;
+  orientation?: number;
 }
 
 export enum EventsActionDefinitions {

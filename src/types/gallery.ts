@@ -22,7 +22,15 @@ export interface IGalleryAction extends IAction {
 
 export enum GalleryDimensions {
   THUMBNAIL_HEIGHT = 150,
-  ROW_VERTICAL_MARGIN = 20,
-  ROW_HORIZONTAL_MARGIN = 10,
-  ROW_RESERVED_HORIZONTAL_SPACE = 50,
+}
+
+export enum PhotoOrientation {
+  TOP_LEFT = 1,
+  TOP_RIGHT = 2,
+  BOTTOM_RIGHT = 3,
+  BOTTOM_LEFT = 4,
+  LEFT_TOP = 5,
+  RIGHT_TOP = 6,
+  RIGHT_BOTTOM = 7,
+  LEFT_BOTTOM = 8,
 }

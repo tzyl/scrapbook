@@ -1,6 +1,4 @@
-import configureMockStore from "redux-mock-store";
-
-import { IPhoto } from "../../types/events";
+import { IPhoto } from "../../types/gallery";
 import { IWorkerAction, WorkerActionDefinitions } from "../../types/worker";
 import { finishThumbnails, receiveThumbnails, requestThumbnails } from "../worker";
 

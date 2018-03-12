@@ -1,4 +1,14 @@
-import { PhotoOrientation } from "../types/gallery";
+import * as EXIF from "exif-js";
+import { promisify } from "util";
+
+import { IPhoto, PhotoOrientation } from "../types/gallery";
+
+const getExifDataAsync = promisify(EXIF.getData);
+
+export const getOrientation = async (photo: IPhoto): Promise<PhotoOrientation> => {
+  await getExifDataAsync(photo);
+  return EXIF.getTag(photo, "Orientation");
+};
 
 export const calculateOrientationStyle = (orientation: PhotoOrientation) => {
   switch (orientation) {

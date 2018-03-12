@@ -1,4 +1,5 @@
-import { IEvent, IPhoto } from "./events";
+import { IEvent } from "./events";
+import { IPhoto } from "./gallery";
 import { Dispatch, IAction, IStoreState } from "./redux";
 
 export interface IStoreWorkerState {

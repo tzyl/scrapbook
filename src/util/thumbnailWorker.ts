@@ -1,7 +1,7 @@
 import * as _ from "lodash";
 
-import { IEvent, IPhoto } from "../types/events";
-import { GalleryDimensions } from "../types/gallery";
+import { IEvent } from "../types/events";
+import { GalleryDimensions, IPhoto } from "../types/gallery";
 import { IThumbnailWorker } from "../types/worker";
 
 // tslint:disable-next-line:no-var-requires

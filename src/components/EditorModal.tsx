@@ -7,7 +7,8 @@ import { v4 } from "node-uuid";
 import Modal = require("react-modal");
 
 import { EditorMode } from "../types/editor";
-import { IEvent, IPhoto } from "../types/events";
+import { IEvent } from "../types/events";
+import { IPhoto } from "../types/gallery";
 import { getPhotos } from "../util/electron";
 import toaster from "../util/toaster";
 import Editor from "./Editor";

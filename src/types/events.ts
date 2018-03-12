@@ -1,4 +1,4 @@
-import { ILightboxPhoto } from "react-images";
+import { IPhoto } from "./gallery";
 import { IAction } from "./redux";
 
 export interface IStoreEventsState extends Array<IEvent> {}
@@ -33,14 +33,6 @@ export interface IEvent {
    * Photos in the event.
    */
   photos: IPhoto[];
-}
-
-export interface IPhoto {
-  src: string;
-  thumbnail?: string;
-  width: number;
-  height: number;
-  orientation?: number;
 }
 
 export enum EventsActionDefinitions {

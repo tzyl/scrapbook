@@ -8,7 +8,8 @@ import EditorModal, {
   IDispatchProps,
   IStateProps,
 } from "../components/EditorModal";
-import { IEvent, IPhoto } from "../types/events";
+import { IEvent } from "../types/events";
+import { IPhoto } from "../types/gallery";
 import { Dispatch, IStoreState } from "../types/redux";
 
 const mapStateToProps = (state: IStoreState): IStateProps => {

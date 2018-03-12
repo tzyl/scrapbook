@@ -6,7 +6,8 @@ import Header from "../components/Header";
 import ConnectedEditorModal from "../containers/EditorModal";
 import ConnectedGalleryModal from "../containers/GalleryModal";
 import ConnectedTimelinePage from "../containers/TimelinePage";
-import { IEvent, IPhoto } from "../types/events";
+import { IEvent } from "../types/events";
+import { IPhoto } from "../types/gallery";
 import { IWorker } from "../types/worker";
 import ThumbnailWorker from "../util/thumbnailWorker";
 

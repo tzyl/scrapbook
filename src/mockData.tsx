@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import { IEvent, IPhoto } from "./types/events";
+import { IEvent } from "./types/events";
+import { IPhoto } from "./types/gallery";
 
 // tslint:disable:max-line-length
 export const mockEvents: IEvent[] = [

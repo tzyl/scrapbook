@@ -1,4 +1,4 @@
-import { IPhoto } from "../types/events";
+import { IPhoto } from "../types/gallery";
 import { IWorkerAction, WorkerActionDefinitions } from "../types/worker";
 
 export const requestThumbnails = (id: string) => {

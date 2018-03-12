@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { finishThumbnails, receiveThumbnails } from "../actions/worker";
 import App, { IDispatchProps, IStateProps } from "../components/App";
-import { IPhoto } from "../types/events";
+import { IPhoto } from "../types/gallery";
 import { Dispatch, IStoreState } from "../types/redux";
 
 const mapStateToProps = (state: IStoreState): IStateProps => {

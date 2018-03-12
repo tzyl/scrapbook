@@ -1,4 +1,4 @@
-import { IPhoto } from "../../types/events";
+import { IPhoto } from "../../types/gallery";
 
 import ThumbnailWorker from "../thumbnailWorker";
 

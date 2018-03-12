@@ -2,7 +2,7 @@ import * as React from "react";
 
 import Measure, { ContentRect, MeasuredComponentProps } from "react-measure";
 
-import { IPhoto } from "../types/events";
+import { IPhoto } from "../types/gallery";
 import { GalleryDimensions } from "../types/gallery";
 import Thumbnail from "./Thumbnail";
 

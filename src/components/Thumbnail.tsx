@@ -1,10 +1,8 @@
 import * as React from "react";
 
-import * as EXIF from "exif-js";
-
-import { IPhoto } from "../types/events";
+import { IPhoto } from "../types/gallery";
 import { GalleryDimensions, PhotoOrientation } from "../types/gallery";
-import { calculateOrientationStyle } from "../util/exif";
+import { calculateOrientationStyle, getOrientation } from "../util/exif";
 
 export interface IThumbnailProps {
   photo: IPhoto;
@@ -54,15 +52,10 @@ export default class Thumbnail extends React.PureComponent<IThumbnailProps, IThu
     );
   }
 
-  private handleLoad = () => {
-    this.setState((prevState) => {
-      let orientation: PhotoOrientation;
-      EXIF.getData(this.props.photo, function() {
-        orientation = EXIF.getTag(this, "Orientation");
-        return {
-          orientation,
-        };
-      });
+  private handleLoad = async () => {
+    const orientation = await getOrientation(this.props.photo);
+    this.setState({
+      orientation,
     });
   }
 }

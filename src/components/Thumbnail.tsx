@@ -1,15 +1,14 @@
 import * as React from "react";
 
-import EXIF from "exif-js";
+import * as EXIF from "exif-js";
 
 import { IPhoto } from "../types/events";
 import { GalleryDimensions, PhotoOrientation } from "../types/gallery";
+import { calculateOrientationStyle } from "../util/exif";
 
 export interface IThumbnailProps {
   photo: IPhoto;
   handleClick: () => any;
-  // TODO: make handleLoad get exif orientation data
-  handleLoad: () => any;
 }
 
 export interface IThumbnailState {
@@ -17,10 +16,10 @@ export interface IThumbnailState {
 }
 
 export default class Thumbnail extends React.PureComponent<IThumbnailProps, IThumbnailState> {
-  // TODO: move this into props so thumbnail is presentational only
   public state: IThumbnailState = {
     orientation: PhotoOrientation.TOP_LEFT,
   };
+  private image: HTMLImageElement;
 
   public render() {
     const { photo, handleClick } = this.props;
@@ -28,10 +27,11 @@ export default class Thumbnail extends React.PureComponent<IThumbnailProps, IThu
       width: photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height,
       height: GalleryDimensions.THUMBNAIL_HEIGHT,
     };
+    const orientationStyle = calculateOrientationStyle(this.state.orientation);
     if (!photo.thumbnail) {
       return (
         <div
-          style={{ ...dimensions }}
+          style={{ ...dimensions, ...orientationStyle }}
           className="thumbnail thumbnail-loading"
           onClick={handleClick}
         >
@@ -42,13 +42,27 @@ export default class Thumbnail extends React.PureComponent<IThumbnailProps, IThu
     }
     return (
       <img
+        style={{ ...orientationStyle }}
         className="thumbnail"
+        ref={(image) => this.image = image}
         src={photo.thumbnail}
         width={dimensions.width}
         height={dimensions.height}
         onClick={handleClick}
-        onLoad={handleLoad}
+        onLoad={this.handleLoad}
       />
     );
+  }
+
+  private handleLoad = () => {
+    this.setState((prevState) => {
+      let orientation: PhotoOrientation;
+      EXIF.getData(this.props.photo, function() {
+        orientation = EXIF.getTag(this, "Orientation");
+        return {
+          orientation,
+        };
+      });
+    });
   }
 }

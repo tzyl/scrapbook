@@ -1,4 +1,4 @@
-import { GalleryActionDefinitions, IGalleryAction } from "../types/gallery";
+import { GalleryActionDefinitions, IGalleryAction, PhotoOrientation } from "../types/gallery";
 
 export const openGallery = (): IGalleryAction => {
   return {
@@ -41,6 +41,17 @@ export const selectPhoto = (index: number): IGalleryAction => {
     type: GalleryActionDefinitions.SELECT_PHOTO,
     payload: {
       index,
+    },
+  };
+};
+
+export const updateOrientation = (id: string, index: number, orientation: PhotoOrientation): IGalleryAction => {
+  return {
+    type: GalleryActionDefinitions.UPDATE_ORIENTATION,
+    payload: {
+      id,
+      index,
+      orientation,
     },
   };
 };

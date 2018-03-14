@@ -14,7 +14,7 @@ import ThumbnailWorker from "../util/thumbnailWorker";
 Modal.setAppElement("#root");
 
 export interface IStateProps {
-  requests: string[];
+  thumbnailRequests: string[];
   events: IEvent[];
 }
 
@@ -39,10 +39,10 @@ export default class App extends React.PureComponent<IAppProps, IAppState> {
   }
 
   public componentWillReceiveProps(nextProps: IAppProps) {
-    const { events, requests } = this.props;
+    const { events, thumbnailRequests } = this.props;
     if (this.state.worker !== null) {
-      if (events !== nextProps.events || requests !== nextProps.requests) {
-        this.state.worker.update(nextProps.events, nextProps.requests);
+      if (events !== nextProps.events || thumbnailRequests !== nextProps.thumbnailRequests) {
+        this.state.worker.update(nextProps.events, nextProps.thumbnailRequests);
       }
     }
   }
@@ -59,9 +59,9 @@ export default class App extends React.PureComponent<IAppProps, IAppState> {
   }
 
   private initializeWorker = () => {
-    const { events, requests, receiveThumbnails, finishThumbnails } = this.props;
+    const { events, thumbnailRequests, receiveThumbnails, finishThumbnails } = this.props;
     const thumbnailWorker = new ThumbnailWorker(receiveThumbnails, finishThumbnails);
-    thumbnailWorker.update(events, requests);
+    thumbnailWorker.update(events, thumbnailRequests);
     this.setState({
       worker: thumbnailWorker,
     });

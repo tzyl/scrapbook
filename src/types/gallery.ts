@@ -35,6 +35,11 @@ export enum PhotoOrientation {
   LEFT_BOTTOM = 8,
 }
 
+export interface IPhotoDimensions {
+  width: number;
+  height: number;
+}
+
 export interface IPhoto {
   src: string;
   thumbnail?: string;

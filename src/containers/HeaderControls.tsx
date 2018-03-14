@@ -10,7 +10,7 @@ import { Dispatch, IStoreState } from "../types/redux";
 
 const mapStateToProps = (state: IStoreState): IStateProps => {
   return {
-    isGeneratingThumbnails: state.worker.requests.length > 0,
+    isGeneratingThumbnails: state.worker.thumbnailRequests.length > 0,
   };
 };
 

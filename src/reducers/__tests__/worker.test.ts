@@ -6,7 +6,8 @@ describe("worker reducer", () => {
 
   beforeEach(() => {
     mockState = {
-      requests: ["123"],
+      thumbnailRequests: ["123"],
+      orientationRequests: ["123"],
     };
   });
 
@@ -17,7 +18,7 @@ describe("worker reducer", () => {
         id: "456",
       },
     });
-    expect(mockState.requests).toEqual(["123", "456"]);
+    expect(mockState.thumbnailRequests).toEqual(["123", "456"]);
   });
 
   it("finishes thumbnails", () => {
@@ -27,7 +28,7 @@ describe("worker reducer", () => {
         id: "123",
       },
     });
-    expect(mockState.requests).toHaveLength(0);
+    expect(mockState.thumbnailRequests).toHaveLength(0);
   });
 
   it("returns state for an unrecognized action", () => {

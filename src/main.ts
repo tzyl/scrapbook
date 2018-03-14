@@ -1,10 +1,12 @@
 import { app, BrowserWindow, dialog } from "electron";
-
 import * as fs from "fs";
 import * as sizeOf from "image-size";
 import * as path from "path";
 import * as url from "url";
 import { promisify } from "util";
+
+import { IPhoto, IPhotoDimensions } from "./types/gallery";
+import { getOrientation } from "./util/exif";
 
 const readdirAsync = promisify(fs.readdir);
 const statAsync = promisify(fs.stat);
@@ -37,7 +39,9 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  if (process.env.NODE_ENV !== "production") {
+    mainWindow.webContents.openDevTools()
+  }
 
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {
@@ -71,13 +75,22 @@ app.on("activate", () => {
 });
 
 // Select directory and return paths and dimensions of all images inside.
-(global as any).getPhotos = async () => {
+(global as any).getPhotos = async (): Promise<IPhoto[]> => {
   try {
     const dirPath = dialog.showOpenDialog(mainWindow, {
       properties: ["openDirectory"],
     })[0];
     const files = await crawlFolder(dirPath);
-    const photos = await Promise.all(files.map(async (f) => getDimensions(f)));
+    const photos = await Promise.all(files.map(async (f) => {
+      return {
+        src: url.format({
+          pathname: f,
+          protocol: "file:",
+          slashes: true,
+        }),
+        ...(await getDimensions(f)),
+      };
+    }));
     return photos.filter((photo) => photo !== null);
   } catch {
     return [];
@@ -85,7 +98,7 @@ app.on("activate", () => {
 };
 
 // Crawls a folder recursively and returns an array of all file paths.
-const crawlFolder = async (dirPath: string, files: string[] = []) => {
+const crawlFolder = async (dirPath: string, files: string[] = []): Promise<string[]> => {
   const results = (await readdirAsync(dirPath)).map((f) => path.join(dirPath, f));
   await Promise.all(results.map(async (res) => {
     if ((await statAsync(res)).isDirectory()) {
@@ -98,15 +111,10 @@ const crawlFolder = async (dirPath: string, files: string[] = []) => {
 };
 
 // Tries to get the dimensions of a photo from src. Returns null if not a photo.
-const getDimensions = async (photoPath: string) => {
+const getDimensions = async (photoPath: string): Promise<IPhotoDimensions> => {
   try {
     const dimensions = await sizeOfAsync(photoPath);
     return {
-      src: url.format({
-        pathname: photoPath,
-        protocol: "file:",
-        slashes: true,
-      }),
       width: dimensions.width,
       height: dimensions.height,
     };

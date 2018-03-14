@@ -9,7 +9,7 @@ import { Dispatch, IStoreState } from "../types/redux";
 const mapStateToProps = (state: IStoreState): IStateProps => {
   return {
     events: state.events,
-    requests: state.worker.requests,
+    thumbnailRequests: state.worker.thumbnailRequests,
   };
 };
 

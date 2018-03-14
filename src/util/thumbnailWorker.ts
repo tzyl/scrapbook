@@ -9,7 +9,7 @@ const pica = require("pica/dist/pica")();
 
 export default class ThumbnailWorker implements IThumbnailWorker {
   private events = [] as IEvent[];
-  private requests = [] as string[];
+  private thumbnailRequests = [] as string[];
   private queue = [] as string[];
   private isRunning = false;
   private batchSize: number;
@@ -27,10 +27,10 @@ export default class ThumbnailWorker implements IThumbnailWorker {
     this.finishThumbnails = finishThumbnails;
   }
 
-  public async update(events: IEvent[], requests: string[]) {
+  public async update(events: IEvent[], thumbnailRequests: string[]) {
     this.events = events;
-    this.queue = this.queue.concat(_.difference(requests, this.requests));
-    this.requests = requests;
+    this.queue = this.queue.concat(_.difference(thumbnailRequests, this.thumbnailRequests));
+    this.thumbnailRequests = thumbnailRequests;
     return this.run();
   }
 

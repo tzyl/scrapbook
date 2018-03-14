@@ -51,7 +51,7 @@ describe("thumbnail worker", () => {
 
   it("initializes correctly", () => {
     expect(thumbnailWorker.events).toHaveLength(0);
-    expect(thumbnailWorker.requests).toHaveLength(0);
+    expect(thumbnailWorker.thumbnailRequests).toHaveLength(0);
     expect(thumbnailWorker.queue).toHaveLength(0);
     expect(thumbnailWorker.isRunning).toBe(false);
     expect(thumbnailWorker.batchSize).toBe(10);

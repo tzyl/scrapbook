@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { closeEditor } from "../actions/editor";
 import { addEvent, removeEvent } from "../actions/events";
-import { requestThumbnails } from "../actions/worker";
+import { requestOrientations, requestThumbnails } from "../actions/worker";
 import EditorModal, {
   IDispatchProps,
   IStateProps,
@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
     removeEvent: (id: string) => dispatch(removeEvent(id)),
     closeEditor: () => dispatch(closeEditor()),
     requestThumbnails: (id: string) => dispatch(requestThumbnails(id)),
+    requestOrientations: (id: string) => dispatch(requestOrientations(id)),
   };
 };
 

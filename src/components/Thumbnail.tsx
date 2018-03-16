@@ -2,30 +2,21 @@ import * as React from "react";
 
 import { IPhoto } from "../types/gallery";
 import { GalleryDimensions, PhotoOrientation } from "../types/gallery";
-import { calculateOrientationStyle, getOrientation } from "../util/exif";
+import { calculateOrientationStyle } from "../util/orientation";
 
 export interface IThumbnailProps {
   photo: IPhoto;
   handleClick: () => any;
 }
 
-export interface IThumbnailState {
-  orientation: PhotoOrientation;
-}
-
-export default class Thumbnail extends React.PureComponent<IThumbnailProps, IThumbnailState> {
-  public state: IThumbnailState = {
-    orientation: PhotoOrientation.TOP_LEFT,
-  };
-  private image: HTMLImageElement;
-
+export default class Thumbnail extends React.PureComponent<IThumbnailProps> {
   public render() {
     const { photo, handleClick } = this.props;
     const dimensions = {
       width: photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height,
       height: GalleryDimensions.THUMBNAIL_HEIGHT,
     };
-    const orientationStyle = calculateOrientationStyle(this.state.orientation);
+    const orientationStyle = calculateOrientationStyle(photo.orientation);
     if (!photo.thumbnail) {
       return (
         <div
@@ -42,20 +33,11 @@ export default class Thumbnail extends React.PureComponent<IThumbnailProps, IThu
       <img
         style={{ ...orientationStyle }}
         className="thumbnail"
-        ref={(image) => this.image = image}
         src={photo.thumbnail}
         width={dimensions.width}
         height={dimensions.height}
         onClick={handleClick}
-        onLoad={this.handleLoad}
       />
     );
-  }
-
-  private handleLoad = async () => {
-    const orientation = await getOrientation(this.props.photo);
-    this.setState({
-      orientation,
-    });
   }
 }

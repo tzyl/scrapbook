@@ -31,6 +31,26 @@ describe("worker reducer", () => {
     expect(mockState.thumbnailRequests).toHaveLength(0);
   });
 
+  it("requests orientation", () => {
+    mockState = worker(mockState, {
+      type: WorkerActionDefinitions.REQUEST_ORIENTATION,
+      payload: {
+        id: "456",
+      },
+    });
+    expect(mockState.orientationRequests).toEqual(["123", "456"]);
+  });
+
+  it("finishes orientation", () => {
+    mockState = worker(mockState, {
+      type: WorkerActionDefinitions.FINISH_ORIENTATION,
+      payload: {
+        id: "123",
+      },
+    });
+    expect(mockState.orientationRequests).toHaveLength(0);
+  });
+
   it("returns state for an unrecognized action", () => {
     expect(worker(mockState, { type: null })).toBe(mockState);
   });

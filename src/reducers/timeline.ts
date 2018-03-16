@@ -13,6 +13,7 @@ const timeline = (state = defaultState, action: IAction): IStoreTimelineState =>
         selectedEvent: action.payload.event,
       };
     case WorkerActionDefinitions.RECEIVE_THUMBNAILS:
+    case WorkerActionDefinitions.RECEIVE_ORIENTATION:
       if (state.selectedEvent && state.selectedEvent.id === action.payload.id) {
         return {
           selectedEvent: {

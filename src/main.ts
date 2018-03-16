@@ -6,7 +6,6 @@ import * as url from "url";
 import { promisify } from "util";
 
 import { IPhoto, IPhotoDimensions } from "./types/gallery";
-import { getOrientation } from "./util/exif";
 
 const readdirAsync = promisify(fs.readdir);
 const statAsync = promisify(fs.stat);
@@ -40,7 +39,7 @@ const createWindow = () => {
 
   // Open the DevTools.
   if (process.env.NODE_ENV !== "production") {
-    mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools();
   }
 
   // Emitted when the window is closed.

@@ -1,23 +1,9 @@
-import * as EXIF from "exif-js";
-import { promisify } from "util";
-
 import { IPhoto, PhotoOrientation } from "../types/gallery";
-
-const getExifDataAsync = promisify(EXIF.getData);
-
-export const getOrientation = async (photo: IPhoto): Promise<PhotoOrientation> => {
-  await getExifDataAsync(photo);
-  return EXIF.getTag(photo, "Orientation");
-};
 
 export const calculateOrientationStyle = (orientation: PhotoOrientation) => {
   switch (orientation) {
     case PhotoOrientation.TOP_LEFT:
       return {};
-    case PhotoOrientation.TOP_LEFT:
-      return {
-        transform: "rotate(0deg)",
-      };
     case PhotoOrientation.TOP_RIGHT:
       return {
       };
@@ -30,7 +16,6 @@ export const calculateOrientationStyle = (orientation: PhotoOrientation) => {
       };
     case PhotoOrientation.LEFT_TOP:
       return {
-
       };
     case PhotoOrientation.RIGHT_TOP:
       return {
@@ -38,11 +23,12 @@ export const calculateOrientationStyle = (orientation: PhotoOrientation) => {
       };
     case PhotoOrientation.RIGHT_BOTTOM:
       return {
-
       };
     case PhotoOrientation.LEFT_BOTTOM:
       return {
         transform: "rotate(270deg)",
       };
+    default:
+      return {};
   }
 };

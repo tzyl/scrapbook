@@ -29,5 +29,5 @@ export interface IThumbnailWorker extends IWorker {
 }
 
 export interface IOrientationWorker extends IWorker {
-  getOrientation: (photo: IPhoto) => Promise<PhotoOrientation>;
+  getOrientation: (photo: IPhoto) => Promise<IPhoto>;
 }

@@ -9,16 +9,20 @@ import ConnectedTimelinePage from "../containers/TimelinePage";
 import { IEvent } from "../types/events";
 import { IPhoto } from "../types/gallery";
 import { IWorker } from "../types/worker";
+import OrientationWorker from "../util/orientationWorker";
 import ThumbnailWorker from "../util/thumbnailWorker";
 
 Modal.setAppElement("#root");
 
 export interface IStateProps {
+  orientationRequests: string[];
   thumbnailRequests: string[];
   events: IEvent[];
 }
 
 export interface IDispatchProps {
+  receiveOrientations: (id: string, photos: IPhoto[], startIndex: number) => any;
+  finishOrientations: (id: string) => any;
   receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any;
   finishThumbnails: (id: string) => any;
 }
@@ -26,12 +30,14 @@ export interface IDispatchProps {
 export type IAppProps = IStateProps & IDispatchProps;
 
 export interface IAppState {
-  worker: IWorker;
+  thumbnailWorker: IWorker;
+  orientationWorker: IWorker;
 }
 
 export default class App extends React.PureComponent<IAppProps, IAppState> {
   public state: IAppState = {
-    worker: null,
+    thumbnailWorker: null,
+    orientationWorker: null,
   };
 
   public componentDidMount() {
@@ -39,10 +45,15 @@ export default class App extends React.PureComponent<IAppProps, IAppState> {
   }
 
   public componentWillReceiveProps(nextProps: IAppProps) {
-    const { events, thumbnailRequests } = this.props;
-    if (this.state.worker !== null) {
-      if (events !== nextProps.events || thumbnailRequests !== nextProps.thumbnailRequests) {
-        this.state.worker.update(nextProps.events, nextProps.thumbnailRequests);
+    const { events, orientationRequests, thumbnailRequests } = this.props;
+    if (events !== nextProps.events || thumbnailRequests !== nextProps.thumbnailRequests) {
+      if (this.state.thumbnailWorker !== null) {
+        this.state.thumbnailWorker.update(nextProps.events, nextProps.thumbnailRequests);
+      }
+    }
+    if (events !== nextProps.events || orientationRequests !== nextProps.orientationRequests) {
+      if (this.state.orientationWorker !== null) {
+        this.state.orientationWorker.update(nextProps.events, nextProps.orientationRequests);
       }
     }
   }
@@ -59,11 +70,24 @@ export default class App extends React.PureComponent<IAppProps, IAppState> {
   }
 
   private initializeWorker = () => {
-    const { events, thumbnailRequests, receiveThumbnails, finishThumbnails } = this.props;
+    const {
+      events,
+      thumbnailRequests,
+      receiveThumbnails,
+      finishThumbnails,
+      orientationRequests,
+      receiveOrientations,
+      finishOrientations,
+    } = this.props;
+
     const thumbnailWorker = new ThumbnailWorker(receiveThumbnails, finishThumbnails);
     thumbnailWorker.update(events, thumbnailRequests);
+    const orientationWorker = new OrientationWorker(receiveOrientations, finishOrientations);
+    orientationWorker.update(events, orientationRequests);
+
     this.setState({
-      worker: thumbnailWorker,
+      thumbnailWorker,
+      orientationWorker,
     });
   }
 }

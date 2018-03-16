@@ -24,6 +24,7 @@ export interface IDispatchProps {
   removeEvent: (id: string) => any;
   closeEditor: () => any;
   requestThumbnails: (id: string) => any;
+  requestOrientations: (id: string) => any;
 }
 
 export type IEditorModalProps = & IStateProps & IDispatchProps;
@@ -120,7 +121,7 @@ export default class EditorModal extends React.PureComponent<IEditorModalProps, 
   // TODO: Validate event
   private handleSubmit = async (e: any) => {
     e.preventDefault();
-    const { addEvent, removeEvent, requestThumbnails, mode } = this.props;
+    const { addEvent, removeEvent, requestThumbnails, requestOrientations, mode } = this.props;
     if (mode === EditorMode.add) {
       addEvent(this.state);
       this.setState(this.createEmptyState());
@@ -137,6 +138,7 @@ export default class EditorModal extends React.PureComponent<IEditorModalProps, 
       });
     }
     requestThumbnails(this.state.id);
+    requestOrientations(this.state.id);
   }
 
   private initializeState = () => {

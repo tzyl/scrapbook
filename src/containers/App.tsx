@@ -1,7 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { finishThumbnails, receiveThumbnails } from "../actions/worker";
+import {
+  finishOrientations,
+  finishThumbnails,
+  receiveOrientations,
+  receiveThumbnails,
+} from "../actions/worker";
 import App, { IDispatchProps, IStateProps } from "../components/App";
 import { IPhoto } from "../types/gallery";
 import { Dispatch, IStoreState } from "../types/redux";
@@ -10,6 +15,7 @@ const mapStateToProps = (state: IStoreState): IStateProps => {
   return {
     events: state.events,
     thumbnailRequests: state.worker.thumbnailRequests,
+    orientationRequests: state.worker.orientationRequests,
   };
 };
 
@@ -18,6 +24,9 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
     finishThumbnails: (id: string) => dispatch(finishThumbnails(id)),
     receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) =>
       dispatch(receiveThumbnails(id, photos, startIndex)),
+    finishOrientations: (id: string) => dispatch(finishOrientations(id)),
+    receiveOrientations: (id: string, photos: IPhoto[], startIndex: number) =>
+      dispatch(receiveOrientations(id, photos, startIndex)),
   };
 };
 

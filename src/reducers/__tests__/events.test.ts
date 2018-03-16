@@ -1,4 +1,5 @@
-import { EventsActionDefinitions, IEvent, IPhoto, IStoreEventsState } from "../../types/events";
+import { EventsActionDefinitions, IEvent, IStoreEventsState } from "../../types/events";
+import { IPhoto } from "../../types/gallery";
 import { IAction } from "../../types/redux";
 import { WorkerActionDefinitions } from "../../types/worker";
 import events, { defaultState } from "../events";

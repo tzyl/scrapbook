@@ -1,4 +1,5 @@
-import { IEvent, IPhoto } from "../../types/events";
+import { IEvent } from "../../types/events";
+import { IPhoto } from "../../types/gallery";
 import { IAction } from "../../types/redux";
 import { IStoreTimelineState, TimelineActionDefinitions } from "../../types/timeline";
 import { WorkerActionDefinitions } from "../../types/worker";

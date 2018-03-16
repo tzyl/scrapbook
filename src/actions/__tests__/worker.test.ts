@@ -1,10 +1,19 @@
 import { IPhoto } from "../../types/gallery";
 import { IWorkerAction, WorkerActionDefinitions } from "../../types/worker";
-import { finishThumbnails, receiveThumbnails, requestThumbnails } from "../worker";
+import {
+  finishOrientations,
+  finishThumbnails,
+  receiveOrientations,
+  receiveThumbnails,
+  requestOrientations,
+  requestThumbnails,
+} from "../worker";
 
 describe("worker action creators", () => {
   let mockPhotosWithoutThumbnails: IPhoto[];
   let mockPhotosWithThumbnails: IPhoto[];
+  let mockPhotosWithoutOrientation: IPhoto[];
+  let mockPhotosWithOrientation: IPhoto[];
 
   beforeEach(() => {
     mockPhotosWithoutThumbnails = [
@@ -20,6 +29,21 @@ describe("worker action creators", () => {
         width: 1,
         height: 1,
         thumbnail: "thumbnail",
+      },
+    ];
+    mockPhotosWithoutOrientation = [
+      {
+        src: "src",
+        width: 1,
+        height: 1,
+      },
+    ];
+    mockPhotosWithOrientation = [
+      {
+        src: "src",
+        width: 1,
+        height: 1,
+        orientation: 3,
       },
     ];
   });
@@ -66,5 +90,49 @@ describe("worker action creators", () => {
       },
     };
     expect(finishThumbnails("123")).toEqual(expected);
+  });
+
+  it("creates a request orientation action", () => {
+    const expected: IWorkerAction = {
+      type: WorkerActionDefinitions.REQUEST_ORIENTATION,
+      payload: {
+        id: "123",
+      },
+    };
+    expect(requestOrientations("123")).toEqual(expected);
+  });
+
+  it("creates a receive orientation action with start index specified", () => {
+    const expected: IWorkerAction = {
+      type: WorkerActionDefinitions.RECEIVE_ORIENTATION,
+      payload: {
+        id: "123",
+        photos: mockPhotosWithOrientation,
+        startIndex: 1,
+      },
+    };
+    expect(receiveOrientations("123", mockPhotosWithOrientation, 1)).toEqual(expected);
+  });
+
+  it("creates a receive orientation action with default start index at beginning", () => {
+    const expected: IWorkerAction = {
+      type: WorkerActionDefinitions.RECEIVE_ORIENTATION,
+      payload: {
+        id: "123",
+        photos: mockPhotosWithOrientation,
+        startIndex: 0,
+      },
+    };
+    expect(receiveOrientations("123", mockPhotosWithOrientation)).toEqual(expected);
+  });
+
+  it("creates a finish orientation", () => {
+    const expected: IWorkerAction = {
+      type: WorkerActionDefinitions.FINISH_ORIENTATION,
+      payload: {
+        id: "123",
+      },
+    };
+    expect(finishOrientations("123")).toEqual(expected);
   });
 });

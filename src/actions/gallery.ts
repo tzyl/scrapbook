@@ -44,14 +44,3 @@ export const selectPhoto = (index: number): IGalleryAction => {
     },
   };
 };
-
-export const updateOrientation = (id: string, index: number, orientation: PhotoOrientation): IGalleryAction => {
-  return {
-    type: GalleryActionDefinitions.UPDATE_ORIENTATION,
-    payload: {
-      id,
-      index,
-      orientation,
-    },
-  };
-};

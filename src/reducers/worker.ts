@@ -18,12 +18,12 @@ const worker = (state = defaultState, action: IAction): IStoreWorkerState => {
         ...state,
         thumbnailRequests: state.thumbnailRequests.filter((id) => id !== action.payload.id),
       };
-    case WorkerActionDefinitions.REQUEST_ORIENTATION:
+    case WorkerActionDefinitions.REQUEST_ORIENTATIONS:
       return {
         ...state,
         orientationRequests: [...state.orientationRequests, action.payload.id],
       };
-    case WorkerActionDefinitions.FINISH_ORIENTATION:
+    case WorkerActionDefinitions.FINISH_ORIENTATIONS:
       return {
         ...state,
         orientationRequests: state.orientationRequests.filter((id) => id !== action.payload.id),

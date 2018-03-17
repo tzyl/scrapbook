@@ -11,6 +11,7 @@ import { Dispatch, IStoreState } from "../types/redux";
 const mapStateToProps = (state: IStoreState): IStateProps => {
   return {
     isGeneratingThumbnails: state.worker.thumbnailRequests.length > 0,
+    isGettingOrientations: state.worker.orientationRequests.length > 0,
   };
 };
 

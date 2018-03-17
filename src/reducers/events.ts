@@ -12,15 +12,43 @@ const events = (state = defaultState, action: IAction): IStoreEventsState => {
     case EventsActionDefinitions.REMOVE_EVENT:
       return state.filter((event) => event.id !== action.payload.id);
     case WorkerActionDefinitions.RECEIVE_THUMBNAILS:
-    case WorkerActionDefinitions.RECEIVE_ORIENTATION:
       return state.map((event) => {
         if (event.id === action.payload.id) {
+          const { startIndex, thumbnails } = action.payload;
+          const withThumbnails = event.photos.slice(startIndex, startIndex + thumbnails.length).map((photo, index) => {
+            return {
+              ...photo,
+              thumbnail: thumbnails[index],
+            };
+          });
           return {
             ...event,
             photos: [
-              ...event.photos.slice(0, action.payload.startIndex),
-              ...action.payload.photos,
-              ...event.photos.slice(action.payload.startIndex + action.payload.photos.length),
+              ...event.photos.slice(0, startIndex),
+              ...withThumbnails,
+              ...event.photos.slice(startIndex + thumbnails.length),
+            ],
+          };
+        }
+        return event;
+      });
+    case WorkerActionDefinitions.RECEIVE_ORIENTATIONS:
+      return state.map((event) => {
+        if (event.id === action.payload.id) {
+          const { startIndex, orientations } = action.payload;
+          const withOrientations = event.photos.slice(startIndex, startIndex + orientations.length)
+            .map((photo, index) => {
+              return {
+                ...photo,
+                orientation: orientations[index],
+              };
+            });
+          return {
+            ...event,
+            photos: [
+              ...event.photos.slice(0, startIndex),
+              ...withOrientations,
+              ...event.photos.slice(startIndex + orientations.length),
             ],
           };
         }

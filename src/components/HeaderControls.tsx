@@ -7,6 +7,7 @@ import LoadingSpinner from "./LoadingSpinner";
 
 export interface IStateProps {
   isGeneratingThumbnails: boolean;
+  isGettingOrientations: boolean;
 }
 
 export interface IDispatchProps {
@@ -16,21 +17,33 @@ export interface IDispatchProps {
 
 export type IHeaderControlsProps = IStateProps & IDispatchProps;
 
-const HeaderControls: React.SFC<IHeaderControlsProps> = ({
-  openEditor,
-  setEditorMode,
-  isGeneratingThumbnails,
-}) => {
-  const openEditorAdd = () => {
+export default class HeaderControls extends React.PureComponent<IHeaderControlsProps> {
+  public render() {
+    return (
+      <div>
+        <Button className="pt-minimal" iconName="pt-icon-add" onClick={this.openEditorAdd}>Create new event</Button>
+        <LoadingSpinner isLoading={this.isLoading()} text={this.renderLoadingText()} />
+      </div>
+    );
+  }
+
+  private openEditorAdd = () => {
+    const { openEditor, setEditorMode } = this.props;
     setEditorMode(EditorMode.add);
     openEditor();
-  };
-  return (
-    <div>
-      <Button className="pt-minimal" iconName="pt-icon-add" onClick={openEditorAdd}>Create new event</Button>
-      <LoadingSpinner isLoading={isGeneratingThumbnails} text="Generating thumbnails" />
-    </div>
-  );
-};
+  }
 
-export default HeaderControls;
+  private isLoading = () => {
+    const { isGeneratingThumbnails, isGettingOrientations } = this.props;
+    return isGeneratingThumbnails || isGettingOrientations;
+  }
+
+  private renderLoadingText = () => {
+    const { isGeneratingThumbnails, isGettingOrientations } = this.props;
+    const texts = [];
+    if (isGeneratingThumbnails) { texts.push("generating thumbnails"); }
+    if (isGettingOrientations) { texts.push("getting orientations"); }
+    const text = texts.join(", ");
+    return text ? text[0].toUpperCase() + text.slice(1) : text;
+   }
+}

@@ -13,15 +13,44 @@ const timeline = (state = defaultState, action: IAction): IStoreTimelineState =>
         selectedEvent: action.payload.event,
       };
     case WorkerActionDefinitions.RECEIVE_THUMBNAILS:
-    case WorkerActionDefinitions.RECEIVE_ORIENTATION:
       if (state.selectedEvent && state.selectedEvent.id === action.payload.id) {
+        const { startIndex, thumbnails } = action.payload;
+        const { photos } = state.selectedEvent;
+        const withThumbnails = photos.slice(startIndex, startIndex + thumbnails.length).map((photo, index) => {
+          return {
+            ...photo,
+            thumbnail: thumbnails[index],
+          };
+        });
         return {
           selectedEvent: {
             ...state.selectedEvent,
             photos: [
-              ...state.selectedEvent.photos.slice(0, action.payload.startIndex),
-              ...action.payload.photos,
-              ...state.selectedEvent.photos.slice(action.payload.startIndex + action.payload.photos.length),
+              ...photos.slice(0, startIndex),
+              ...withThumbnails,
+              ...photos.slice(startIndex + thumbnails.length),
+            ],
+          },
+        };
+      }
+      return state;
+    case WorkerActionDefinitions.RECEIVE_ORIENTATIONS:
+      if (state.selectedEvent && state.selectedEvent.id === action.payload.id) {
+        const { startIndex, orientations } = action.payload;
+        const { photos } = state.selectedEvent;
+        const withOrientations = photos.slice(startIndex, startIndex + orientations.length).map((photo, index) => {
+          return {
+            ...photo,
+            orientation: orientations[index],
+          };
+        });
+        return {
+          selectedEvent: {
+            ...state.selectedEvent,
+            photos: [
+              ...photos.slice(0, startIndex),
+              ...withOrientations,
+              ...photos.slice(startIndex + orientations.length),
             ],
           },
         };

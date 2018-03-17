@@ -76,31 +76,22 @@ describe("thumbnail worker", () => {
   it("generates thumbnail when height and width >= 500", async () => {
     const result = await thumbnailWorker.generateThumbnail(mockPhotoWithoutThumbnail, 150);
     expect(loadImage).toHaveBeenCalledTimes(1);
-    expect(result).toEqual(mockPhotoWithThumbnail);
+    expect(result).toEqual("thumbnail");
   });
 
   it("generates thumbnails when height and width >= 500", async () => {
     const result = await (thumbnailWorker as any).generateThumbnails([mockPhotoWithoutThumbnail], 150);
     expect(loadImage).toHaveBeenCalledTimes(1);
-    expect(result).toEqual([mockPhotoWithThumbnail]);
+    expect(result).toEqual(["thumbnail"]);
   });
 
   it("uses src for thumbnail if width or height < 500", async () => {
-    expect(await thumbnailWorker.generateThumbnail(mockPhotoSmallHeight, 150)).toEqual(
-      {
-        ...mockPhotoSmallHeight,
-        thumbnail: mockPhotoSmallHeight.src,
-      },
-    );
-    expect(await thumbnailWorker.generateThumbnail(mockPhotoSmallWidth, 150)).toEqual(
-      {
-        ...mockPhotoSmallWidth,
-        thumbnail: mockPhotoSmallWidth.src,
-      },
-    );
+    expect(await thumbnailWorker.generateThumbnail(mockPhotoSmallHeight, 150)).toEqual(mockPhotoSmallHeight.src);
+    expect(await thumbnailWorker.generateThumbnail(mockPhotoSmallWidth, 150)).toEqual(mockPhotoSmallWidth.src);
   });
 
   it("uses existing thumbnail if present", async () => {
-    expect(await thumbnailWorker.generateThumbnail(mockPhotoWithThumbnail, 150)).toEqual(mockPhotoWithThumbnail);
+    expect(await thumbnailWorker.generateThumbnail(mockPhotoWithThumbnail, 150))
+      .toEqual(mockPhotoWithThumbnail.thumbnail);
   });
 });

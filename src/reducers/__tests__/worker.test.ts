@@ -33,7 +33,7 @@ describe("worker reducer", () => {
 
   it("requests orientation", () => {
     mockState = worker(mockState, {
-      type: WorkerActionDefinitions.REQUEST_ORIENTATION,
+      type: WorkerActionDefinitions.REQUEST_ORIENTATIONS,
       payload: {
         id: "456",
       },
@@ -43,7 +43,7 @@ describe("worker reducer", () => {
 
   it("finishes orientation", () => {
     mockState = worker(mockState, {
-      type: WorkerActionDefinitions.FINISH_ORIENTATION,
+      type: WorkerActionDefinitions.FINISH_ORIENTATIONS,
       payload: {
         id: "123",
       },

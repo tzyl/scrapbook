@@ -8,7 +8,7 @@ import {
   receiveThumbnails,
 } from "../actions/worker";
 import App, { IDispatchProps, IStateProps } from "../components/App";
-import { IPhoto } from "../types/gallery";
+import { IPhoto, PhotoOrientation } from "../types/gallery";
 import { Dispatch, IStoreState } from "../types/redux";
 
 const mapStateToProps = (state: IStoreState): IStateProps => {
@@ -22,11 +22,11 @@ const mapStateToProps = (state: IStoreState): IStateProps => {
 const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => {
   return {
     finishThumbnails: (id: string) => dispatch(finishThumbnails(id)),
-    receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) =>
-      dispatch(receiveThumbnails(id, photos, startIndex)),
+    receiveThumbnails: (id: string, thumbnails: string[], startIndex: number) =>
+      dispatch(receiveThumbnails(id, thumbnails, startIndex)),
     finishOrientations: (id: string) => dispatch(finishOrientations(id)),
-    receiveOrientations: (id: string, photos: IPhoto[], startIndex: number) =>
-      dispatch(receiveOrientations(id, photos, startIndex)),
+    receiveOrientations: (id: string, orientations: PhotoOrientation[], startIndex: number) =>
+      dispatch(receiveOrientations(id, orientations, startIndex)),
   };
 };
 

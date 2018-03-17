@@ -11,9 +11,9 @@ export enum WorkerActionDefinitions {
   REQUEST_THUMBNAILS = "REQUEST_THUMBNAILS",
   RECEIVE_THUMBNAILS = "RECEIVE_THUMBNAILS",
   FINISH_THUMBNAILS = "FINISH_THUMBNAILS",
-  REQUEST_ORIENTATION = "REQUEST_ORIENTATION",
-  RECEIVE_ORIENTATION = "RECEIVE_ORIENTATION",
-  FINISH_ORIENTATION = "FINISH_ORIENTATION",
+  REQUEST_ORIENTATIONS = "REQUEST_ORIENTATIONS",
+  RECEIVE_ORIENTATIONS = "RECEIVE_ORIENTATIONS",
+  FINISH_ORIENTATIONS = "FINISH_ORIENTATIONS",
 }
 
 export interface IWorkerAction extends IAction {
@@ -25,9 +25,9 @@ export interface IWorker {
 }
 
 export interface IThumbnailWorker extends IWorker {
-  generateThumbnail: (photo: IPhoto, thumbnailHeight: number) => Promise<IPhoto>;
+  generateThumbnail: (photo: IPhoto, thumbnailHeight: number) => Promise<string>;
 }
 
 export interface IOrientationWorker extends IWorker {
-  getOrientation: (photo: IPhoto) => Promise<IPhoto>;
+  getOrientation: (photo: IPhoto) => Promise<PhotoOrientation>;
 }

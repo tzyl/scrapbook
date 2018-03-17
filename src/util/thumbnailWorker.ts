@@ -14,11 +14,11 @@ export default class ThumbnailWorker implements IThumbnailWorker {
   private isRunning = false;
   private batchSize: number;
 
-  private receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any;
+  private receiveThumbnails: (id: string, thumbnails: string[], startIndex: number) => any;
   private finishThumbnails: (id: string) => any;
 
   constructor(
-    receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any,
+    receiveThumbnails: (id: string, thumbnails: string[], startIndex: number) => any,
     finishThumbnails: (id: string) => any,
     batchSize = 25,
   ) {
@@ -34,12 +34,9 @@ export default class ThumbnailWorker implements IThumbnailWorker {
     return this.run();
   }
 
-  public generateThumbnail = async (photo: IPhoto, thumbnailHeight: number): Promise<IPhoto> => {
+  public generateThumbnail = async (photo: IPhoto, thumbnailHeight: number): Promise<string> => {
     if (photo.thumbnail || photo.height < 500 || photo.width < 500) {
-      return {
-        ...photo,
-        thumbnail: photo.thumbnail || photo.src,
-      };
+      return photo.thumbnail || photo.src;
     }
     const from = await this.loadImage(photo.src);
     const to = document.createElement("canvas");
@@ -50,11 +47,7 @@ export default class ThumbnailWorker implements IThumbnailWorker {
     const resized: HTMLCanvasElement = await pica.resize(from, to);
     const thumbnail = resized.toDataURL("image/jpeg");
 
-    const withThumbnail: IPhoto = {
-      ...photo,
-      thumbnail,
-    };
-    return withThumbnail;
+    return thumbnail;
   }
 
   private async run() {
@@ -71,22 +64,22 @@ export default class ThumbnailWorker implements IThumbnailWorker {
     const event = _.find(this.events, (evt) => evt.id === id);
     if (event !== undefined) {
       let currentIndex = 0;
-      let withThumbnails;
+      let thumbnails;
       while (currentIndex <= event.photos.length) {
-        withThumbnails = await this.generateThumbnails(event.photos.slice(currentIndex, currentIndex + this.batchSize));
-        this.receiveThumbnails(id, withThumbnails, currentIndex);
+        thumbnails = await this.generateThumbnails(event.photos.slice(currentIndex, currentIndex + this.batchSize));
+        this.receiveThumbnails(id, thumbnails, currentIndex);
         currentIndex += this.batchSize;
       }
     }
     this.finishThumbnails(id);
   }
 
-  private generateThumbnails = async (photos: IPhoto[]): Promise<IPhoto[]> => {
-    const withThumbnails: IPhoto[] = [];
+  private generateThumbnails = async (photos: IPhoto[]): Promise<string[]> => {
+    const thumbnails: string[] = [];
     for (const photo of photos) {
-      withThumbnails.push(await this.generateThumbnail(photo, GalleryDimensions.THUMBNAIL_HEIGHT));
+      thumbnails.push(await this.generateThumbnail(photo, GalleryDimensions.THUMBNAIL_HEIGHT));
     }
-    return withThumbnails;
+    return thumbnails;
   }
 
   private loadImage = (src: string): Promise<HTMLImageElement> => {

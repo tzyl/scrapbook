@@ -1,4 +1,4 @@
-import { IPhoto } from "../types/gallery";
+import { IPhoto, PhotoOrientation } from "../types/gallery";
 import { IWorkerAction, WorkerActionDefinitions } from "../types/worker";
 
 export const requestThumbnails = (id: string) => {
@@ -10,12 +10,12 @@ export const requestThumbnails = (id: string) => {
   };
 };
 
-export const receiveThumbnails = (id: string, photos: IPhoto[], startIndex = 0): IWorkerAction => {
+export const receiveThumbnails = (id: string, thumbnails: string[], startIndex = 0): IWorkerAction => {
   return {
     type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
     payload: {
       id,
-      photos,
+      thumbnails,
       startIndex,
     },
   };
@@ -32,19 +32,19 @@ export const finishThumbnails = (id: string): IWorkerAction => {
 
 export const requestOrientations = (id: string) => {
   return {
-    type: WorkerActionDefinitions.REQUEST_ORIENTATION,
+    type: WorkerActionDefinitions.REQUEST_ORIENTATIONS,
     payload: {
       id,
     },
   };
 };
 
-export const receiveOrientations = (id: string, photos: IPhoto[], startIndex = 0): IWorkerAction => {
+export const receiveOrientations = (id: string, orientations: PhotoOrientation[], startIndex = 0): IWorkerAction => {
   return {
-    type: WorkerActionDefinitions.RECEIVE_ORIENTATION,
+    type: WorkerActionDefinitions.RECEIVE_ORIENTATIONS,
     payload: {
       id,
-      photos,
+      orientations,
       startIndex,
     },
   };
@@ -52,7 +52,7 @@ export const receiveOrientations = (id: string, photos: IPhoto[], startIndex = 0
 
 export const finishOrientations = (id: string): IWorkerAction => {
   return {
-    type: WorkerActionDefinitions.FINISH_ORIENTATION,
+    type: WorkerActionDefinitions.FINISH_ORIENTATIONS,
     payload: {
       id,
     },

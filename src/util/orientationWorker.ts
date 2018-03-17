@@ -17,11 +17,11 @@ export default class OrientationWorker implements IOrientationWorker {
   private isRunning = false;
   private batchSize: number;
 
-  private receiveOrientations: (id: string, photos: IPhoto[], startIndex: number) => any;
+  private receiveOrientations: (id: string, orientations: PhotoOrientation[], startIndex: number) => any;
   private finishOrientations: (id: string) => any;
 
   constructor(
-    receiveOrientations: (id: string, photos: IPhoto[], startIndex: number) => any,
+    receiveOrientations: (id: string, orientations: PhotoOrientation[], startIndex: number) => any,
     finishOrientations: (id: string) => any,
     batchSize = 25,
   ) {
@@ -37,16 +37,10 @@ export default class OrientationWorker implements IOrientationWorker {
     return this.run();
   }
 
-  public getOrientation = async (photo: IPhoto): Promise<IPhoto> => {
+  public getOrientation = async (photo: IPhoto): Promise<PhotoOrientation> => {
     await getExifDataAsync(photo);
     const orientation = EXIF.getTag(photo, "Orientation");
-    if (orientation === undefined) {
-      return photo;
-    }
-    return {
-      ...photo,
-      orientation,
-    };
+    return orientation;
   }
 
   private async run() {
@@ -63,22 +57,22 @@ export default class OrientationWorker implements IOrientationWorker {
     const event = _.find(this.events, (evt) => evt.id === id);
     if (event !== undefined) {
       let currentIndex = 0;
-      let withOrientation;
+      let orientations;
       while (currentIndex <= event.photos.length) {
-        withOrientation = await this.getOrientations(event.photos.slice(currentIndex, currentIndex + this.batchSize));
-        this.receiveOrientations(id, withOrientation, currentIndex);
+        orientations = await this.getOrientations(event.photos.slice(currentIndex, currentIndex + this.batchSize));
+        this.receiveOrientations(id, orientations, currentIndex);
         currentIndex += this.batchSize;
       }
     }
     this.finishOrientations(id);
   }
 
-  private getOrientations = async (photos: IPhoto[]): Promise<IPhoto[]> => {
-    const withOrientation: IPhoto[] = [];
+  private getOrientations = async (photos: IPhoto[]): Promise<PhotoOrientation[]> => {
+    const orientations: PhotoOrientation[] = [];
     for (const photo of photos) {
-      withOrientation.push(await this.getOrientation(photo));
+      orientations.push(await this.getOrientation(photo));
     }
-    return withOrientation;
+    return orientations;
   }
 
   private loadImage = (src: string): Promise<HTMLImageElement> => {

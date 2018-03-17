@@ -14,7 +14,7 @@ describe("events reducer", () => {
       title: "mock title",
       createdAt: "2018-01-01",
       icon: ":+1:",
-      photos: [],
+      photos: [{ src: "src", width: 1, height: 1 }],
     };
     mockState = [mockEvent];
   });
@@ -107,7 +107,8 @@ describe("events reducer", () => {
       type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
       payload: {
         id: mockEvent.id,
-        photos: mockPhotosWithThumbnails,
+        thumbnails: ["thumbnail"],
+        startIndex: 0,
       },
     });
     expect(mockState[0].photos).toEqual(mockPhotosWithThumbnails);
@@ -126,10 +127,51 @@ describe("events reducer", () => {
       type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
       payload: {
         id: "non-matching-id",
-        photos: mockPhotosWithThumbnails,
+        thumbnails: ["thumbnail"],
+        startIndex: 0,
       },
     });
-    expect(mockState[0].photos).not.toBe(mockPhotosWithThumbnails);
+    expect(mockState[0].photos).not.toEqual(mockPhotosWithThumbnails);
+  });
+
+  it("receives orientations for matching id", () => {
+    const mockPhotosWithOrientations: IPhoto[] = [
+      {
+        src: "src",
+        width: 1,
+        height: 1,
+        orientation: 1,
+      },
+    ];
+    mockState = events(mockState, {
+      type: WorkerActionDefinitions.RECEIVE_ORIENTATIONS,
+      payload: {
+        id: mockEvent.id,
+        orientations: [1],
+        startIndex: 0,
+      },
+    });
+    expect(mockState[0].photos).toEqual(mockPhotosWithOrientations);
+  });
+
+  it("doesn't change orientations for different id", () => {
+    const mockPhotosWithOrientations: IPhoto[] = [
+      {
+        src: "src",
+        width: 1,
+        height: 1,
+        orientation: 1,
+      },
+    ];
+    mockState = events(mockState, {
+      type: WorkerActionDefinitions.RECEIVE_ORIENTATIONS,
+      payload: {
+        id: "non-matching-id",
+        orientations: [1],
+        startIndex: 0,
+      },
+    });
+    expect(mockState[0].photos).not.toEqual(mockPhotosWithOrientations);
   });
 
   it("returns state for an unrecognized action", () => {

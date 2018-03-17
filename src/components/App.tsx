@@ -7,7 +7,7 @@ import ConnectedEditorModal from "../containers/EditorModal";
 import ConnectedGalleryModal from "../containers/GalleryModal";
 import ConnectedTimelinePage from "../containers/TimelinePage";
 import { IEvent } from "../types/events";
-import { IPhoto } from "../types/gallery";
+import { IPhoto, PhotoOrientation } from "../types/gallery";
 import { IWorker } from "../types/worker";
 import OrientationWorker from "../util/orientationWorker";
 import ThumbnailWorker from "../util/thumbnailWorker";
@@ -21,9 +21,9 @@ export interface IStateProps {
 }
 
 export interface IDispatchProps {
-  receiveOrientations: (id: string, photos: IPhoto[], startIndex: number) => any;
+  receiveOrientations: (id: string, orientations: PhotoOrientation[], startIndex: number) => any;
   finishOrientations: (id: string) => any;
-  receiveThumbnails: (id: string, photos: IPhoto[], startIndex: number) => any;
+  receiveThumbnails: (id: string, thumbnails: string[], startIndex: number) => any;
   finishThumbnails: (id: string) => any;
 }
 

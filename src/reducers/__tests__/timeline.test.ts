@@ -15,7 +15,7 @@ describe("timeline reducer", () => {
         title: "mock title",
         createdAt: "2018-01-01",
         icon: ":+1:",
-        photos: [],
+        photos: [{ src: "src", width: 1, height: 1 }],
       },
     };
   });
@@ -54,7 +54,7 @@ describe("timeline reducer", () => {
       type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
       payload: {
         id: mockState.selectedEvent.id,
-        photos: mockPhotosWithThumbnails,
+        thumbnails: ["thumbnail"],
         startIndex: 0,
       },
     });
@@ -74,11 +74,51 @@ describe("timeline reducer", () => {
       type: WorkerActionDefinitions.RECEIVE_THUMBNAILS,
       payload: {
         id: "non-matching-id",
-        photos: mockPhotosWithThumbnails,
+        thumbnails: ["thumbnail"],
         startIndex: 0,
       },
     });
-    expect(mockState.selectedEvent.photos).not.toBe(mockPhotosWithThumbnails);
+    expect(mockState.selectedEvent.photos).not.toEqual(mockPhotosWithThumbnails);
+  });
+
+  it("receives orientations for the selected event", () => {
+    const mockPhotosWithOrientations: IPhoto[] = [
+      {
+        src: "src",
+        width: 1,
+        height: 1,
+        orientation: 1,
+      },
+    ];
+    mockState = timeline(mockState, {
+      type: WorkerActionDefinitions.RECEIVE_ORIENTATIONS,
+      payload: {
+        id: mockState.selectedEvent.id,
+        orientations: [1],
+        startIndex: 0,
+      },
+    });
+    expect(mockState.selectedEvent.photos).toEqual(mockPhotosWithOrientations);
+  });
+
+  it("doesn't receive orientations from a different event", () => {
+    const mockPhotosWithOrientations: IPhoto[] = [
+      {
+        src: "src",
+        width: 1,
+        height: 1,
+        orientation: 1,
+      },
+    ];
+    mockState = timeline(mockState, {
+      type: WorkerActionDefinitions.RECEIVE_ORIENTATIONS,
+      payload: {
+        id: "non-matching-id",
+        orientations: [1],
+        startIndex: 0,
+      },
+    });
+    expect(mockState.selectedEvent.photos).not.toEqual(mockPhotosWithOrientations);
   });
 
   it("returns state for an unrecognized action", () => {

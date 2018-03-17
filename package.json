@@ -1,6 +1,6 @@
 {
   "name": "scrapbook",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "scrapbook is a web app to store and browse your best memories.",
   "main": "./dist/main.js",
   "scripts": {

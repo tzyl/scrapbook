@@ -22,6 +22,7 @@ export interface IGalleryAction extends IAction {
 
 export enum GalleryDimensions {
   THUMBNAIL_HEIGHT = 150,
+  COLUMNS = 6,
 }
 
 export enum PhotoOrientation {
@@ -38,6 +39,8 @@ export enum PhotoOrientation {
 export interface IPhotoDimensions {
   width: number;
   height: number;
+  maxWidth?: number;
+  maxHeight?: number;
 }
 
 export interface IPhoto {

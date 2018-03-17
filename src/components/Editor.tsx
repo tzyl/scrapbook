@@ -9,7 +9,7 @@ import { EditorMode } from "../types/editor";
 import { IEvent } from "../types/events";
 import TitleGroup from "./TitleGroup";
 
-export interface IOwnProps {
+export interface IEditorProps {
   mode: EditorMode;
   event: IEvent;
   closeEditor: () => any;
@@ -22,8 +22,6 @@ export interface IOwnProps {
   handlePhotoChange: (sindex: number, toInteger?: boolean) => (e: any) => any;
   handleSubmit: (e: any) => any;
 }
-
-export type IEditorProps = IOwnProps;
 
 export default class Editor extends React.PureComponent<IEditorProps> {
   public render() {

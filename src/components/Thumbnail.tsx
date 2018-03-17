@@ -1,26 +1,29 @@
 import * as React from "react";
 
-import { IPhoto } from "../types/gallery";
+import { IPhoto, IPhotoDimensions } from "../types/gallery";
 import { GalleryDimensions, PhotoOrientation } from "../types/gallery";
 import { calculateOrientationStyle } from "../util/orientation";
 
 export interface IThumbnailProps {
   photo: IPhoto;
   handleClick: () => any;
+  containerWidth: number;
 }
 
 export default class Thumbnail extends React.PureComponent<IThumbnailProps> {
   public render() {
-    const { photo, handleClick } = this.props;
-    const dimensions = {
-      width: photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height,
-      height: GalleryDimensions.THUMBNAIL_HEIGHT,
+    const { photo, handleClick, containerWidth } = this.props;
+    const dimensions: IPhotoDimensions = {
+      width: containerWidth * 0.8,
+      height: photo.height * containerWidth * 0.8 / photo.width,
+      maxHeight: GalleryDimensions.THUMBNAIL_HEIGHT,
+      maxWidth: photo.width * GalleryDimensions.THUMBNAIL_HEIGHT / photo.height,
     };
-    const orientationStyle = calculateOrientationStyle(photo.orientation);
+    const orientationStyle = calculateOrientationStyle(photo.orientation, dimensions);
     if (!photo.thumbnail) {
       return (
         <div
-          style={{ ...dimensions, ...orientationStyle }}
+          style={{ ...orientationStyle }}
           className="thumbnail thumbnail-loading"
           onClick={handleClick}
         >

@@ -80,7 +80,11 @@ app.on("activate", () => {
       properties: ["openDirectory"],
     })[0];
     const files = await crawlFolder(dirPath);
-    const photos = await Promise.all(files.map(async (f) => {
+    const imageFiles = files.filter((f) => {
+      const ext = path.extname(f).toLowerCase();
+      return ext === ".png" || ext === ".jpg" || ext === ".gif" || ext === ".jpeg";
+    });
+    const photos = await Promise.all(imageFiles.map(async (f) => {
       return {
         src: url.format({
           pathname: f,
